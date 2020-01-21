@@ -2,20 +2,21 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'morhetz/gruvbox'
 call plug#end()
 
+colorscheme gruvbox
+
+" hide unsaved buffers instead of force writing when they are unfocused
 set hidden
 
+" tsserver (coc.nvim) has issues with backups
 set nobackup
 set nowritebackup
-
-set cmdheight=2
 
 set updatetime=300
 
 set shortmess+=c
-
-set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
