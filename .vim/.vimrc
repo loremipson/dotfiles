@@ -4,6 +4,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
@@ -64,3 +66,24 @@ nnoremap <C-l> <C-w><C-l>
 " Show line numbers. Make them relative.
 set number
 set relativenumber
+
+" No annoying sound on errors
+set belloff=all
+
+" Disable swapfile
+set noswapfile
+
+" normalize split direction
+set splitbelow
+set splitright
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+
+nnoremap <C-p> :Files<Cr>
+nnoremap <leader>p :Rg<Cr>
+
