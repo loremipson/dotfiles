@@ -4,14 +4,23 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'junegunn/gv.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'rhysd/conflict-marker.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
+Plug 'wadackel/vim-dogrun'
 call plug#end()
 
-colorscheme gruvbox
+set background=dark
+colorscheme dogrun
+
+let mapleader = " "
 
 " hide unsaved buffers instead of force writing when they are unfocused
 set hidden
@@ -45,7 +54,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActilsfj;alskdjf;laksjfon('doHover')
   endif
 endfunction
 
@@ -77,13 +86,31 @@ set noswapfile
 set splitbelow
 set splitright
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+nnoremap <C-p> :CocList files<Cr>
 
-nnoremap <C-p> :Files<Cr>
-nnoremap <leader>p :Rg<Cr>
+set laststatus=2
 
+" lightline
+let g:lightline = {
+  \ 'colorscheme': 'dogrun',
+  \ 'active': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'gitbranch', 'git', 'ctrlpmark', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+  \   ],
+  \   'right':[
+  \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+  \     [ 'blame' ]
+  \   ],
+  \ },
+  \ 'component_function': {
+  \   'blame': 'LightlineGitBlame',
+  \   'gitbranch': 'fugitive#head'
+  \ }
+\ }
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
