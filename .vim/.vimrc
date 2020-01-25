@@ -4,8 +4,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
+"Plug 'itchyny/lightline.vim'
 Plug 'junegunn/gv.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'rhysd/conflict-marker.vim'
@@ -17,8 +16,9 @@ Plug 'morhetz/gruvbox'
 Plug 'wadackel/vim-dogrun'
 call plug#end()
 
+set termguicolors
 set background=dark
-colorscheme dogrun
+colorscheme everset
 
 let mapleader = " "
 
@@ -86,7 +86,11 @@ set noswapfile
 set splitbelow
 set splitright
 
-nnoremap <C-p> :CocList files<Cr>
+nnoremap <leader>p :CocList files<Cr>
+nnoremap <leader>pg :CocList grep<Cr>
+nnoremap <leader>pb :CocList buffers<Cr>
+nnoremap <leader>pc :CocList commits<Cr>
+nnoremap <leader>py :CocList yanks<Cr>
 
 set laststatus=2
 
@@ -114,3 +118,21 @@ function! LightlineGitBlame() abort
   " return blame
   return winwidth(0) > 120 ? blame : ''
 endfunction
+
+" Tabs
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" Show highlight groups for current word
+nmap <C-S-p> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+set path+=**
+set wildmenu
