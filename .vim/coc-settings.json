@@ -1,0 +1,4 @@
+{
+  "list.source.files.excludePatterns": ["**/.git/**"],
+  "list.source.files.args": ["--hidden", "--files"]
+}

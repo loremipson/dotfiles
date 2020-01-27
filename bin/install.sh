@@ -19,6 +19,7 @@ cd ..
 
 ln -s dotfiles/.vim/ .
 ln -s dotfiles/.vim/.vimrc .vimrc
+ln -s dotfiles/.vim/coc-settings.json "$HOME/.config/nvim/coc-settings.json"
 
 # tmux
 
