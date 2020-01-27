@@ -41,9 +41,9 @@ hi TabLineSel      guifg=#ffffff    guibg=none    gui=none
 " -------------------------------
 " - File Navigation / Searching -
 " -------------------------------
-hi Directory       guifg=none    guibg=none    gui=none
-hi Search          guifg=none    guibg=none    gui=none
-hi IncSearch       guifg=none    guibg=none    gui=none
+hi Directory       guifg=#51ec9f    guibg=none    gui=none
+hi Search          guifg=none    guibg=#2b4064    gui=none
+hi IncSearch       guifg=none    guibg=#2b4064    gui=none
 
 " -----------------
 " - Prompt/Status -
@@ -67,7 +67,7 @@ hi NonText         guifg=#556886    guibg=none    gui=none
 hi Todo            guifg=#e46369    guibg=none    gui=none
 hi Underlined      guifg=none    guibg=none    gui=underline
 hi Error           guifg=#f1454c    guibg=none    gui=none
-hi ErrorMsg        guifg=#f1454c    guibg=none    gui=none
+hi ErrorMsg        guifg=#f1454c    guibg=none    gui=underline
 hi WarningMsg      guifg=#faaa74    guibg=none    gui=bold
 hi Ignore          guifg=none    guibg=none    gui=none
 hi SpecialKey      guifg=none    guibg=none    gui=none
@@ -120,7 +120,7 @@ hi Typedef         guifg=none    guibg=none    gui=none
 " Diff
 " --------------------------------
 hi DiffAdd guibg=#416166 gui=bold
-hi DiffChange guibg=#faaa74 gui=bold
+hi DiffChange guifg=#faaa74 guibg=none gui=bold
 hi DiffDelete guifg=#f1454c guibg=none gui=bold
 hi DiffText guibg=#685f3f gui=none cterm=none
 
@@ -187,3 +187,18 @@ hi vimSetEqual guifg=#51ec9f
 hi CocErrorSign guifg=#f1454c guibg=none gui=bold
 hi CocErrorFloat guifg=#f1454c guibg=none gui=none
 hi CocWarningSign guifg=#faaa74 guibg=none gui=bold
+
+hi graphqlStructure guifg=#449dbb
+hi graphqlBraces guifg=#a4afed
+hi graphqlName guifg=#9fe0cd
+hi graphqlType guifg=#b2ccd6
+
+hi jsonKeyword guifg=#4397cf
+hi jsonQuote guifg=#a4afed
+hi jsonBraces guifg=#a4afed
+hi jsonBrackets guifg=#a4afed
+
+hi dockerfileKeywords guifg=#449dbb
+hi dockercomposeKeywords guifg=#449dbb
+
+hi yamlKey guifg=#449dbb
