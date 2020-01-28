@@ -15,122 +15,122 @@ let g:colors_name = "everset"
 " --------------------------------
 " Editor settings
 " --------------------------------
-hi Normal guifg=#a8cfe9 guibg=#0e192c gui=none
-hi Cursor guifg=none guibg=#fa9474 gui=none
-hi CursorLine guifg=none guibg=#051022 gui=none
-hi LineNr guifg=#8086a8 guibg=none gui=none
-hi CursorLineNR guifg=#d6d9ec guibg=none gui=none
+hi Normal guifg=#a8cfe9 guibg=#0e192c gui=NONE
+hi Cursor guifg=NONE guibg=#fa9474 gui=NONE
+hi CursorLine guifg=NONE guibg=#051022 gui=NONE
+hi LineNr guifg=#8086a8 guibg=NONE gui=NONE
+hi CursorLineNR guifg=#d6d9ec guibg=NONE gui=NONE
 
 " -----------------
 " - Number column -
 " -----------------
-hi CursorColumn    guifg=none    guibg=#051022    gui=none
-hi FoldColumn      guifg=none    guibg=none    gui=none
-hi SignColumn      guifg=none    guibg=none    gui=none
-hi Folded          guifg=none    guibg=none    gui=none
+hi CursorColumn    guifg=NONE    guibg=#051022    gui=NONE
+hi FoldColumn      guifg=NONE    guibg=NONE    gui=NONE
+hi SignColumn      guifg=NONE    guibg=NONE    gui=NONE
+hi Folded          guifg=NONE    guibg=NONE    gui=NONE
 
 " -------------------------
 " - Window/Tab delimiters- 
 " -------------------------
-hi VertSplit       guifg=#10254C    guibg=none    gui=none
-hi ColorColumn     guifg=none    guibg=#0A1323    gui=none
-hi TabLine         guifg=#708bb6    guibg=#142033    gui=none
-hi TabLineFill     guifg=none    guibg=#142033    gui=none
-hi TabLineSel      guifg=#ffffff    guibg=none    gui=none
+hi VertSplit       guifg=#10254C    guibg=NONE    gui=NONE
+hi ColorColumn     guifg=NONE    guibg=#0A1323    gui=NONE
+hi TabLine         guifg=#708bb6    guibg=#142033    gui=NONE
+hi TabLineFill     guifg=NONE    guibg=#142033    gui=NONE
+hi TabLineSel      guifg=#ffffff    guibg=NONE    gui=NONE
 
 " -------------------------------
 " - File Navigation / Searching -
 " -------------------------------
-hi Directory       guifg=#51ec9f    guibg=none    gui=none
-hi Search          guifg=none    guibg=#2b4064    gui=none
-hi IncSearch       guifg=none    guibg=#2b4064    gui=none
+hi Directory       guifg=#51ec9f    guibg=NONE    gui=NONE
+hi Search          guifg=NONE    guibg=#2b4064    gui=NONE
+hi IncSearch       guifg=NONE    guibg=#2b4064    gui=NONE
 
 " -----------------
 " - Prompt/Status -
 " -----------------
 
-hi StatusLine      guifg=#556886    guibg=#051022    gui=none
-hi StatusLineNC    guifg=#708bb6    guibg=#142033    gui=none
-hi WildMenu        guifg=#051022    guibg=#a4afed    gui=none
-hi Question        guifg=#e46369    guibg=none    gui=none
-hi Title           guifg=none    guibg=none    gui=none
-hi MoreMsg         guifg=#faaa74    guibg=none    gui=none
+hi StatusLine      guifg=#556886    guibg=#051022    gui=NONE
+hi StatusLineNC    guifg=#708bb6    guibg=#142033    gui=NONE
+hi WildMenu        guifg=#051022    guibg=#a4afed    gui=NONE
+hi Question        guifg=#e46369    guibg=NONE    gui=NONE
+hi Title           guifg=NONE    guibg=NONE    gui=NONE
+hi MoreMsg         guifg=#faaa74    guibg=NONE    gui=NONE
 
 " --------------
 " - Visual aid -
 " --------------
-hi MatchParen      guifg=#fa9474    guibg=none    gui=none
-hi Visual          guifg=none    guibg=#2b4064    gui=none
-hi VisualNOS       guifg=none    guibg=#2b4064    gui=none
-hi NonText         guifg=#556886    guibg=none    gui=none
+hi MatchParen      guifg=#fa9474    guibg=NONE    gui=NONE
+hi Visual          guifg=NONE    guibg=#2b4064    gui=NONE
+hi VisualNOS       guifg=NONE    guibg=#2b4064    gui=NONE
+hi NonText         guifg=#556886    guibg=NONE    gui=NONE
 
-hi Todo            guifg=#e46369    guibg=none    gui=none
-hi Underlined      guifg=none    guibg=none    gui=underline
-hi Error           guifg=#f1454c    guibg=none    gui=none
-hi ErrorMsg        guifg=#f1454c    guibg=none    gui=underline
-hi WarningMsg      guifg=#faaa74    guibg=none    gui=bold
-hi Ignore          guifg=none    guibg=none    gui=none
-hi SpecialKey      guifg=none    guibg=none    gui=none
+hi Todo            guifg=#e46369    guibg=NONE    gui=NONE
+hi Underlined      guifg=NONE    guibg=NONE    gui=underline
+hi Error           guifg=#f1454c    guibg=NONE    gui=NONE
+hi ErrorMsg        guifg=#f1454c    guibg=NONE    gui=underline
+hi WarningMsg      guifg=#faaa74    guibg=NONE    gui=bold
+hi Ignore          guifg=NONE    guibg=NONE    gui=NONE
+hi SpecialKey      guifg=NONE    guibg=NONE    gui=NONE
 
 " --------------------------------
 " Variable types
 " --------------------------------
-hi Constant        guifg=#9fe0cd    guibg=none    gui=none
-hi String          guifg=#bff0ff    guibg=none    gui=none
-hi Number          guifg=#0ef0f0    guibg=none    gui=none
-hi Boolean         guifg=#0ef0f0    guibg=none    gui=none
-hi Float           guifg=#0ef0f0    guibg=none    gui=none
+hi Constant        guifg=#9fe0cd    guibg=NONE    gui=NONE
+hi String          guifg=#bff0ff    guibg=NONE    gui=NONE
+hi Number          guifg=#0ef0f0    guibg=NONE    gui=NONE
+hi Boolean         guifg=#0ef0f0    guibg=NONE    gui=NONE
+hi Float           guifg=#0ef0f0    guibg=NONE    gui=NONE
 
-hi Identifier      guifg=#faaa74    guibg=none    gui=none
-hi Function        guifg=#32d2d0    guibg=none    gui=none
+hi Identifier      guifg=#faaa74    guibg=NONE    gui=NONE
+hi Function        guifg=#32d2d0    guibg=NONE    gui=NONE
 
 " --------------------------------
 " Language constructs
 " --------------------------------
-hi Statement       guifg=#449dbb    guibg=none    gui=italic
-hi Conditional     guifg=#a4bbed    guibg=none    gui=none
-hi Repeat          guifg=none    guibg=none    gui=none
-hi Label           guifg=none    guibg=none    gui=none
-hi Operator        guifg=#51ec9f    guibg=none    gui=none
-hi Keyword         guifg=none    guibg=none    gui=none
-hi Exception       guifg=#faaa74    guibg=none    gui=none
-hi Comment         guifg=#556886    guibg=none    gui=italic
+hi Statement       guifg=#449dbb    guibg=NONE    gui=italic
+hi Conditional     guifg=#a4bbed    guibg=NONE    gui=NONE
+hi Repeat          guifg=NONE    guibg=NONE    gui=NONE
+hi Label           guifg=NONE    guibg=NONE    gui=NONE
+hi Operator        guifg=#51ec9f    guibg=NONE    gui=NONE
+hi Keyword         guifg=NONE    guibg=NONE    gui=NONE
+hi Exception       guifg=#faaa74    guibg=NONE    gui=NONE
+hi Comment         guifg=#556886    guibg=NONE    gui=italic
 
-hi Special         guifg=#c494d1    guibg=none    gui=none
-hi SpecialChar     guifg=#a4bbed    guibg=none    gui=none
-hi Delimiter       guifg=#c494d1    guibg=none    gui=none
-hi SpecialComment  guifg=#a4bbed    guibg=none    gui=none
+hi Special         guifg=#c494d1    guibg=NONE    gui=NONE
+hi SpecialChar     guifg=#a4bbed    guibg=NONE    gui=NONE
+hi Delimiter       guifg=#c494d1    guibg=NONE    gui=NONE
+hi SpecialComment  guifg=#a4bbed    guibg=NONE    gui=NONE
 
 
 " ----------
 " - C like -
 " ----------
-hi PreProc         guifg=#449dbb    guibg=none    gui=none
-hi Include         guifg=#44aabb    guibg=none    gui=italic
-hi Define          guifg=none    guibg=none    gui=none
-hi Macro           guifg=none    guibg=none    gui=none
-hi PreCondit       guifg=none    guibg=none    gui=none
+hi PreProc         guifg=#449dbb    guibg=NONE    gui=NONE
+hi Include         guifg=#44aabb    guibg=NONE    gui=italic
+hi Define          guifg=NONE    guibg=NONE    gui=NONE
+hi Macro           guifg=NONE    guibg=NONE    gui=NONE
+hi PreCondit       guifg=NONE    guibg=NONE    gui=NONE
 
-hi Type            guifg=#fde182    guibg=none    gui=none
-hi StorageClass    guifg=#449dbb    guibg=none    gui=none
-hi Structure       guifg=none    guibg=none    gui=none
-hi Typedef         guifg=none    guibg=none    gui=none
+hi Type            guifg=#fde182    guibg=NONE    gui=NONE
+hi StorageClass    guifg=#449dbb    guibg=NONE    gui=NONE
+hi Structure       guifg=NONE    guibg=NONE    gui=NONE
+hi Typedef         guifg=NONE    guibg=NONE    gui=NONE
 
 " --------------------------------
 " Diff
 " --------------------------------
 hi DiffAdd guibg=#416166 gui=bold
-hi DiffChange guifg=#faaa74 guibg=none gui=bold
-hi DiffDelete guifg=#f1454c guibg=none gui=bold
-hi DiffText guibg=#685f3f gui=none cterm=none
+hi DiffChange guifg=#faaa74 guibg=NONE gui=bold
+hi DiffDelete guifg=#f1454c guibg=NONE gui=bold
+hi DiffText guibg=#685f3f gui=NONE cterm=NONE
 
 " --------------------------------
 " Completion menu
 " --------------------------------
-hi Pmenu guifg=#556886 guibg=#051022 gui=none
-hi PmenuSel guifg=none guibg=#032e4b gui=none
-hi PmenuSbar guifg=none guibg=#182946 gui=none
-hi PmenuThumb guifg=none guibg=none gui=none
+hi Pmenu guifg=#556886 guibg=#051022 gui=NONE
+hi PmenuSel guifg=NONE guibg=#032e4b gui=NONE
+hi PmenuSbar guifg=NONE guibg=#182946 gui=NONE
+hi PmenuThumb guifg=NONE guibg=NONE gui=NONE
 
 " --------------------------------
 " Spelling
@@ -184,9 +184,9 @@ hi vimNotation guifg=#faaa74
 hi vimFuncSID guifg=#faaa74
 hi vimSetEqual guifg=#51ec9f
 
-hi CocErrorSign guifg=#f1454c guibg=none gui=bold
-hi CocErrorFloat guifg=#f1454c guibg=none gui=none
-hi CocWarningSign guifg=#faaa74 guibg=none gui=bold
+hi CocErrorSign guifg=#f1454c guibg=NONE gui=bold
+hi CocErrorFloat guifg=#f1454c guibg=NONE gui=NONE
+hi CocWarningSign guifg=#faaa74 guibg=NONE gui=bold
 
 hi graphqlStructure guifg=#449dbb
 hi graphqlBraces guifg=#a4afed
