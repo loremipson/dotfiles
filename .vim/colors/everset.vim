@@ -202,3 +202,16 @@ hi dockerfileKeywords guifg=#449dbb
 hi dockercomposeKeywords guifg=#449dbb
 
 hi yamlKey guifg=#449dbb
+
+hi mkdHeading guifg=#4397cf
+hi mkdUrl guifg=#96f1f1 gui=underline
+hi mkdCode guifg=#bff0ff
+hi mkdBold guifg=#a4afed
+hi mkdListItem guifg=#a4afed
+hi mkdLink guifg=#82aaff
+hi mkdCodeStart guifg=#4397cf
+hi mkdCodeEnd guifg=#4397cf
+hi mkdCodeDelimiter guifg=#4397cf
+
+hi htmlH1 guifg=#96f1f1
+hi htmlBold guifg=#f07178
