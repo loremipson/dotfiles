@@ -86,7 +86,11 @@ set noswapfile
 set splitbelow
 set splitright
 
-nnoremap <leader>p :CocList files<Cr>
+nnoremap <leader>t :CocCommand explorer
+  \ --toggle
+  \ --sources=buffer+,file+
+  \ --file-columns=git:selection:clip:diagnosticError:indent:icon:filename;fullpath;size;modified;readonly<Cr>
+nnoremap <leader>pf :CocList files<Cr>
 nnoremap <leader>pg :CocList grep<Cr>
 nnoremap <leader>pb :CocList buffers<Cr>
 nnoremap <leader>pc :CocList commits<Cr>

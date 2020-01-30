@@ -1,4 +1,8 @@
 {
   "list.source.files.excludePatterns": ["**/.git/**"],
-  "list.source.files.args": ["--hidden", "--files"]
+  "list.source.files.args": ["--hidden", "--files"],
+  "eslint.autoFixOnSave": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": true,
+  "explorer.quitOnOpen": true
 }
