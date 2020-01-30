@@ -163,6 +163,9 @@ hi jsBrackets guifg=#c494d1
 hi jsDot guifg=#a4afed
 hi jsReturn guifg=#a4bbed gui=italic
 hi jsNull guifg=#0ef0f0
+hi jsDestructuringBlock guifg=#51ec9f
+hi jsDestructuringBraces guifg=#a4afed
+hi jsFuncParens guifg=#a4afed
 
 hi jsxOpenPunct guifg=#e46369
 hi jsxClosePunct guifg=#e46369
