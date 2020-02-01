@@ -12,8 +12,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'morhetz/gruvbox'
-Plug 'wadackel/vim-dogrun'
 call plug#end()
 
 set termguicolors
