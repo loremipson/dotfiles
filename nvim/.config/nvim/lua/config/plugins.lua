@@ -158,6 +158,13 @@ require('lazy').setup({
 				end,
 		},
 
+		{
+				"axelvc/template-string.nvim",
+				event = "InsertEnter",
+				ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+				config = true, -- run require("template-string").setup()
+		},
+
 		{ -- Highlight, edit, and navigate code
 				'nvim-treesitter/nvim-treesitter',
 				dependencies = {
