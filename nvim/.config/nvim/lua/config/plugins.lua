@@ -66,7 +66,7 @@ require('lazy').setup({
 		},
 
 		-- Useful plugin to show you pending keybinds.
-		{ 'folke/which-key.nvim',          opts = {} },
+		{ 'folke/which-key.nvim',   opts = {} },
 		{ -- Adds git releated signs to the gutter, as well as utilities for managing changes
 				'lewis6991/gitsigns.nvim',
 				config = function()
@@ -84,6 +84,8 @@ require('lazy').setup({
 						},
 				},
 		},
+
+		{ "kylechui/nvim-surround", lazy = false, config = true },
 
 		{
 				'alexghergh/nvim-tmux-navigation', config = function()
