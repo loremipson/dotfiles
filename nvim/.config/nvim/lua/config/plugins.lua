@@ -53,15 +53,26 @@ require('lazy').setup({
 				},
 		},
 
+
 		{ -- Autocompletion
 				'hrsh7th/nvim-cmp',
 				dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+		},
+
+		-- scrollbar
+		{
+				'petertriho/nvim-scrollbar',
+				opts = {}
 		},
 
 		-- Useful plugin to show you pending keybinds.
 		{ 'folke/which-key.nvim',          opts = {} },
 		{ -- Adds git releated signs to the gutter, as well as utilities for managing changes
 				'lewis6991/gitsigns.nvim',
+				config = function()
+					require('gitsigns').setup()
+					require('scrollbar.handlers.gitsigns').setup()
+				end,
 				opts = {
 						-- See `:help gitsigns.txt`
 						signs = {
