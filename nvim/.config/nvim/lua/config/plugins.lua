@@ -152,6 +152,18 @@ require('lazy').setup({
 					vim.g.lazygit_floating_window_scaling_factor = 1
 				end,
 		},
+		-- github integration
+		{
+				'pwntester/octo.nvim',
+				requires = {
+						'nvim-lua/plenary.nvim',
+						'nvim-telescope/telescope.nvim',
+						'kyazdani42/nvim-web-devicons',
+				},
+				config = function()
+					require("octo").setup()
+				end
+		},
 
 		-- Fuzzy Finder (files, lsp, etc)
 		{ 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
