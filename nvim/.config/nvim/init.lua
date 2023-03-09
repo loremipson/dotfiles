@@ -14,8 +14,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
-require('config.treesitter')
 require('plugins.telescope')
+require('plugins.treesitter')
 require('config.lsp')
 require('config.cmp')
 
