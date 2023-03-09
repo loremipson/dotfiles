@@ -64,10 +64,13 @@ require('lazy').setup({
 				end,
 		},
 
-
-		{ -- Autocompletion
+		-- Autocompletion
+		{
 				'hrsh7th/nvim-cmp',
 				dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+				config = function()
+					require('plugins.cmp')
+				end
 		},
 
 		-- scrollbar
@@ -78,7 +81,9 @@ require('lazy').setup({
 
 		-- Useful plugin to show you pending keybinds.
 		{ 'folke/which-key.nvim',   opts = {} },
-		{ -- Adds git releated signs to the gutter, as well as utilities for managing changes
+
+		-- Adds git releated signs to the gutter, as well as utilities for managing changes
+		{
 				'lewis6991/gitsigns.nvim',
 				config = function()
 					require('gitsigns').setup()
@@ -121,7 +126,8 @@ require('lazy').setup({
 				end,
 		},
 
-		{ -- Set lualine as statusline
+		-- Set lualine as statusline
+		{
 				'nvim-lualine/lualine.nvim',
 				-- See `:help lualine.txt`
 				opts = {
