@@ -14,8 +14,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
-require('plugins.telescope')
-require('plugins.treesitter')
 require('config.lsp')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
