@@ -142,7 +142,16 @@ require('lazy').setup({
 		},
 
 		-- "gc" to comment visual regions/lines
-		{ 'numToStr/Comment.nvim',         opts = {} },
+		{ 'numToStr/Comment.nvim', opts = {} },
+
+		-- git
+		{
+				"kdheepak/lazygit.nvim",
+				cmd = { "LazyGit", "LazyGitCurrentFile", "LazyGitFilterCurrentFile", "LazyGitFilter" },
+				config = function()
+					vim.g.lazygit_floating_window_scaling_factor = 1
+				end,
+		},
 
 		-- Fuzzy Finder (files, lsp, etc)
 		{ 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
