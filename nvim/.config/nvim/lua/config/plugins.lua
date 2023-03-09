@@ -53,6 +53,17 @@ require('lazy').setup({
 				},
 		},
 
+		-- Tree
+		{
+				"nvim-tree/nvim-tree.lua",
+				keys = {
+						{ "-", "<cmd>lua require'nvim-tree'.toggle()<CR>", desc = "NvimTree" },
+				},
+				config = function()
+					require("plugins.tree")
+				end,
+		},
+
 
 		{ -- Autocompletion
 				'hrsh7th/nvim-cmp',
