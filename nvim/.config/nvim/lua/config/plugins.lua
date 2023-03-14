@@ -59,12 +59,12 @@ require('lazy').setup({
 
 		-- Tree
 		{
-				"nvim-tree/nvim-tree.lua",
-				keys = {
-						{ "-", "<cmd>lua require'nvim-tree'.toggle()<CR>", desc = "NvimTree" },
+				"stevearc/oil.nvim",
+				requires = {
+						'kyazdani42/nvim-web-devicons',
 				},
 				config = function()
-					require("plugins.tree")
+					require("plugins.oil")
 				end,
 		},
 
