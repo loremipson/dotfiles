@@ -12,5 +12,10 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
+-- Lazygit
+vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<CR>', { desc = "Open Lazygit" })
+vim.keymap.set('n', '<leader>gf', '<cmd>LazyGitFilter<CR>', { desc = "Open project commits" })
+vim.keymap.set('n', '<leader>gc', '<cmd>LazyGitFilterCurrentFile<CR>', { desc = "Open buffer commits for current file" })
+
 -- Oil
 vim.keymap.set('n', '-', require('oil').open, { desc = "Open parent directory" })
