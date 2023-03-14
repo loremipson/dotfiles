@@ -53,6 +53,10 @@ require('lazy').setup({
 				},
 		},
 
+		{
+				'jose-elias-alvarez/null-ls.nvim'
+		},
+
 		-- Tree
 		{
 				"nvim-tree/nvim-tree.lua",
