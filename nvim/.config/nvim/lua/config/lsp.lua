@@ -89,10 +89,20 @@ mason_lspconfig.setup_handlers {
 	end,
 }
 
-require('null-ls').setup({
+local present, null_ls = pcall(require, 'null-ls')
+
+if not present then
+	return
+end
+
+local b = null_ls.builtins
+
+null_ls.setup({
+	debug = true,
 	sources = {
-		require('null-ls').builtins.formatting.eslint_d,
-		require('null-ls').builtins.formatting.prettierd.with({
+		b.formatting.eslint_d,
+		b.diagnostics.eslint_d,
+		b.formatting.prettierd.with({
 			filetypes = {
 				'css',
 				'scss',
@@ -103,7 +113,6 @@ require('null-ls').setup({
 				'graphql',
 			},
 		}),
-		require('null-ls').builtins.formatting.stylelua,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
