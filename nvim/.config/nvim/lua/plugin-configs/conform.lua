@@ -13,6 +13,7 @@ function M.setup()
       javascriptreact = { { 'eslint_d', 'prettierd' } },
       typescriptreact = { { 'eslint_d', 'prettierd' } },
       svelte = { 'prettierd' },
+      go = { 'gofumpt', 'goimports-reviser', 'golines' },
       css = { 'prettierd' },
       html = { 'prettierd' },
       json = { 'prettierd' },

@@ -19,6 +19,7 @@ function M.setup()
       'lua_ls',
       'prismals',
       'yamlls',
+      'gopls',
     },
     handlers = {
       lsp_zero.default_setup,
