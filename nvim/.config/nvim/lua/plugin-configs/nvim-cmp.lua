@@ -3,7 +3,6 @@ local M = {}
 function M.setup()
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
-  local lsp_zero = require 'lsp-zero'
 
   -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
   require('luasnip.loaders.from_vscode').lazy_load()
@@ -21,18 +20,20 @@ function M.setup()
     },
     sources = {
       { name = 'codeium' },
+      { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'buffer' },
       { name = 'path' },
-      { name = 'nvim_lsp' },
       { name = 'nvim_lua' },
     },
-    formatting = lsp_zero.cmp_format(),
     mapping = cmp.mapping.preset.insert {
-      ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-      ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-      ['<C-y>'] = cmp.mapping.confirm { select = true },
+      ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+      ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm { select = true },
     },
   }
 end
