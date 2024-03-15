@@ -36,21 +36,23 @@ local plugins = {
     end,
   },
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    config = function()
-      require('plugin-configs.lsp-zero').setup()
-    end,
-  },
-  {
     'williamboman/mason.nvim',
+    dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
       require('plugin-configs.mason').setup()
     end,
   },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'neovim/nvim-lspconfig' },
-  { 'hrsh7th/cmp-nvim-lsp' },
+  {
+    'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      { 'antosha417/nvim-lsp-file-operations', config = true },
+    },
+    config = function()
+      require('plugin-configs.nvim-lspconfig').setup()
+    end,
+  },
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
