@@ -86,12 +86,14 @@ local plugins = {
   {
     'stevearc/conform.nvim',
     cmd = 'ConformInfo',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('plugin-configs.conform').setup()
     end,
   },
   {
     'mfussenegger/nvim-lint',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('plugin-configs.nvim-lint').setup()
     end,
