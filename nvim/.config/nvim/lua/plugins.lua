@@ -33,6 +33,12 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'RRethy/nvim-treesitter-textsubjects',
+    },
     config = function()
       require('plugin-configs.treesitter').setup()
     end,
@@ -68,6 +74,14 @@ local plugins = {
     },
     config = function()
       require('plugin-configs.nvim-cmp').setup()
+    end,
+  },
+  {
+    'numToStr/Comment.nvim',
+    lazy = false,
+    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
+    config = function()
+      require('Comment').setup()
     end,
   },
   {
