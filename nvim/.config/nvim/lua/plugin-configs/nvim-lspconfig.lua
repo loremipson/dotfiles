@@ -37,6 +37,9 @@ function M.setup()
     opts.desc = 'Go to next diagnostic'
     keymap.set('n', '[d', vim.diagnostic.goto_next, opts)
 
+    opts.desc = 'Show diagnostic for what is under cursor'
+    keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+
     opts.desc = 'Show documentation for what is under cursor'
     keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
@@ -52,10 +55,23 @@ function M.setup()
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
   end
 
-  lspconfig.tsserver.setup({
+  local mason_registry = require 'mason-registry'
+  local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
+  lspconfig.tsserver.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+    init_options = {
+      plugins = {
+        {
+          name = '@vue/typescript-plugin',
+          location = vue_language_server_path,
+          languages = { 'vue' },
+        },
+      },
+    },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+  }
 
   lspconfig.dockerls.setup {
     capabilities = capabilities,
@@ -97,8 +113,8 @@ function M.setup()
         },
         workspace = {
           library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.stdpath('config') .. '/lua'] = true,
+            [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+            [vim.fn.stdpath 'config' .. '/lua'] = true,
           },
         },
       },
@@ -118,6 +134,17 @@ function M.setup()
   lspconfig.gopls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
+  }
+
+  lspconfig.volar.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  }
+
+  lspconfig.astro.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { 'astro' },
   }
 end
 

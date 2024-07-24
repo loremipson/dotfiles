@@ -6,21 +6,29 @@ function M.setup()
   conform.setup {
     formatters_by_ft = {
       lua = { 'stylua' },
-      javascript = { { 'eslint_d', 'prettierd' } },
-      typescript = { { 'eslint_d', 'prettierd' } },
-      javascriptreact = { { 'eslint_d', 'prettierd' }, 'rustywind' },
-      typescriptreact = { { 'eslint_d', 'prettierd' }, 'rustywind' },
+      javascript = { 'prettierd' },
+      typescript = { 'prettierd' },
+      javascriptreact = { 'prettierd' },
+      typescriptreact = { 'prettierd' },
+      vue = { 'prettierd' },
+      astro = { 'prettierd' },
       svelte = { 'prettierd' },
-      go = { 'gofumpt', 'goimports-reviser', 'golines' },
+      go = { 'gofumpt', 'goimports-reviser' },
       css = { 'prettierd' },
       scss = { 'prettierd' },
-      html = { 'prettierd', 'rustywind' },
+      html = { 'prettierd' },
       json = { 'prettierd' },
       jsonc = { 'prettierd' },
       yaml = { 'prettierd' },
       markdown = { 'prettierd' },
       graphql = { 'prettierd' },
     },
+    -- formatters = {
+    --   rustywind = {
+    --     command = 'rustywind',
+    --     args = { '--stdin', '--custom-regex', 'cva%([^)]*[\'"]([^\'"]+)[\'"][^)]*%)' },
+    --   },
+    -- },
     format_on_save = { async = false, timeout_ms = 500, lsp_fallback = true },
   }
 

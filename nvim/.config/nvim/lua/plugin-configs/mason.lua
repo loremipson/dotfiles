@@ -24,6 +24,9 @@ function M.setup()
       'prismals',
       'yamlls',
       'gopls',
+      'volar',
+      'astro',
+      'eslint',
     },
     automatic_installation = true,
   }
