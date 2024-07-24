@@ -6,24 +6,10 @@ function M.setup()
 
   trouble.setup {}
 
-  key('n', '<leader>xx', function()
-    trouble.toggle()
-  end)
-  key('n', '<leader>xw', function()
-    trouble.toggle 'workspace_diagnostics'
-  end)
-  key('n', '<leader>xd', function()
-    trouble.toggle 'document_diagnostics'
-  end)
-  key('n', '<leader>xq', function()
-    trouble.toggle 'quickfix'
-  end)
-  key('n', '<leader>xl', function()
-    trouble.toggle 'loclist'
-  end)
-  key('n', 'gR', function()
-    trouble.toggle 'lsp_references'
-  end)
+  key('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics (Trouble)' })
+  key('n', '<leader>xd', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Buffer diagnostics (Trouble)' })
+  key('n', '<leader>xq', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
+  key('n', '<leader>xl', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
 end
 
 return M
