@@ -122,20 +122,6 @@ local plugins = {
     end,
   },
   {
-    'nvim-neotest/neotest',
-    event = 'LspAttach',
-    dependencies = {
-      'marilari88/neotest-vitest',
-      'nvim-neotest/nvim-nio',
-      'nvim-lua/plenary.nvim',
-      'antoinemadec/FixCursorHold.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('plugin-configs.neotest').setup()
-    end,
-  },
-  {
     'kdheepak/lazygit.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
