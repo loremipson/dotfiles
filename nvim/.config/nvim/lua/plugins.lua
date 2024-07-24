@@ -138,6 +138,12 @@ local plugins = {
       require('plugin-configs.lazygit').setup()
     end,
   },
+  {
+    'FabijanZulj/blame.nvim',
+    config = function()
+      require('plugin-configs.blame').setup()
+    end,
+  },
   { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
     'ray-x/go.nvim',
