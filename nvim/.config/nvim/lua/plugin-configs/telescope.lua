@@ -31,6 +31,7 @@ function M.setup()
   key('n', '<leader>fb', builtin.buffers, { desc = 'Fuzzy find buffers' })
   key('n', '<leader>fh', builtin.help_tags, { desc = 'Fuzzy find help tags' })
   key('n', '<leader>fr', builtin.resume, { desc = 'Resume the last telescope search' })
+  key('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Fuzzy find symbols in current buffer' })
 end
 
 return M
