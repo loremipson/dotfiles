@@ -164,6 +164,16 @@ local plugins = {
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
   {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('plugin-configs.noice').setup()
+    end,
+  },
+  {
     'folke/trouble.nvim',
     config = function()
       require('plugin-configs.trouble').setup()
