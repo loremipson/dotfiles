@@ -19,14 +19,15 @@ function M.setup()
   }
 
   telescope.load_extension 'fzf'
+  telescope.load_extension 'live_grep_args'
 
-  key('n', '<leader>fg', builtin.live_grep, { desc = 'Fuzzy grep in cwd' })
   key(
     'n',
     '<leader>ff',
     "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>",
     { desc = 'Fuzzy find files in cwd' }
   )
+  key('n', '<leader>fg', "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = 'Fuzzy grep in cwd' })
   key('n', '<leader>fb', builtin.buffers, { desc = 'Fuzzy find buffers' })
   key('n', '<leader>fh', builtin.help_tags, { desc = 'Fuzzy find help tags' })
 end
