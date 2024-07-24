@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  local lspconfig = require('lspconfig')
-  local cmp_nvim_lsp = require('cmp_nvim_lsp')
+  local lspconfig = require 'lspconfig'
+  local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
   local keymap = vim.keymap
 
@@ -57,37 +57,37 @@ function M.setup()
     on_attach = on_attach,
   })
 
-  lspconfig.dockerls.setup({
+  lspconfig.dockerls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.docker_compose_language_service.setup({
+  lspconfig.docker_compose_language_service.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.graphql.setup({
+  lspconfig.graphql.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.html.setup({
+  lspconfig.html.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.jsonls.setup({
+  lspconfig.jsonls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.tailwindcss.setup({
+  lspconfig.tailwindcss.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.lua_ls.setup({
+  lspconfig.lua_ls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -102,23 +102,23 @@ function M.setup()
           },
         },
       },
-    }
-  })
+    },
+  }
 
-  lspconfig.prismals.setup({
+  lspconfig.prismals.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.yamlls.setup({
+  lspconfig.yamlls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 
-  lspconfig.gopls.setup({
+  lspconfig.gopls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-  })
+  }
 end
 
 return M
