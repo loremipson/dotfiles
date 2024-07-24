@@ -30,6 +30,7 @@ function M.setup()
   key('n', '<leader>fg', "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = 'Fuzzy grep in cwd' })
   key('n', '<leader>fb', builtin.buffers, { desc = 'Fuzzy find buffers' })
   key('n', '<leader>fh', builtin.help_tags, { desc = 'Fuzzy find help tags' })
+  key('n', '<leader>fr', builtin.resume, { desc = 'Resume the last telescope search' })
 end
 
 return M
