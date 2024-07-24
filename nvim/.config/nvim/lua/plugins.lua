@@ -143,9 +143,9 @@ local plugins = {
     end,
   },
   {
-    'FabijanZulj/blame.nvim',
+    'lewis6991/gitsigns.nvim',
     config = function()
-      require('plugin-configs.blame').setup()
+      require('plugin-configs.git-signs').setup()
     end,
   },
   { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -177,6 +177,21 @@ local plugins = {
     'folke/trouble.nvim',
     config = function()
       require('plugin-configs.trouble').setup()
+    end,
+  },
+  {
+    'kndndrj/nvim-dbee',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    build = function()
+      -- Install tries to automatically detect the install method.
+      -- if it fails, try calling it with one of these parameters:
+      --    "curl", "wget", "bitsadmin", "go"
+      require('dbee').install()
+    end,
+    config = function()
+      require('dbee').setup(--[[optional config]])
     end,
   },
 }
