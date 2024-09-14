@@ -12,13 +12,13 @@ function M.setup()
   }
   require('mason-lspconfig').setup {
     ensure_installed = {
-      'tsserver',
+      'typos_lsp',
+      'ts_ls',
       'docker_compose_language_service',
       'dockerls',
       'graphql',
       'html',
       'jsonls',
-      'tsserver',
       'tailwindcss',
       'lua_ls',
       'prismals',
