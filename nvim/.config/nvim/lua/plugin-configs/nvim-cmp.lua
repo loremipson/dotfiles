@@ -13,14 +13,21 @@ function M.setup()
     completion = {
       completeopt = 'menu,menuone,preview,noselect',
     },
+    formatting = {
+      format = require('lspkind').cmp_format {
+        mode = 'symbol',
+        max_width = 50,
+        symbol_map = { Supermaven = '' },
+      },
+    },
     snippet = { -- configure how nvim-cmp interacts with snippet engine
       expand = function(args)
         luasnip.lsp_expand(args.body)
       end,
     },
     sources = {
-      { name = 'codeium' },
       { name = 'nvim_lsp' },
+      { name = 'supermaven' },
       { name = 'luasnip' },
       { name = 'buffer' },
       { name = 'path' },

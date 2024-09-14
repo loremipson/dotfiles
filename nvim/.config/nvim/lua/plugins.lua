@@ -86,10 +86,9 @@ local plugins = {
     end,
   },
   {
-    'Exafunction/codeium.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'hrsh7th/nvim-cmp' },
+    'supermaven-inc/supermaven-nvim',
     config = function()
-      require('codeium').setup {}
+      require('supermaven-nvim').setup {}
     end,
   },
   {
