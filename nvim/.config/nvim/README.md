@@ -9,7 +9,6 @@ An minimal, efficient, opinionated (currently) neovim configuration
 - Lazy plugin loading
 - LSP
 - AI support with Supermaven
-- Testing with vitest
 - Formatting and linting with Conform/nvim-lint
 - Lazygit
 - Tmux navigation
