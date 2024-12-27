@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   local lspconfig = require 'lspconfig'
-  local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+  local blink = require 'blink.cmp'
 
   local keymap = vim.keymap
 
@@ -47,7 +47,7 @@ function M.setup()
     keymap.set('n', '<leader>rs', '<cmd>LspRestart<CR>', opts)
   end
 
-  local capabilities = cmp_nvim_lsp.default_capabilities()
+  local capabilities = blink.get_lsp_capabilities()
 
   local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
   for type, icon in pairs(signs) do

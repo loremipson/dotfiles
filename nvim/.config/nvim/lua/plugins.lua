@@ -55,7 +55,6 @@ local plugins = {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
       { 'antosha417/nvim-lsp-file-operations', config = true },
     },
     config = function()
@@ -63,18 +62,10 @@ local plugins = {
     end,
   },
   {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      'rafamadriz/friendly-snippets',
-      'onsails/lspkind.nvim',
-    },
+    'saghen/blink.cmp',
+    version = 'v0.*',
     config = function()
-      require('plugin-configs.nvim-cmp').setup()
+      require('plugin-configs.blink-cmp').setup()
     end,
   },
   {
