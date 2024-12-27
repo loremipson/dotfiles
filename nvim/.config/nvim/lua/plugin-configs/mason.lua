@@ -12,7 +12,6 @@ function M.setup()
   }
   require('mason-lspconfig').setup {
     ensure_installed = {
-      'typos_lsp',
       'ts_ls',
       'docker_compose_language_service',
       'dockerls',

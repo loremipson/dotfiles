@@ -146,8 +146,6 @@ function M.setup()
     on_attach = on_attach,
     filetypes = { 'astro' },
   }
-
-  lspconfig.typos_lsp.setup {}
 end
 
 return M
