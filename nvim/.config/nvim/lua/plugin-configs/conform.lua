@@ -32,7 +32,7 @@ function M.setup()
     format_on_save = { async = false, timeout_ms = 500, lsp_fallback = true },
   }
 
-  vim.keymap.set('', '<leader>f', function()
+  vim.keymap.set('', '<leader>F', function()
     conform.format { async = false, timeout_ms = 500, lsp_fallback = true }
   end, { desc = 'Format file or range (in visual mode)' })
 
