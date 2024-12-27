@@ -121,13 +121,6 @@ local plugins = {
     end,
   },
   {
-    'kdheepak/lazygit.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('plugin-configs.lazygit').setup()
-    end,
-  },
-  {
     'lewis6991/gitsigns.nvim',
     config = function()
       require('plugin-configs.git-signs').setup()
@@ -163,6 +156,27 @@ local plugins = {
     config = function()
       require('plugin-configs.trouble').setup()
     end,
+  },
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require('plugin-configs.snacks').setup()
+    end,
+  },
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show { global = false }
+        end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
+    },
   },
 }
 
