@@ -12,7 +12,7 @@ A minimal, efficient, opinionated (currently) neovim configuration
 - Formatting and linting with Conform/nvim-lint
 - Lazygit
 - Tmux navigation
-- Telescope
+- FzfLua
 
 ## Install
 
