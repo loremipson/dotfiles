@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
+      'bash',
       'lua',
       'vim',
       'vimdoc',
@@ -13,6 +14,7 @@ function M.setup()
       'gowork',
       'gomod',
       'gosum',
+      'regex',
       'sql',
       'gotmpl',
       'comment',
