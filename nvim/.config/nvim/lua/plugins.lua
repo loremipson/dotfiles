@@ -83,6 +83,16 @@ local plugins = {
     end,
   },
   {
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('plugin-configs.codecompanion').setup()
+    end,
+  },
+  {
     'numToStr/Navigator.nvim',
     config = function()
       require('plugin-configs.navigator').setup()

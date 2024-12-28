@@ -15,6 +15,16 @@ function M.setup()
       -- Show documentation when selecting a completion item
       documentation = { auto_show = true, auto_show_delay_ms = 500 },
     },
+    sources = {
+      default = { 'lsp', 'path', 'buffer', 'codecompanion' },
+      providers = {
+        codecompanion = {
+          enabled = true,
+          name = 'CodeCompanion',
+          module = 'codecompanion.providers.completion.blink',
+        },
+      },
+    },
     signature = { enabled = true },
   }
 end
