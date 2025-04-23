@@ -11,15 +11,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Check if running inside VSCode/Cursor
+local is_vscode = vim.g.vscode ~= nil
+
 local plugins = {
   {
     'rose-pine/neovim',
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.rose-pine').setup()
     end,
   },
   {
     'ibhagwan/fzf-lua',
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.fzf-lua').setup()
     end,
@@ -39,6 +44,7 @@ local plugins = {
   },
   {
     'williamboman/mason.nvim',
+    cond = not is_vscode,
     dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
       require('plugin-configs.mason').setup()
@@ -46,6 +52,7 @@ local plugins = {
   },
   {
     'neovim/nvim-lspconfig',
+    cond = not is_vscode,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       { 'antosha417/nvim-lsp-file-operations', config = true },
@@ -56,6 +63,7 @@ local plugins = {
   },
   {
     'saghen/blink.cmp',
+    cond = not is_vscode,
     version = 'v0.*',
     config = function()
       require('plugin-configs.blink-cmp').setup()
@@ -71,12 +79,14 @@ local plugins = {
   },
   {
     'supermaven-inc/supermaven-nvim',
+    cond = not is_vscode,
     config = function()
       require('supermaven-nvim').setup {}
     end,
   },
   {
     'olimorris/codecompanion.nvim',
+    cond = not is_vscode,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
@@ -87,12 +97,14 @@ local plugins = {
   },
   {
     'numToStr/Navigator.nvim',
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.navigator').setup()
     end,
   },
   {
     'stevearc/conform.nvim',
+    cond = not is_vscode,
     cmd = 'ConformInfo',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
@@ -101,6 +113,7 @@ local plugins = {
   },
   {
     'mfussenegger/nvim-lint',
+    cond = not is_vscode,
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('plugin-configs.nvim-lint').setup()
@@ -116,14 +129,20 @@ local plugins = {
   },
   {
     'lewis6991/gitsigns.nvim',
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.git-signs').setup()
     end,
   },
-  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    cond = not is_vscode,
+  },
   {
     'ray-x/go.nvim',
-    dependencies = { -- optional packages
+    cond = not is_vscode,
+    dependencies = {
       'ray-x/guihua.lua',
       'neovim/nvim-lspconfig',
       'nvim-treesitter/nvim-treesitter',
@@ -133,10 +152,11 @@ local plugins = {
     end,
     event = { 'CmdlineEnter' },
     ft = { 'go', 'gomod' },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+    build = ':lua require("go.install").update_all_sync()',
   },
   {
     'folke/noice.nvim',
+    cond = not is_vscode,
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
@@ -147,12 +167,14 @@ local plugins = {
   },
   {
     'folke/trouble.nvim',
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.trouble').setup()
     end,
   },
   {
     'folke/snacks.nvim',
+    cond = not is_vscode,
     priority = 1000,
     lazy = false,
     config = function()
