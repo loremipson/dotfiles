@@ -21,6 +21,13 @@ function M.setup()
       'astro',
       'vue',
       'yaml',
+      'css',
+      'html',
+      'javascript',
+      'latex',
+      'norg',
+      'scss',
+      'typst',
     },
     sync_install = false,
     highlight = {
