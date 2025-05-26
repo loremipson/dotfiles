@@ -6,6 +6,8 @@ function M.setup()
     lazygit = { enabled = true },
     scroll = { enabled = true },
     -- statuscolumn = { enabled = true },
+    input = { enabled = true },
+    notifier = { enabled = true },
     words = { enabled = true },
     scratch = {
       win_by_ft = {
