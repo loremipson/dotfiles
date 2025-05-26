@@ -155,17 +155,6 @@ local plugins = {
     build = ':lua require("go.install").update_all_sync()',
   },
   {
-    'folke/noice.nvim',
-    cond = not is_vscode,
-    event = 'VeryLazy',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      require('plugin-configs.noice').setup()
-    end,
-  },
-  {
     'folke/trouble.nvim',
     cond = not is_vscode,
     config = function()
