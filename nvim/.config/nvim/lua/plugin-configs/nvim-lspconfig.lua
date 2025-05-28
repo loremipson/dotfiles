@@ -26,10 +26,10 @@ function M.setup()
     keymap.set('n', 'gt', '<cmd>FzfLua lsp_typedefs<CR>', opts)
 
     opts.desc = 'See available code actions'
-    keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
 
     opts.desc = 'Smart rename'
-    keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)
 
     opts.desc = 'Go to previous diagnostic'
     keymap.set('n', ']d', vim.diagnostic.goto_prev, opts)
@@ -44,7 +44,7 @@ function M.setup()
     keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
     opts.desc = 'Restart LSP'
-    keymap.set('n', '<leader>rs', '<cmd>LspRestart<CR>', opts)
+    keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
   end
 
   local capabilities = blink.get_lsp_capabilities()
