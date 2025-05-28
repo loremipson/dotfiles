@@ -23,7 +23,7 @@ function M.setup()
       'prismals',
       'yamlls',
       'gopls',
-      'volar',
+      'vue_ls',
       'astro',
       'eslint',
     },
