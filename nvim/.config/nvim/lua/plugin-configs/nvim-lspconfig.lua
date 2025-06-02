@@ -52,7 +52,7 @@ function M.setup()
   local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
   for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
-    vim.diagnostic.config(hl, { text = icon, texthl = hl, numhl = '' })
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
   end
 
   local mason_registry = require 'mason-registry'
