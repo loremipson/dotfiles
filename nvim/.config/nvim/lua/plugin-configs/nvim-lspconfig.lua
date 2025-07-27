@@ -8,22 +8,32 @@ function M.setup()
 
   local opts = { noremap = true, silent = true }
   local on_attach = function(client, bufnr)
+    print('LSP attached: ' .. client.name .. ' to buffer ' .. bufnr)
     opts.buffer = bufnr
 
     opts.desc = 'Show LSP references'
-    keymap.set('n', 'gR', '<cmd>FzfLua lsp_references<CR>', opts)
-
-    opts.desc = 'Go to declaration'
-    keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    keymap.set('n', 'gR', function()
+      require('fzf-lua').lsp_references { jump_to_single_result = true }
+    end, opts)
 
     opts.desc = 'Show LSP definitions'
-    keymap.set('n', 'gd', '<cmd>FzfLua lsp_definitions<CR>', opts)
+    keymap.set('n', 'gd', function()
+      require('fzf-lua').lsp_definitions { jump_to_single_result = true }
+    end, opts)
 
     opts.desc = 'Show LSP implementations'
-    keymap.set('n', 'gi', '<cmd>FzfLua lsp_implementations<CR>', opts)
+    keymap.set('n', 'gi', function()
+      require('fzf-lua').lsp_implementations { jump_to_single_result = true }
+    end, opts)
 
     opts.desc = 'Show LSP type definitions'
-    keymap.set('n', 'gt', '<cmd>FzfLua lsp_typedefs<CR>', opts)
+    keymap.set('n', 'gt', function()
+      require('fzf-lua').lsp_typedefs { jump_to_single_result = true }
+    end, opts)
+
+    -- Built-in LSP functions
+    opts.desc = 'Go to declaration'
+    keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 
     opts.desc = 'See available code actions'
     keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
@@ -31,18 +41,19 @@ function M.setup()
     opts.desc = 'Smart rename'
     keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)
 
+    opts.desc = 'Show documentation for what is under cursor'
+    keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
     opts.desc = 'Go to previous diagnostic'
-    keymap.set('n', ']d', vim.diagnostic.goto_prev, opts)
+    keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 
     opts.desc = 'Go to next diagnostic'
-    keymap.set('n', '[d', vim.diagnostic.goto_next, opts)
+    keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
     opts.desc = 'Show diagnostic for what is under cursor'
     keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 
-    opts.desc = 'Show documentation for what is under cursor'
-    keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-
+    -- LSP management
     opts.desc = 'Restart LSP'
     keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
   end
@@ -60,7 +71,6 @@ function M.setup()
     },
   }
 
-  local mason_registry = require 'mason-registry'
   local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
 
   lspconfig.ts_ls.setup {
@@ -150,6 +160,12 @@ function M.setup()
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { 'astro' },
+  }
+
+  lspconfig.svelte.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { 'svelte' },
   }
 end
 
