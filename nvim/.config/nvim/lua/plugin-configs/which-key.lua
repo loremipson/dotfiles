@@ -40,8 +40,13 @@ function M.setup()
     { '<leader>fh', desc = 'Find help' },
     { '<leader>fr', desc = 'Resume search' },
     { '<leader>fs', desc = 'Find symbols' },
+    { '<leader>fS', desc = 'Find workspace symbols' },
     { '<leader>fc', desc = 'Find commits' },
     { '<leader>fa', desc = 'Find actions' },
+    { '<leader>f/', desc = 'Search history' },
+    { '<leader>f:', desc = 'Command history' },
+    { '<leader>fw', desc = 'Search word under cursor' },
+    { '<leader>fy', desc = 'Registers' },
 
     { '<leader>c', group = 'Code AI' },
     { '<leader>cc', desc = 'Chat with AI' },
@@ -117,4 +122,3 @@ function M.setup()
 end
 
 return M
-
