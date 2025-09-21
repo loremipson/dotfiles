@@ -10,8 +10,18 @@ function M.setup()
       },
     },
   }
+  require('mason-tool-installer').setup {
+    ensure_installed = {
+      'goimports-reviser',
+      'golines',
+      'prettier',
+      'rustywind',
+      'vale',
+    },
+  }
   require('mason-lspconfig').setup {
     ensure_installed = {
+      'eslint',
       'ts_ls',
       'docker_compose_language_service',
       'dockerls',
@@ -25,7 +35,6 @@ function M.setup()
       'gopls',
       'vue_ls',
       'astro',
-      'eslint',
     },
     automatic_installation = true,
   }

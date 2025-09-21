@@ -45,7 +45,10 @@ local plugins = {
   {
     'williamboman/mason.nvim',
     cond = not is_vscode,
-    dependencies = { 'williamboman/mason-lspconfig.nvim' },
+    dependencies = {
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    },
     config = function()
       require('plugin-configs.mason').setup()
     end,
