@@ -1,7 +1,6 @@
 local M = {}
 
 function M.setup()
-  local lspconfig = require 'lspconfig'
   local blink = require 'blink.cmp'
 
   local keymap = vim.keymap
@@ -73,7 +72,7 @@ function M.setup()
 
   local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
 
-  lspconfig.ts_ls.setup {
+  vim.lsp.config('ts_ls', {
     capabilities = capabilities,
     on_attach = on_attach,
     init_options = {
@@ -86,39 +85,39 @@ function M.setup()
       },
     },
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-  }
+  })
 
-  lspconfig.dockerls.setup {
+  vim.lsp.config('dockerls', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.docker_compose_language_service.setup {
+  vim.lsp.config('docker_compose_language_service', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.graphql.setup {
+  vim.lsp.config('graphql', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.html.setup {
+  vim.lsp.config('html', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.jsonls.setup {
+  vim.lsp.config('jsonls', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.tailwindcss.setup {
+  vim.lsp.config('tailwindcss', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.lua_ls.setup {
+  vim.lsp.config('lua_ls', {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -134,39 +133,39 @@ function M.setup()
         },
       },
     },
-  }
+  })
 
-  lspconfig.prismals.setup {
+  vim.lsp.config('prismals', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.yamlls.setup {
+  vim.lsp.config('yamlls', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.gopls.setup {
+  vim.lsp.config('gopls', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.volar.setup {
+  vim.lsp.config('volar', {
     capabilities = capabilities,
     on_attach = on_attach,
-  }
+  })
 
-  lspconfig.astro.setup {
+  vim.lsp.config('astro', {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { 'astro' },
-  }
+  })
 
-  lspconfig.svelte.setup {
+  vim.lsp.config('svelte', {
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { 'svelte' },
-  }
+  })
 end
 
 return M
