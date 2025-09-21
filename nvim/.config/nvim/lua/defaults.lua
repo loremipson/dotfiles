@@ -10,13 +10,15 @@ M.config = {
     },
   },
   adapters = {
-    anthropic = function()
-      return require('codecompanion.adapters').extend('anthropic', {
-        env = {
-          api_key = nil, -- require config
-        },
-      })
-    end,
+    http = {
+      anthropic = function()
+        return require('codecompanion.adapters').extend('anthropic', {
+          env = {
+            api_key = nil, -- require config
+          },
+        })
+      end,
+    },
   },
 }
 

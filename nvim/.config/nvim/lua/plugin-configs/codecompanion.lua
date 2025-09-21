@@ -8,9 +8,9 @@ function M.setup()
   local default_config = require('defaults').config
 
   -- Try to load user configuration with explicit path checking
-  local config_path = vim.fn.stdpath('config') .. '/config.lua'
+  local config_path = vim.fn.stdpath 'config' .. '/config.lua'
   local user_config = {}
-  
+
   if vim.fn.filereadable(config_path) == 1 then
     user_config = dofile(config_path)
   end
@@ -19,14 +19,15 @@ function M.setup()
 
   cc.setup(config)
 
-  key('n', '<leader>cc', '<cmd>CodeCompanionChat<CR>', { desc = 'Code companion chat' })
-  key('n', '<leader>ci', '<cmd>CodeCompanionInline<CR>', { desc = 'Code companion inline' })
+  key({ 'n', 'v' }, '<leader>ca', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
+  key({ 'n', 'v' }, '<leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
   key('v', '<leader>ce', '', {
     desc = 'Code companion explain',
     callback = function()
       cc.prompt 'explain'
     end,
   })
+  key('v', '<D-l>', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
 end
 
 return M

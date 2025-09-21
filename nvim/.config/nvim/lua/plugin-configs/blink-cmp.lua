@@ -17,12 +17,8 @@ function M.setup()
     },
     sources = {
       default = { 'lsp', 'path', 'buffer', 'codecompanion' },
-      providers = {
-        codecompanion = {
-          enabled = true,
-          name = 'CodeCompanion',
-          module = 'codecompanion.providers.completion.blink',
-        },
+      per_filetype = {
+        codecompanion = { 'codecompanion' },
       },
     },
     signature = { enabled = true },
