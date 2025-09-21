@@ -5,7 +5,7 @@ function M.setup()
     indent = { enabled = true },
     lazygit = { enabled = true },
     scroll = { enabled = true },
-    -- statuscolumn = { enabled = true },
+    statuscolumn = { enabled = true },
     input = { enabled = true },
     notifier = { enabled = true },
     words = { enabled = true },
@@ -75,6 +75,10 @@ function M.setup()
   vim.keymap.set('n', '<leader>.', function()
     snacks.scratch()
   end, { desc = 'Toggle scratch buffer' })
+
+  vim.keymap.set('n', '<leader>S', function()
+    snacks.scratch.select()
+  end, { desc = 'Select scratch buffer' })
 
   vim.keymap.set('n', '<leader>ub', function()
     snacks.notifier.show_history()
