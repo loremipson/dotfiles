@@ -4,7 +4,7 @@ function M.setup()
   local lint = require 'lint'
 
   lint.linters_by_ft = {
-    markdown = { 'vale' },
+    markdown = { 'markdownlint' },
     javascript = { 'eslint' },
     typescript = { 'eslint' },
     javascriptreact = { 'eslint' },

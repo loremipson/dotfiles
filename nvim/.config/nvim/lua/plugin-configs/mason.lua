@@ -16,7 +16,7 @@ function M.setup()
       'golines',
       'prettier',
       'rustywind',
-      'vale',
+      'markdownlint',
     },
   }
   require('mason-lspconfig').setup {
