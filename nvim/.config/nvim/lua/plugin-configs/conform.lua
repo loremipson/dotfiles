@@ -6,22 +6,22 @@ function M.setup()
   conform.setup {
     formatters_by_ft = {
       lua = { 'stylua' },
-      javascript = { 'prettierd' },
-      typescript = { 'prettierd' },
-      javascriptreact = { 'prettierd' },
-      typescriptreact = { 'prettierd' },
-      vue = { 'prettierd' },
-      astro = { 'prettierd' },
-      svelte = { 'prettierd' },
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      typescript = { 'prettierd', 'prettier', stop_after_first = true },
+      javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+      vue = { 'prettierd', 'prettier' },
+      astro = { 'prettierd', 'prettier' },
+      svelte = { 'prettierd', 'prettier' },
       go = { 'gofumpt', 'goimports-reviser' },
-      css = { 'prettierd' },
-      scss = { 'prettierd' },
-      html = { 'prettierd' },
-      json = { 'prettierd' },
-      jsonc = { 'prettierd' },
-      yaml = { 'prettierd' },
-      markdown = { 'prettierd' },
-      graphql = { 'prettierd' },
+      css = { 'prettierd', 'prettier' },
+      scss = { 'prettierd', 'prettier' },
+      html = { 'prettierd', 'prettier' },
+      json = { 'prettierd', 'prettier' },
+      jsonc = { 'prettierd', 'prettier' },
+      yaml = { 'prettierd', 'prettier' },
+      markdown = { 'prettierd', 'prettier' },
+      graphql = { 'prettierd', 'prettier' },
     },
     -- formatters = {
     --   rustywind = {
@@ -29,15 +29,12 @@ function M.setup()
     --     args = { '--stdin', '--custom-regex', 'cva%([^)]*[\'"]([^\'"]+)[\'"][^)]*%)' },
     --   },
     -- },
-    format_on_save = { async = false, timeout_ms = 500, lsp_fallback = true },
+    format_on_save = { timeout_ms = 2500, lsp_format = 'fallback' },
   }
 
-  vim.keymap.set('', '<leader>F', function()
-    conform.format { async = false, timeout_ms = 500, lsp_fallback = true }
+  vim.keymap.set({ 'n', 'v' }, '<leader>F', function()
+    conform.format { timeout_ms = 2500, lsp_format = 'fallback' }
   end, { desc = 'Format file or range (in visual mode)' })
-
-  -- Optionally, set the formatexpr
-  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 end
 
 return M
