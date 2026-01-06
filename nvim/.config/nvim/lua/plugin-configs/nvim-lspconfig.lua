@@ -12,22 +12,22 @@ function M.setup()
 
     opts.desc = 'Show LSP references'
     keymap.set('n', 'gR', function()
-      require('fzf-lua').lsp_references { jump_to_single_result = true }
+      require('snacks').picker.lsp_references()
     end, opts)
 
     opts.desc = 'Show LSP definitions'
     keymap.set('n', 'gd', function()
-      require('fzf-lua').lsp_definitions { jump_to_single_result = true }
+      require('snacks').picker.lsp_definitions()
     end, opts)
 
     opts.desc = 'Show LSP implementations'
     keymap.set('n', 'gi', function()
-      require('fzf-lua').lsp_implementations { jump_to_single_result = true }
+      require('snacks').picker.lsp_implementations()
     end, opts)
 
     opts.desc = 'Show LSP type definitions'
     keymap.set('n', 'gt', function()
-      require('fzf-lua').lsp_typedefs { jump_to_single_result = true }
+      require('snacks').picker.lsp_type_definitions()
     end, opts)
 
     -- Built-in LSP functions

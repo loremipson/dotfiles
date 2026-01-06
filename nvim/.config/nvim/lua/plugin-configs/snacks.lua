@@ -121,6 +121,54 @@ function M.setup()
     snacks.words.jump(-vim.v.count1)
   end, { desc = 'Previous reference' })
 
+  vim.keymap.set('n', '<leader>ff', function()
+    snacks.picker.files { hidden = true }
+  end, { desc = 'Fuzzy find files in cwd' })
+
+  vim.keymap.set('n', '<leader>fg', function()
+    snacks.picker.grep()
+  end, { desc = 'Fuzzy grep in cwd' })
+
+  vim.keymap.set('n', '<leader>fb', function()
+    snacks.picker.buffers()
+  end, { desc = 'Fuzzy find buffers' })
+
+  vim.keymap.set('n', '<leader>fh', function()
+    snacks.picker.help()
+  end, { desc = 'Fuzzy find help tags' })
+
+  vim.keymap.set('n', '<leader>fr', function()
+    snacks.picker.resume()
+  end, { desc = 'Resume the last picker search' })
+
+  vim.keymap.set('n', '<leader>fs', function()
+    snacks.picker.lsp_symbols()
+  end, { desc = 'Fuzzy find symbols in current buffer' })
+
+  vim.keymap.set('n', '<leader>fS', function()
+    snacks.picker.lsp_workspace_symbols()
+  end, { desc = 'Fuzzy find workspace symbols' })
+
+  vim.keymap.set('n', '<leader>fc', function()
+    snacks.picker.git_log()
+  end, { desc = 'Fuzzy find git commits' })
+
+  vim.keymap.set('n', '<leader>fw', function()
+    snacks.picker.grep_word()
+  end, { desc = 'Search word under cursor' })
+
+  vim.keymap.set('n', '<leader>fy', function()
+    snacks.picker.registers()
+  end, { desc = 'Registers' })
+
+  vim.keymap.set('n', '<leader>f/', function()
+    snacks.picker.search_history()
+  end, { desc = 'Search history' })
+
+  vim.keymap.set('n', '<leader>f:', function()
+    snacks.picker.command_history()
+  end, { desc = 'Command history' })
+
   vim.api.nvim_create_autocmd('User', {
     pattern = 'VeryLazy',
     callback = function()
