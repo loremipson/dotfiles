@@ -48,11 +48,6 @@ function M.setup()
     { '<leader>fw', desc = 'Search word under cursor' },
     { '<leader>fy', desc = 'Registers' },
 
-    { '<leader>c', group = 'Code AI' },
-    { '<leader>cc', desc = 'Chat with AI' },
-    { '<leader>ci', desc = 'Inline AI' },
-    { '<leader>ce', desc = 'Explain code', mode = 'v' },
-
     { '<leader>l', group = 'LSP' },
     { '<leader>la', desc = 'Code actions' },
     { '<leader>ln', desc = 'Rename symbol' },
