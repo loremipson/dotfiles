@@ -5,7 +5,21 @@ function M.setup()
     indent = { enabled = true },
     lazygit = { enabled = true },
     scroll = { enabled = true },
-    statuscolumn = { enabled = true },
+    statuscolumn = {
+      enabled = true,
+      left = { 'mark', 'sign' },
+      right = { 'fold', 'git' },
+      folds = {
+        open = false,
+        git_hl = false,
+      },
+      git = {
+        patterns = { 'GitSign', 'MiniDiffSign' },
+      },
+      refresh = 50,
+    },
+    picker = { enabled = true },
+    -- explorer = { enabled = true, replace_netrw = true, auto_close = true },
     input = { enabled = true },
     notifier = { enabled = true },
     words = { enabled = true },
