@@ -22,7 +22,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 
 ### Prerequisites
 
-- Neovim 0.10+
+- Neovim 0.11+
 
 ## Configuration
 
