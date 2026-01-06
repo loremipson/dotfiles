@@ -23,13 +23,6 @@ local plugins = {
     end,
   },
   {
-    'ibhagwan/fzf-lua',
-    cond = not is_vscode,
-    config = function()
-      require('plugin-configs.fzf-lua').setup()
-    end,
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     event = { 'BufReadPre', 'BufNewFile' },
