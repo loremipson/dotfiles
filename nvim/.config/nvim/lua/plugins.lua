@@ -87,17 +87,6 @@ local plugins = {
       require('supermaven-nvim').setup {}
     end,
   },
-  -- {
-  --   'olimorris/codecompanion.nvim',
-  --   cond = not is_vscode,
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-treesitter/nvim-treesitter',
-  --   },
-  --   config = function()
-  --     require('plugin-configs.codecompanion').setup()
-  --   end,
-  -- },
   {
     'numToStr/Navigator.nvim',
     cond = not is_vscode,
