@@ -23,6 +23,11 @@ local plugins = {
     end,
   },
   {
+    'nvim-tree/nvim-web-devicons',
+    cond = not is_vscode,
+    opts = {},
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     lazy = false,
