@@ -25,11 +25,11 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    lazy = false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'RRethy/nvim-treesitter-textsubjects',
+      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
     },
     config = function()
       require('plugin-configs.treesitter').setup()
