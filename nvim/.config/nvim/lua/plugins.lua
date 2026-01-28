@@ -125,21 +125,6 @@ local plugins = {
     cond = not is_vscode,
   },
   {
-    'ray-x/go.nvim',
-    cond = not is_vscode,
-    dependencies = {
-      'ray-x/guihua.lua',
-      'neovim/nvim-lspconfig',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('go').setup()
-    end,
-    event = { 'CmdlineEnter' },
-    ft = { 'go', 'gomod' },
-    build = ':lua require("go.install").update_all_sync()',
-  },
-  {
     'folke/trouble.nvim',
     cond = not is_vscode,
     config = function()

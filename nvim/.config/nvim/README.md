@@ -5,14 +5,14 @@ A minimal, efficient, opinionated (currently) neovim configuration
 ## Features
 
 - Space as `<leader>`
-- Typescript, React, Next, Node, Astro, Vue, Go, TailwindCSS
+- Typescript, React, Next, Node, Astro, Vue, TailwindCSS
 - Lazy plugin loading
 - LSP
 - AI support with Supermaven
 - Formatting and linting with Conform/nvim-lint
 - Lazygit
 - Tmux navigation
-- FzfLua
+- Snacks.nvim
 
 ## Install
 

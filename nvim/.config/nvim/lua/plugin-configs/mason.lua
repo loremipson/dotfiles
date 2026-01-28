@@ -12,8 +12,6 @@ function M.setup()
   }
   require('mason-tool-installer').setup {
     ensure_installed = {
-      'goimports-reviser',
-      'golines',
       'prettier',
       'rustywind',
       'markdownlint',
@@ -32,7 +30,6 @@ function M.setup()
       'lua_ls',
       'prismals',
       'yamlls',
-      'gopls',
       'vue_ls',
       'astro',
     },
