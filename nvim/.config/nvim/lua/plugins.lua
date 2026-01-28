@@ -120,6 +120,14 @@ local plugins = {
     end,
   },
   {
+    'NickvanDyke/opencode.nvim',
+    dependencies = { 'folke/snacks.nvim' },
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.opencode').setup()
+    end,
+  },
+  {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = not is_vscode,

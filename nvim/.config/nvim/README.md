@@ -8,7 +8,7 @@ A minimal, efficient, opinionated (currently) neovim configuration
 - Typescript, React, Next, Node, Astro, Vue, TailwindCSS
 - Lazy plugin loading
 - LSP
-- AI support with Supermaven
+- AI support with Supermaven and Opencode
 - Formatting and linting with Conform/nvim-lint
 - Lazygit
 - Tmux navigation
