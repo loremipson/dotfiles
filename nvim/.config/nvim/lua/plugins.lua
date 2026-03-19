@@ -16,10 +16,12 @@ local is_vscode = vim.g.vscode ~= nil
 
 local plugins = {
   {
-    'rose-pine/neovim',
+    'webhooked/kanso.nvim',
     cond = not is_vscode,
+    lazy = false,
+    priority = 1000,
     config = function()
-      require('plugin-configs.rose-pine').setup()
+      require('plugin-configs.colorscheme').setup()
     end,
   },
   {
