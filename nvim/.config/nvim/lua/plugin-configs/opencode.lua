@@ -4,7 +4,7 @@ function M.setup()
   local key = vim.keymap.set
 
   vim.g.opencode_opts = {
-    provider = {
+    server = {
       enabled = 'tmux',
       tmux = {},
     },
