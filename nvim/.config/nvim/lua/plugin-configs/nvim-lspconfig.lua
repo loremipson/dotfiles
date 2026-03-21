@@ -56,11 +56,6 @@ function M.setup()
     opts.desc = 'Restart LSP'
     keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
 
-    -- Inlay hints (parameter names, return types, etc.)
-    if client.supports_method('textDocument/inlayHint') then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
-
     -- Document highlight: illuminate all references to the symbol under cursor
     if client.supports_method('textDocument/documentHighlight') then
       local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
