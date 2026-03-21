@@ -20,7 +20,7 @@ function M.setup()
   require('mason-lspconfig').setup {
     ensure_installed = {
       'eslint',
-      'ts_ls',
+      'vtsls',
       'docker_compose_language_service',
       'dockerls',
       'graphql',

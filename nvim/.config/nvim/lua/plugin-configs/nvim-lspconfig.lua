@@ -72,19 +72,59 @@ function M.setup()
 
   local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
 
-  vim.lsp.config('ts_ls', {
+  vim.lsp.config('vtsls', {
     capabilities = capabilities,
     on_attach = on_attach,
-    init_options = {
-      plugins = {
-        {
-          name = '@vue/typescript-plugin',
-          location = vue_language_server_path,
-          languages = { 'vue' },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    settings = {
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          completion = {
+            enableServerSideFuzzyMatch = true,
+          },
+        },
+      },
+      typescript = {
+        updateImportsOnFileMove = { enabled = 'always' },
+        suggest = { completeFunctionCalls = true },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = 'literals' },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
+        },
+      },
+      javascript = {
+        updateImportsOnFileMove = { enabled = 'always' },
+        suggest = { completeFunctionCalls = true },
+        inlayHints = {
+          enumMemberValues = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          parameterNames = { enabled = 'literals' },
+          parameterTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          variableTypes = { enabled = false },
         },
       },
     },
-    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    before_init = function(_, config)
+      -- Inject the Vue TypeScript plugin so vtsls understands Vue files
+      local vtsls_settings = config.settings.vtsls or {}
+      vtsls_settings.tsserver = vtsls_settings.tsserver or {}
+      vtsls_settings.tsserver.globalPlugins = vtsls_settings.tsserver.globalPlugins or {}
+      table.insert(vtsls_settings.tsserver.globalPlugins, {
+        name = '@vue/typescript-plugin',
+        location = vue_language_server_path,
+        languages = { 'vue' },
+        configNamespace = 'typescript',
+        enableForWorkspaceTypeScriptVersions = true,
+      })
+      config.settings.vtsls = vtsls_settings
+    end,
   })
 
   vim.lsp.config('dockerls', {
