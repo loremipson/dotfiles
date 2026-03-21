@@ -53,6 +53,7 @@ local plugins = {
       require('plugin-configs.mason').setup()
     end,
   },
+  { 'b0o/schemastore.nvim' },
   {
     'neovim/nvim-lspconfig',
     cond = not is_vscode,

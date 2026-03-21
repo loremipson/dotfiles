@@ -181,6 +181,12 @@ function M.setup()
   vim.lsp.config('jsonls', {
     capabilities = capabilities,
     on_attach = on_attach,
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    },
   })
 
   vim.lsp.config('tailwindcss', {
@@ -214,6 +220,12 @@ function M.setup()
   vim.lsp.config('yamlls', {
     capabilities = capabilities,
     on_attach = on_attach,
+    settings = {
+      yaml = {
+        schemaStore = { enable = false, url = '' }, -- disable built-in, use schemastore.nvim
+        schemas = require('schemastore').yaml.schemas(),
+      },
+    },
   })
 
   vim.lsp.config('volar', {
