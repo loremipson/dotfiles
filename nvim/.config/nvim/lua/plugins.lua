@@ -67,9 +67,18 @@ local plugins = {
     end,
   },
   {
+    'L3MON4D3/LuaSnip',
+    version = 'v2.*',
+    build = 'make install_jsregexp',
+  },
+  {
     'saghen/blink.cmp',
     cond = not is_vscode,
     version = 'v0.*',
+    dependencies = {
+      'rafamadriz/friendly-snippets', -- VSCode-style snippets for JS/TS/React/HTML etc.
+      'L3MON4D3/LuaSnip',
+    },
     config = function()
       require('plugin-configs.blink-cmp').setup()
     end,

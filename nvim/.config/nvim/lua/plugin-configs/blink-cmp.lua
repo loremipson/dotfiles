@@ -3,7 +3,11 @@ local M = {}
 function M.setup()
   local blink = require 'blink.cmp'
 
+  -- Load friendly-snippets into luasnip
+  require('luasnip.loaders.from_vscode').lazy_load()
+
   blink.setup {
+    snippets = { preset = 'luasnip' },
     enabled = function()
       return vim.bo.filetype ~= 'markdown' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
     end,
@@ -16,11 +20,17 @@ function M.setup()
           cmp.show { providers = { 'lsp' } }
         end,
       },
+      -- Enter confirms the selected item
+      ['<CR>'] = { 'select_and_accept', 'fallback' },
+      -- Tab navigates snippet tab stops when a snippet is active,
+      -- then falls through to Supermaven for ghost text otherwise
+      ['<Tab>'] = { 'snippet_forward', 'fallback' },
+      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
     },
     completion = {
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false } },
-      list = { selection = { preselect = false, auto_insert = true } },
+      list = { selection = { preselect = true, auto_insert = false } },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,
@@ -45,7 +55,7 @@ function M.setup()
       },
     },
     sources = {
-      default = { 'lsp', 'path', 'buffer' },
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         -- Only show buffer completions when the keyword is 4+ chars long,
         -- preventing buffer words from polluting short-trigger completions

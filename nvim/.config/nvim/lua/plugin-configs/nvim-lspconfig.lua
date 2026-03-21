@@ -243,6 +243,21 @@ function M.setup()
     },
   })
 
+  vim.lsp.config('cssls', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+
+  vim.lsp.config('emmet_language_server', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = {
+      'html', 'css', 'scss',
+      'javascriptreact', 'typescriptreact',
+      'astro', 'svelte', 'vue',
+    },
+  })
+
   vim.lsp.config('volar', {
     capabilities = capabilities,
     on_attach = on_attach,
