@@ -28,7 +28,7 @@ function M.setup()
     show_keys = true,
     disable = {
       buftypes = {},
-      filetypes = { 'TelescopePrompt' },
+      filetypes = {},
     },
   }
 
@@ -42,7 +42,6 @@ function M.setup()
     { '<leader>fs', desc = 'Find symbols' },
     { '<leader>fS', desc = 'Find workspace symbols' },
     { '<leader>fc', desc = 'Find commits' },
-    { '<leader>fa', desc = 'Find actions' },
     { '<leader>f/', desc = 'Search history' },
     { '<leader>f:', desc = 'Command history' },
     { '<leader>fw', desc = 'Search word under cursor' },
@@ -72,6 +71,7 @@ function M.setup()
     { '<leader>hp', desc = 'Preview hunk' },
     { '<leader>hb', desc = 'Blame line' },
     { '<leader>hd', desc = 'Diff this' },
+    { '<leader>hD', desc = 'Diff against last commit' },
 
     { '<leader>t', group = 'Toggle' },
     { '<leader>tb', desc = 'Toggle blame' },
@@ -92,10 +92,17 @@ function M.setup()
     { '<leader>un', desc = 'Dismiss notifications' },
     { '<leader>ub', desc = 'Notification history' },
 
+    { '<leader>o', group = 'Opencode' },
+    { '<leader>oa', desc = 'Ask opencode' },
+    { '<leader>ox', desc = 'Execute opencode action' },
+    { '<leader>ou', desc = 'Opencode scroll up' },
+    { '<leader>od', desc = 'Opencode scroll down' },
+
     { '<leader>F', desc = 'Format' },
+    { '<leader>L', desc = 'Trigger linting' },
+    { '<leader>S', desc = 'Select scratch buffer' },
     { '<leader>d', desc = 'Show diagnostic' },
     { '<leader>.', desc = 'Scratch buffer' },
-    { '<leader>?', desc = 'Buffer keymaps' },
 
     { 'g', group = 'Go to' },
     { 'gR', desc = 'Show references' },
@@ -103,6 +110,8 @@ function M.setup()
     { 'gd', desc = 'Show definitions' },
     { 'gi', desc = 'Show implementations' },
     { 'gt', desc = 'Show type definitions' },
+    { 'go', desc = 'Add range to opencode' },
+    { 'goo', desc = 'Add line to opencode' },
 
     { ']', group = 'Next' },
     { ']d', desc = 'Next diagnostic' },
