@@ -55,6 +55,26 @@ function M.setup()
     -- LSP management
     opts.desc = 'Restart LSP'
     keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
+
+    -- Inlay hints (parameter names, return types, etc.)
+    if client.supports_method('textDocument/inlayHint') then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+
+    -- Document highlight: illuminate all references to the symbol under cursor
+    if client.supports_method('textDocument/documentHighlight') then
+      local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
+      vim.api.nvim_create_autocmd('CursorHold', {
+        group = group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter' }, {
+        group = group,
+        buffer = bufnr,
+        callback = vim.lsp.buf.clear_references,
+      })
+    end
   end
 
   local capabilities = blink.get_lsp_capabilities()
@@ -67,6 +87,17 @@ function M.setup()
         [vim.diagnostic.severity.HINT] = ' ',
         [vim.diagnostic.severity.INFO] = ' ',
       },
+    },
+    virtual_text = {
+      prefix = '●',
+      source = 'if_many', -- show source only when multiple LSPs active on buffer
+    },
+    underline = true,
+    update_in_insert = false, -- don't update diagnostics while typing
+    severity_sort = true,     -- errors before warnings before hints
+    float = {
+      border = 'rounded',
+      source = true,
     },
   }
 
