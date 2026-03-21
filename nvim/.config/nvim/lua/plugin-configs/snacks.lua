@@ -121,6 +121,10 @@ function M.setup()
     snacks.words.jump(-vim.v.count1)
   end, { desc = 'Previous reference' })
 
+  vim.keymap.set('n', '<leader>cs', function()
+    require('util.theme-picker').pick()
+  end, { desc = 'Color scheme picker' })
+
   vim.keymap.set('n', '<leader>ff', function()
     snacks.picker.files { hidden = true }
   end, { desc = 'Fuzzy find files in cwd' })

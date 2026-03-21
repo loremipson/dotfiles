@@ -1,7 +1,8 @@
 local M = {}
 
 function M.setup()
-  vim.cmd 'colorscheme kanso'
+  -- colorscheme is intended to be picked via <leader>cs, not hardcoded here
+  require('util.theme-picker').load()
 end
 
 return M
