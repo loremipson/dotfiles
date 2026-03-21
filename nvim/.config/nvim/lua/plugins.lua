@@ -146,6 +146,14 @@ local plugins = {
     end,
   },
   {
+    'dmmulroy/ts-error-translator.nvim',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.ts-error-translator').setup()
+    end,
+  },
+  {
     'MaximilianLloyd/tw-values.nvim',
     cond = not is_vscode,
     event = { 'BufReadPre', 'BufNewFile' },
