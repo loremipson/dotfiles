@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  require('nvim-treesitter').setup {
+  require('nvim-treesitter.configs').setup {
     sync_install = false,
     ensure_installed = {
       'bash',
@@ -10,6 +10,7 @@ function M.setup()
       'vimdoc',
       'prisma',
       'typescript',
+      'tsx',
       'json',
       'regex',
       'sql',
