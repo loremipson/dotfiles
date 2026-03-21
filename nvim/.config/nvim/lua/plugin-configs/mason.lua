@@ -32,6 +32,9 @@ function M.setup()
       'yamlls',
       'vue_ls',
       'astro',
+      'svelte',
+      'cssls',
+      'emmet_language_server',
     },
     automatic_installation = true,
   }
