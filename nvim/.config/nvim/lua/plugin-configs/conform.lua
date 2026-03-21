@@ -31,6 +31,17 @@ function M.setup()
     format_on_save = { timeout_ms = 2500, lsp_format = 'fallback' },
   }
 
+  -- Run eslint --fix before the formatter on save, but only if eslint LSP is active
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*.ts', '*.tsx', '*.js', '*.jsx', '*.vue', '*.svelte', '*.astro' },
+    callback = function()
+      local clients = vim.lsp.get_clients { bufnr = 0, name = 'eslint' }
+      if #clients > 0 then
+        vim.cmd 'EslintFixAll'
+      end
+    end,
+  })
+
   vim.keymap.set({ 'n', 'v' }, '<leader>F', function()
     conform.format { timeout_ms = 2500, lsp_format = 'fallback' }
   end, { desc = 'Format file or range (in visual mode)' })
