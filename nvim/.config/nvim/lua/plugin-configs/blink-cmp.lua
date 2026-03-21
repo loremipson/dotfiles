@@ -21,7 +21,28 @@ function M.setup()
       keyword = { range = 'full' },
       accept = { auto_brackets = { enabled = false } },
       list = { selection = { preselect = false, auto_insert = true } },
-      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 500,
+        window = { border = 'rounded' },
+      },
+      menu = {
+        border = 'rounded',
+        max_height = 15,
+        winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
+        draw = {
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description', gap = 1 },
+            { 'kind' },
+          },
+        },
+      },
+      ghost_text = {
+        enabled = true,
+        show_with_selection = true,    -- only preview when an item is actively selected
+        show_without_selection = false, -- don't show before picking, avoids supermaven conflicts
+      },
     },
     sources = {
       default = { 'lsp', 'path', 'buffer' },
@@ -52,7 +73,10 @@ function M.setup()
         },
       },
     },
-    signature = { enabled = true },
+    signature = {
+      enabled = true,
+      window = { border = 'rounded' },
+    },
   }
 end
 
