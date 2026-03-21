@@ -3,24 +3,44 @@ local M = {}
 function M.setup()
   local conform = require 'conform'
 
+  -- Returns the first available formatter from the candidates list.
+  -- Used to pick one formatter from a fallback chain and then append
+  -- additional formatters (e.g. rustywind) that must always run after.
+  local function first(bufnr, ...)
+    local args = { ... }
+    for _, formatter in ipairs(args) do
+      if conform.get_formatter_info(formatter, bufnr).available then
+        return formatter
+      end
+    end
+    return args[1]
+  end
+
   conform.setup {
     formatters_by_ft = {
       lua = { 'stylua' },
-      javascript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
-      typescript = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
-      javascriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
-      typescriptreact = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
-      vue = { 'oxfmt', 'prettierd', 'prettier' },
-      astro = { 'oxfmt', 'prettierd', 'prettier' },
-      svelte = { 'oxfmt', 'prettierd', 'prettier' },
-      css = { 'oxfmt', 'prettierd', 'prettier' },
-      scss = { 'oxfmt', 'prettierd', 'prettier' },
-      html = { 'oxfmt', 'prettierd', 'prettier' },
-      json = { 'oxfmt', 'prettierd', 'prettier' },
-      jsonc = { 'oxfmt', 'prettierd', 'prettier' },
-      yaml = { 'oxfmt', 'prettierd', 'prettier' },
-      markdown = { 'oxfmt', 'prettierd', 'prettier' },
-      graphql = { 'oxfmt', 'prettierd', 'prettier' },
+      -- Use first available prettier-variant, then always run rustywind to sort classes
+      javascript = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      typescript = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      javascriptreact = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      typescriptreact = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      vue = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      astro = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      svelte = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      html = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      -- No class sorting needed for these
+      css = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      scss = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      json = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      jsonc = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      yaml = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      markdown = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      graphql = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+    },
+    formatters = {
+      rustywind = {
+        prepend_args = { '--stdin' },
+      },
     },
     -- formatters = {
     --   rustywind = {
