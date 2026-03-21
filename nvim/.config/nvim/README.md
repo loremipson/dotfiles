@@ -1,6 +1,23 @@
-# Frontend Neovim Config
+<img width="1512" height="945" alt="SCR-20260321-kjet-2" src="https://github.com/user-attachments/assets/f536affb-6215-4b08-adee-560289d5aa92" />
 
 A minimal, efficient, opinionated Neovim configuration targeting frontend development.
+
+<details>
+<summary>More screenshots</summary>
+
+  ### Tailwind value rendering
+  
+  <img width="3024" height="1891" alt="SCR-20260321-klhp-2" src="https://github.com/user-attachments/assets/a403c9db-0e7d-49bf-ada7-1b3f12b9f743" />
+
+  ### Blink cmp
+
+  <img width="1512" height="328" alt="SCR-20260321-klxi" src="https://github.com/user-attachments/assets/827d862b-c86a-49e8-94fa-d0db04cf022f" />
+
+  ### Colorscheme picker
+
+  <img width="1219" height="756" alt="SCR-20260321-kqal-2" src="https://github.com/user-attachments/assets/34f129cc-986c-4f0d-94cd-99b47070a910" />
+
+</details>
 
 ## Features
 
