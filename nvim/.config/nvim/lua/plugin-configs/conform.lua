@@ -36,7 +36,7 @@ function M.setup()
     pattern = { '*.ts', '*.tsx', '*.js', '*.jsx', '*.vue', '*.svelte', '*.astro' },
     callback = function()
       local clients = vim.lsp.get_clients { bufnr = 0, name = 'eslint' }
-      if #clients > 0 then
+      if #clients > 0 and vim.fn.exists ':EslintFixAll' == 2 then
         vim.cmd 'EslintFixAll'
       end
     end,
