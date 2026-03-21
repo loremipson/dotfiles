@@ -5,10 +5,10 @@ function M.setup()
 
   local keymap = vim.keymap
 
-  local opts = { noremap = true, silent = true }
   local on_attach = function(client, bufnr)
     print('LSP attached: ' .. client.name .. ' to buffer ' .. bufnr)
-    opts.buffer = bufnr
+    -- Fresh opts table per buffer to avoid cross-buffer mutation
+    local opts = { noremap = true, silent = true, buffer = bufnr }
 
     opts.desc = 'Show LSP references'
     keymap.set('n', 'gR', function()
