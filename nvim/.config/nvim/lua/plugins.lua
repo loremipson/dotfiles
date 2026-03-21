@@ -59,6 +59,7 @@ local plugins = {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       { 'antosha417/nvim-lsp-file-operations', config = true },
+      'saghen/blink.cmp', -- ensure blink is initialized before LSP configs run
     },
     config = function()
       require('plugin-configs.nvim-lspconfig').setup()
