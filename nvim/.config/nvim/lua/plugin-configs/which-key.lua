@@ -51,6 +51,7 @@ function M.setup()
     { '<leader>la', desc = 'Code actions' },
     { '<leader>ln', desc = 'Rename symbol' },
     { '<leader>lr', desc = 'Restart LSP' },
+    { '<leader>lt', desc = 'Show Tailwind CSS values' },
 
     { '<leader>x', group = 'Diagnostics' },
     { '<leader>xx', desc = 'Toggle diagnostics' },

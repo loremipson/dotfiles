@@ -137,6 +137,14 @@ local plugins = {
     end,
   },
   {
+    'MaximilianLloyd/tw-values.nvim',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.tw-values').setup()
+    end,
+  },
+  {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = not is_vscode,
