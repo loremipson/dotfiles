@@ -5,7 +5,7 @@ function M.setup()
 
   blink.setup {
     enabled = function()
-      return not vim.tbl_contains({ 'lua', 'markdown' }, vim.bo.filetype) and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
+      return vim.bo.filetype ~= 'markdown' and vim.bo.buftype ~= 'prompt' and vim.b.completion ~= false
     end,
     keymap = {
       preset = 'default',
