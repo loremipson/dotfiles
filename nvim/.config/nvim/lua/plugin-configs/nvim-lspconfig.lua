@@ -216,11 +216,6 @@ function M.setup()
     on_attach = on_attach,
   })
 
-  vim.lsp.config('gopls', {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-
   vim.lsp.config('volar', {
     capabilities = capabilities,
     on_attach = on_attach,
