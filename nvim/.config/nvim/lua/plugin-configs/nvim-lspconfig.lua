@@ -187,6 +187,26 @@ function M.setup()
   vim.lsp.config('tailwindcss', {
     capabilities = capabilities,
     on_attach = on_attach,
+    filetypes = {
+      'html', 'css', 'scss',
+      'javascript', 'javascriptreact',
+      'typescript', 'typescriptreact',
+      'astro', 'svelte', 'vue',
+    },
+    settings = {
+      tailwindCSS = {
+        experimental = {
+          classRegex = {
+            -- cva, cx, cn, clsx, twMerge — completions inside utility wrappers
+            { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cn\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'clsx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'twMerge\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+          },
+        },
+      },
+    },
   })
 
   vim.lsp.config('lua_ls', {

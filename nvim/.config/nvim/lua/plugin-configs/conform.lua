@@ -42,12 +42,6 @@ function M.setup()
         prepend_args = { '--stdin' },
       },
     },
-    -- formatters = {
-    --   rustywind = {
-    --     command = 'rustywind',
-    --     args = { '--stdin', '--custom-regex', 'cva%([^)]*[\'"]([^\'"]+)[\'"][^)]*%)' },
-    --   },
-    -- },
     format_on_save = { timeout_ms = 2500, lsp_format = 'fallback' },
   }
 
