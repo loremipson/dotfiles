@@ -25,6 +25,21 @@ local plugins = {
     end,
   },
   {
+    'metalelf0/black-metal-theme-neovim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'casedami/neomodern.nvim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'loctvl842/monokai-pro.nvim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
     'nvim-tree/nvim-web-devicons',
     cond = not is_vscode,
     opts = {},
