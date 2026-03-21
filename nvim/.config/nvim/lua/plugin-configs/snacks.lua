@@ -5,6 +5,34 @@ function M.setup()
     indent = { enabled = true },
     lazygit = { enabled = true },
     scroll = { enabled = true },
+    dashboard = {
+      enabled = true,
+      preset = {
+        header = [[
+            █                                                █            
+             █    █                                         █   █         
+             ██    █                                  █    █   █          
+          █  █      █                █       █   █   █     █  █           
+           █ █    ██  █     █   █    █       █      █      ███            
+           ████   █    █████  █████   █     █    █  ██     ████           
+            ██ █  ██  ██     █     █  █     █   ██  ███   █ ██            
+            ██  █ ██  █████  █     █  ██   ██    █  ██ █ █  ██            
+            ██   ███  ██     █     █  ███ ███    █  ██ ███  ██            
+            ██    ██  ██   █ ██   ██   █████    ██  ██  █   ███           
+            ██     █  █████    ███      ███    ██  ████     ███           
+           ███     █    █  █  █          █    █     █       ███           
+          ██ ██     ██   █     █          █        █       ██  ██         
+         █     █     █                     █      █       █     █         
+        █       █     █                          █       █       █        
+         █       █                                      █         █       
+          █                                            █         █         ]],
+      },
+      sections = {
+        { section = 'header' },
+        { section = 'keys', gap = 1, padding = 1 },
+        { section = 'startup' },
+      },
+    },
     statuscolumn = {
       enabled = true,
       left = { 'mark', 'sign' },
