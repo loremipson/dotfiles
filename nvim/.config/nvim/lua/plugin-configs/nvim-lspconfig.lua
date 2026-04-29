@@ -44,10 +44,10 @@ function M.setup()
     keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 
     opts.desc = 'Go to previous diagnostic'
-    keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 
     opts.desc = 'Go to next diagnostic'
-    keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 
     opts.desc = 'Show diagnostic for what is under cursor'
     keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
@@ -57,7 +57,7 @@ function M.setup()
     keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
 
     -- Document highlight: illuminate all references to the symbol under cursor
-    if client.supports_method('textDocument/documentHighlight') then
+    if client:supports_method('textDocument/documentHighlight') then
       local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
       vim.api.nvim_create_autocmd('CursorHold', {
         group = group,
@@ -96,7 +96,8 @@ function M.setup()
     },
   }
 
-  local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
+  local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' ..
+      '/node_modules/@vue/language-server'
 
   vim.lsp.config('vtsls', {
     capabilities = capabilities,
@@ -198,10 +199,10 @@ function M.setup()
         experimental = {
           classRegex = {
             -- cva, cx, cn, clsx, twMerge — completions inside utility wrappers
-            { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'cx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'cn\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'clsx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cva\\(([^)]*)\\)',     '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cx\\(([^)]*)\\)',      '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cn\\(([^)]*)\\)',      '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'clsx\\(([^)]*)\\)',    '["\'`]([^"\'`]*).*?["\'`]' },
             { 'twMerge\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
           },
         },
