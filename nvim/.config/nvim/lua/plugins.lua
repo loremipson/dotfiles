@@ -58,6 +58,17 @@ local plugins = {
     end,
   },
   {
+    'mikavilpas/yazi.nvim',
+    version = '*',
+    event = 'VeryLazy',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', lazy = true },
+    },
+    config = function()
+      require('plugin-configs.yazi').setup()
+    end,
+  },
+  {
     'williamboman/mason.nvim',
     cond = not is_vscode,
     dependencies = {
