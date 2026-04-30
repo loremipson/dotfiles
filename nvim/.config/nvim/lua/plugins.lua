@@ -30,6 +30,11 @@ local plugins = {
     lazy = true,
   },
   {
+    'AvengeMedia/base46',
+    cond = not is_vscode,
+    lazy = true
+  },
+  {
     'casedami/neomodern.nvim',
     cond = not is_vscode,
     lazy = true,

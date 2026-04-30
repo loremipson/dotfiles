@@ -244,6 +244,68 @@ M.themes = {
     end,
   },
 
+  -- Base46
+  {
+    text = 'catppuccin',
+    load = function()
+      require('base46').load('catppuccin')
+    end,
+  },
+  {
+    text = 'chadracula-evondev',
+    load = function()
+      require('base46').load('chadracula-evondev')
+    end,
+  },
+  {
+    text = 'chadracula',
+    load = function()
+      require('base46').load('chadracula')
+    end,
+  },
+  {
+    text = 'everforest',
+    load = function()
+      require('base46').load('everforest')
+    end,
+  },
+  {
+    text = 'gruvbox',
+    load = function()
+      require('base46').load('gruvbox')
+    end,
+  },
+  {
+    text = 'gruvchad',
+    load = function()
+      require('base46').load('gruvchad')
+    end,
+  },
+  {
+    text = 'doomchad',
+    load = function()
+      require('base46').load('doomchad')
+    end,
+  },
+  {
+    text = 'rosepine',
+    load = function()
+      require('base46').load('rosepine')
+    end,
+  },
+  {
+    text = 'tokyodark',
+    load = function()
+      require('base46').load('tokyodark')
+    end,
+  },
+  {
+    text = 'tokyonight',
+    load = function()
+      require('base46').load('tokyonight')
+    end,
+  },
+
   -- Neomodern
   {
     text = 'moon',
