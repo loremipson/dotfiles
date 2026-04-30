@@ -64,6 +64,7 @@ local plugins = {
     dependencies = {
       { 'nvim-lua/plenary.nvim', lazy = true },
     },
+    cond = not is_vscode,
     config = function()
       require('plugin-configs.yazi').setup()
     end,
