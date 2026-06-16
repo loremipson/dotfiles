@@ -32,7 +32,7 @@ local plugins = {
   {
     'AvengeMedia/base46',
     cond = not is_vscode,
-    lazy = true
+    lazy = true,
   },
   {
     'casedami/neomodern.nvim',
@@ -172,27 +172,6 @@ local plugins = {
   {
     'NickvanDyke/opencode.nvim',
     version = '*',
-    dependencies = {
-      {
-        'folke/snacks.nvim',
-        optional = true,
-        opts = {
-          input = {},
-          picker = {
-            actions = {
-              opencode_send = function(...) return require('opencode').snacks_picker_send(...) end,
-            },
-            win = {
-              input = {
-                keys = {
-                  ['<a-a>'] = { 'opencode_send', mode = { 'n', 'i' } },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
     cond = not is_vscode,
     config = function()
       require('plugin-configs.opencode').setup()

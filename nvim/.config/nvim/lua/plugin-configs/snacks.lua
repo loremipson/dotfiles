@@ -46,7 +46,26 @@ function M.setup()
       },
       refresh = 50,
     },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      actions = {
+        ---@param picker snacks.Picker
+        opencode_send = function(picker)
+          local items = vim.tbl_map(function(item) ---@param item snacks.picker.Item
+            return item.file and require('opencode').format { path = item.file, from = item.pos, to = item.end_pos } or item.text
+          end, picker:selected { fallback = true })
+
+          require('opencode').prompt(table.concat(items, ', ') .. ' ')
+        end,
+      },
+      win = {
+        input = {
+          keys = {
+            ['<a-a>'] = { 'opencode_send', mode = { 'n', 'i' } },
+          },
+        },
+      },
+    },
     -- explorer = { enabled = true, replace_netrw = true, auto_close = true },
     input = { enabled = true },
     notifier = { enabled = true },
