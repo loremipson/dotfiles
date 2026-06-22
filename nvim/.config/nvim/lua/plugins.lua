@@ -54,13 +54,49 @@ local plugins = {
     branch = 'main',
     build = ':TSUpdate',
     lazy = false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
-    },
+    init = function()
+      local ensureInstalled = {
+        'bash',
+        'lua',
+        'vim',
+        'vimdoc',
+        'prisma',
+        'typescript',
+        'tsx',
+        'json',
+        'regex',
+        'sql',
+        'gotmpl',
+        'comment',
+        'astro',
+        'vue',
+        'svelte',
+        'graphql',
+        'markdown',
+        'markdown_inline',
+        'yaml',
+        'css',
+        'html',
+        'javascript',
+        'latex',
+        'scss',
+        'typst',
+      }
+      local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+      local toInstall = vim
+        .iter(ensureInstalled)
+        :filter(function(p)
+          return not vim.tbl_contains(alreadyInstalled, p)
+        end)
+        :totable()
+      require('nvim-treesitter').install(toInstall)
+    end,
     config = function()
-      require('plugin-configs.treesitter').setup()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
     end,
   },
   {
