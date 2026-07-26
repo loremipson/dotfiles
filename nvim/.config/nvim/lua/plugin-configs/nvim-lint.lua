@@ -1,5 +1,3 @@
--- lua/plugins/lint.lua
-
 local M = {}
 
 function M.setup()
@@ -29,9 +27,9 @@ function M.setup()
   end
 
   -- Find candidate linters
-  local oxlint_bin = find_bin('oxlint')
-  local biome_bin = find_bin('biome')
-  local eslint_bin = find_bin('eslint')
+  local oxlint_bin = find_bin 'oxlint'
+  local biome_bin = find_bin 'biome'
+  local eslint_bin = find_bin 'eslint'
 
   ---------------------------------------------------------------------------
   -- Configure specific linters if binaries exist

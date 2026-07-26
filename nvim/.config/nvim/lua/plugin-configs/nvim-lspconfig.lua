@@ -1,76 +1,80 @@
 local M = {}
+function M.on_attach(client, bufnr)
+  local keymap = vim.keymap
+  print('LSP attached: ' .. client.name .. ' to buffer ' .. bufnr)
+  -- Fresh opts table per buffer to avoid cross-buffer mutation
+  local opts = { noremap = true, silent = true, buffer = bufnr }
+
+  opts.desc = 'Show LSP references'
+  keymap.set('n', 'gR', function()
+    require('snacks').picker.lsp_references()
+  end, opts)
+
+  opts.desc = 'Show LSP definitions'
+  keymap.set('n', 'gd', function()
+    require('snacks').picker.lsp_definitions()
+  end, opts)
+
+  opts.desc = 'Show LSP implementations'
+  keymap.set('n', 'gi', function()
+    require('snacks').picker.lsp_implementations()
+  end, opts)
+
+  opts.desc = 'Show LSP type definitions'
+  keymap.set('n', 'gt', function()
+    require('snacks').picker.lsp_type_definitions()
+  end, opts)
+
+  -- Built-in LSP functions
+  opts.desc = 'Go to declaration'
+  keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+
+  opts.desc = 'See available code actions'
+  keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
+
+  opts.desc = 'Smart rename'
+  keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)
+
+  opts.desc = 'Show documentation for what is under cursor'
+  keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
+  opts.desc = 'Go to previous diagnostic'
+  keymap.set('n', '[d', function()
+    vim.diagnostic.jump { count = -1, float = true }
+  end, opts)
+
+  opts.desc = 'Go to next diagnostic'
+  keymap.set('n', ']d', function()
+    vim.diagnostic.jump { count = 1, float = true }
+  end, opts)
+
+  opts.desc = 'Show diagnostic for what is under cursor'
+  keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+
+  -- LSP management
+  opts.desc = 'Restart LSP'
+  keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
+
+  -- Document highlight: illuminate all references to the symbol under cursor
+  if client:supports_method 'textDocument/documentHighlight' then
+    local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
+    vim.api.nvim_create_autocmd('CursorHold', {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter' }, {
+      group = group,
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+end
 
 function M.setup()
   local blink = require 'blink.cmp'
 
-  local keymap = vim.keymap
-
-  local on_attach = function(client, bufnr)
-    print('LSP attached: ' .. client.name .. ' to buffer ' .. bufnr)
-    -- Fresh opts table per buffer to avoid cross-buffer mutation
-    local opts = { noremap = true, silent = true, buffer = bufnr }
-
-    opts.desc = 'Show LSP references'
-    keymap.set('n', 'gR', function()
-      require('snacks').picker.lsp_references()
-    end, opts)
-
-    opts.desc = 'Show LSP definitions'
-    keymap.set('n', 'gd', function()
-      require('snacks').picker.lsp_definitions()
-    end, opts)
-
-    opts.desc = 'Show LSP implementations'
-    keymap.set('n', 'gi', function()
-      require('snacks').picker.lsp_implementations()
-    end, opts)
-
-    opts.desc = 'Show LSP type definitions'
-    keymap.set('n', 'gt', function()
-      require('snacks').picker.lsp_type_definitions()
-    end, opts)
-
-    -- Built-in LSP functions
-    opts.desc = 'Go to declaration'
-    keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-
-    opts.desc = 'See available code actions'
-    keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-
-    opts.desc = 'Smart rename'
-    keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)
-
-    opts.desc = 'Show documentation for what is under cursor'
-    keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-
-    opts.desc = 'Go to previous diagnostic'
-    keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
-
-    opts.desc = 'Go to next diagnostic'
-    keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
-
-    opts.desc = 'Show diagnostic for what is under cursor'
-    keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-
-    -- LSP management
-    opts.desc = 'Restart LSP'
-    keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
-
-    -- Document highlight: illuminate all references to the symbol under cursor
-    if client:supports_method('textDocument/documentHighlight') then
-      local group = vim.api.nvim_create_augroup('lsp_document_highlight_' .. bufnr, { clear = true })
-      vim.api.nvim_create_autocmd('CursorHold', {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.document_highlight,
-      })
-      vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter' }, {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
-  end
+  local on_attach = M.on_attach
 
   local capabilities = blink.get_lsp_capabilities()
 
@@ -89,15 +93,14 @@ function M.setup()
     },
     underline = true,
     update_in_insert = false, -- don't update diagnostics while typing
-    severity_sort = true,     -- errors before warnings before hints
+    severity_sort = true, -- errors before warnings before hints
     float = {
       border = 'rounded',
       source = true,
     },
   }
 
-  local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' ..
-      '/node_modules/@vue/language-server'
+  local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
 
   vim.lsp.config('vtsls', {
     capabilities = capabilities,
@@ -189,20 +192,26 @@ function M.setup()
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
-      'html', 'css', 'scss',
-      'javascript', 'javascriptreact',
-      'typescript', 'typescriptreact',
-      'astro', 'svelte', 'vue',
+      'html',
+      'css',
+      'scss',
+      'javascript',
+      'javascriptreact',
+      'typescript',
+      'typescriptreact',
+      'astro',
+      'svelte',
+      'vue',
     },
     settings = {
       tailwindCSS = {
         experimental = {
           classRegex = {
             -- cva, cx, cn, clsx, twMerge — completions inside utility wrappers
-            { 'cva\\(([^)]*)\\)',     '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'cx\\(([^)]*)\\)',      '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'cn\\(([^)]*)\\)',      '["\'`]([^"\'`]*).*?["\'`]' },
-            { 'clsx\\(([^)]*)\\)',    '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cva\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'cn\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
+            { 'clsx\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
             { 'twMerge\\(([^)]*)\\)', '["\'`]([^"\'`]*).*?["\'`]' },
           },
         },
@@ -253,9 +262,14 @@ function M.setup()
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = {
-      'html', 'css', 'scss',
-      'javascriptreact', 'typescriptreact',
-      'astro', 'svelte', 'vue',
+      'html',
+      'css',
+      'scss',
+      'javascriptreact',
+      'typescriptreact',
+      'astro',
+      'svelte',
+      'vue',
     },
   })
 

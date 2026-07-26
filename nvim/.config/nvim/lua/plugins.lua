@@ -76,6 +76,7 @@ local plugins = {
         'markdown_inline',
         'yaml',
         'css',
+        'rust',
         'html',
         'javascript',
         'latex',
@@ -257,6 +258,15 @@ local plugins = {
     event = 'VeryLazy',
     config = function()
       require('plugin-configs.which-key').setup()
+    end,
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^9',
+    lazy = false, -- plugin lazy-loads itself via ftplugin
+    cond = not is_vscode,
+    init = function()
+      require('plugin-configs.rustaceanvim').setup()
     end,
   },
 }

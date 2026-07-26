@@ -15,6 +15,7 @@ function M.setup()
       'prettier',
       'rustywind',
       'markdownlint',
+      'codelldb',
     },
   }
   require('mason-lspconfig').setup {

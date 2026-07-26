@@ -20,14 +20,30 @@ function M.setup()
     formatters_by_ft = {
       lua = { 'stylua' },
       -- Use first available prettier-variant, then always run rustywind to sort classes
-      javascript = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      typescript = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      javascriptreact = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      typescriptreact = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      vue = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      astro = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      svelte = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
-      html = function(bufnr) return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' } end,
+      javascript = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      typescript = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      javascriptreact = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      typescriptreact = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      vue = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      astro = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      svelte = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
+      html = function(bufnr)
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+      end,
       -- No class sorting needed for these
       css = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       scss = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
@@ -36,10 +52,26 @@ function M.setup()
       yaml = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       markdown = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       graphql = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
+      rust = function(bufnr)
+        local formatters = { 'rustfmt' }
+        local root = vim.fs.root(bufnr, { 'Dioxus.toml' })
+        if root then
+          table.insert(formatters, 'dxfmt')
+        end
+        return formatters
+      end,
     },
     formatters = {
       rustywind = {
         prepend_args = { '--stdin' },
+      },
+      dxfmt = {
+        command = 'dx',
+        args = { 'fmt', '--file', '$FILENAME' },
+        stdin = false,
+        availability_check = function()
+          return vim.fn.executable 'dx' == 1
+        end,
       },
     },
     format_on_save = { timeout_ms = 2500, lsp_format = 'fallback' },
