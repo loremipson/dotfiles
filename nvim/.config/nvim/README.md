@@ -38,6 +38,7 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 - Snacks.nvim — picker, notifier, input, indent guides, scroll, statuscolumn, scratch buffers, words, toggles
 - Theme picker with live preview (`<leader>cs`)
 - Yazi support with netrw fallback
+- Rust + Dioxus support via rustacean, rustfmt, and dxfmt
 
 ## Themes
 
