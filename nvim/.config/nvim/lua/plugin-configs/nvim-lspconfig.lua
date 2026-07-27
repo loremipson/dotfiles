@@ -53,7 +53,7 @@ function M.on_attach(client, bufnr)
 
   -- LSP management
   opts.desc = 'Restart LSP'
-  keymap.set('n', '<leader>lr', '<cmd>LspRestart<CR>', opts)
+  keymap.set('n', '<leader>lr', '<cmd>lsp restart<CR>', opts)
 
   -- Document highlight: illuminate all references to the symbol under cursor
   if client:supports_method 'textDocument/documentHighlight' then
