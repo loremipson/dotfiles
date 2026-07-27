@@ -39,6 +39,8 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 - Theme picker with live preview (`<leader>cs`)
 - Yazi support with netrw fallback
 - Rust + Dioxus support via rustacean, rustfmt, and dxfmt
+- Python support via pyright, and ruff
+- Go support via gopls, and staticcheck
 
 ## Themes
 

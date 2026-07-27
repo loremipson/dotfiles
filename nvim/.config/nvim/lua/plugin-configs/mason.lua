@@ -16,6 +16,8 @@ function M.setup()
       'rustywind',
       'markdownlint',
       'codelldb',
+      'goimports',
+      'staticcheck',
     },
   }
   require('mason-lspconfig').setup {
@@ -36,6 +38,9 @@ function M.setup()
       'svelte',
       'cssls',
       'emmet_language_server',
+      'pyright',
+      'ruff',
+      'gopls',
     },
     automatic_installation = true,
   }

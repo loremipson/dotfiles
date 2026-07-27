@@ -98,6 +98,8 @@ function M.setup()
     svelte = js_linters,
     vue = js_linters,
     astro = js_linters,
+    python = { 'ruff' },
+    go = { 'staticcheck' },
   }
 
   ---------------------------------------------------------------------------

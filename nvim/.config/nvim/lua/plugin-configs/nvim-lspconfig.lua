@@ -289,6 +289,53 @@ function M.setup()
     on_attach = on_attach,
     filetypes = { 'svelte' },
   })
+
+  vim.lsp.config('pyright', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      python = {
+        analysis = {
+          typeCheckingMode = 'basic',
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = 'openFilesOnly',
+        },
+      },
+    },
+  })
+
+  -- ruff handles linting/formatting-adjacent diagnostics; pyright handles types.
+  -- They overlap on hover/some diagnostics, so mute ruff's hover in favor of pyright's.
+  vim.lsp.config('ruff', {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.hoverProvider = false
+      on_attach(client, bufnr)
+    end,
+  })
+
+  vim.lsp.config('gopls', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      gopls = {
+        gofumpt = true,
+        staticcheck = true,
+        analyses = {
+          unusedparams = true,
+          shadow = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          constantValues = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+      },
+    },
+  })
 end
 
 return M

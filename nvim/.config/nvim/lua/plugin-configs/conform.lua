@@ -60,6 +60,8 @@ function M.setup()
         end
         return formatters
       end,
+      python = { 'ruff_format', 'ruff_organize_imports' },
+      go = { 'goimports', 'gofumpt' },
     },
     formatters = {
       rustywind = {
