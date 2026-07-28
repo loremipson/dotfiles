@@ -170,6 +170,7 @@ local plugins = {
   {
     'supermaven-inc/supermaven-nvim',
     cond = not is_vscode,
+    lazy = false,
     config = function()
       require('supermaven-nvim').setup {}
     end,

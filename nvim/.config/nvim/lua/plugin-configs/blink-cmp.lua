@@ -49,9 +49,7 @@ function M.setup()
         },
       },
       ghost_text = {
-        enabled = true,
-        show_with_selection = true,    -- only preview when an item is actively selected
-        show_without_selection = false, -- don't show before picking, avoids supermaven conflicts
+        enabled = false,
       },
     },
     sources = {
