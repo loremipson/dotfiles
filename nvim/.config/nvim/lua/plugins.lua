@@ -168,14 +168,6 @@ local plugins = {
     end,
   },
   {
-    'supermaven-inc/supermaven-nvim',
-    cond = not is_vscode,
-    lazy = false,
-    config = function()
-      require('supermaven-nvim').setup {}
-    end,
-  },
-  {
     'numToStr/Navigator.nvim',
     cond = not is_vscode,
     config = function()

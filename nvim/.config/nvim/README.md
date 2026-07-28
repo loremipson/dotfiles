@@ -26,7 +26,7 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 - Lazy plugin loading via lazy.nvim
 - LSP via nvim-lspconfig + Mason (auto-installs servers)
 - Autocompletion via blink.cmp with LuaSnip + friendly-snippets
-- AI support via Supermaven (inline) and OpenCode (chat/agent)
+- AI support via OpenCode (chat/agent)
 - Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
 - Linting via nvim-lint
 - Git signs, Lazygit, and git log via Snacks

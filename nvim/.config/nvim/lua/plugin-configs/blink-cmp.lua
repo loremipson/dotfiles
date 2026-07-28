@@ -22,8 +22,7 @@ function M.setup()
       },
       -- Enter confirms the selected item
       ['<CR>'] = { 'select_and_accept', 'fallback' },
-      -- Tab navigates snippet tab stops when a snippet is active,
-      -- then falls through to Supermaven for ghost text otherwise
+      -- Tab navigates snippet tab stops when a snippet is active
       ['<Tab>'] = { 'snippet_forward', 'fallback' },
       ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
     },
@@ -49,7 +48,9 @@ function M.setup()
         },
       },
       ghost_text = {
-        enabled = false,
+        enabled = true,
+        show_with_selection = false,
+        show_without_selection = true,
       },
     },
     sources = {
