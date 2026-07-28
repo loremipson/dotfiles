@@ -26,7 +26,7 @@
   "opencode.nvim": { "branch": "main", "commit": "427dd9c64c90dfa05479c52e5d6c9febdf31f83c" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "rustaceanvim": { "branch": "main", "commit": "5a3a4158857ee1f7ec839b6ddd87cc0083a19c5f" },
-  "schemastore.nvim": { "branch": "main", "commit": "3d2c297f7152208daf4a382ea7123f9e4ebf9da1" },
+  "schemastore.nvim": { "branch": "main", "commit": "19e40cef03a380bfb578793a08222826118664dd" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
