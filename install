@@ -64,3 +64,16 @@ for pkg in "${stow_packages[@]}"; do
     fi
   fi
 done
+
+# ---------------------------------------------------------------------------
+# 3. Tmux plugins
+# ---------------------------------------------------------------------------
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  info "Installing Tmux Plugin Manager..."
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+info "Done."
+echo ""
+echo "Next steps:"
+echo "  - Inside tmux, press prefix + I to install tmux plugins"
