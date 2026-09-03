@@ -24,6 +24,7 @@ brew bundle --file="$script_dir/Brewfile"
 # 2. Stow packages
 # ---------------------------------------------------------------------------
 stow_packages=(
+  aerospace
 )
 
 # Check whether a stow package appears to already be stowed (at least one
