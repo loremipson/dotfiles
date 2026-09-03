@@ -8,3 +8,14 @@ cd "$script_dir"
 
 die() { echo "install: $*" >&2; exit 1; }
 info() { echo "==> $*"; }
+
+# ---------------------------------------------------------------------------
+# 1. Homebrew
+# ---------------------------------------------------------------------------
+if ! command -v brew >/dev/null 2>&1; then
+  info "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+info "Installing brew dependencies..."
+brew bundle --file="$script_dir/Brewfile"
