@@ -29,6 +29,7 @@ stow_packages=(
   sketchybar
   ghostty
   atuin
+  yazi
 )
 
 # Check whether a stow package appears to already be stowed (at least one
