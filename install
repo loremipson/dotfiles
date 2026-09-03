@@ -28,6 +28,7 @@ stow_packages=(
   tmux
   sketchybar
   ghostty
+  atuin
 )
 
 # Check whether a stow package appears to already be stowed (at least one
