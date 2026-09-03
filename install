@@ -26,6 +26,7 @@ brew bundle --file="$script_dir/Brewfile"
 stow_packages=(
   aerospace
   tmux
+  sketchybar
 )
 
 # Check whether a stow package appears to already be stowed (at least one
