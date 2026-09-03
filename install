@@ -27,6 +27,7 @@ stow_packages=(
   aerospace
   tmux
   sketchybar
+  ghostty
 )
 
 # Check whether a stow package appears to already be stowed (at least one
