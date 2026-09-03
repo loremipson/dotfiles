@@ -19,3 +19,46 @@ fi
 
 info "Installing brew dependencies..."
 brew bundle --file="$script_dir/Brewfile"
+
+# ---------------------------------------------------------------------------
+# 2. Stow packages
+# ---------------------------------------------------------------------------
+stow_packages=(
+)
+
+# Check whether a stow package appears to already be stowed (at least one
+# expected symlink exists in home pointing back into this repo).
+is_stowed() {
+  local pkg="$1"
+  local pkg_file
+  while IFS= read -r pkg_file; do
+    local home_file="$HOME/${pkg_file#$pkg/}"
+    if [[ -L "$home_file" ]]; then
+      local target
+      target="$(readlink "$home_file")"
+      [[ "$target" == "$script_dir/"* ]] && return 0
+    fi
+  done < <(find "$pkg" -maxdepth 3 -type f | head -20)
+  return 1
+}
+
+info "Stowing packages..."
+for pkg in "${stow_packages[@]}"; do
+  if [[ ! -d "$pkg" ]]; then
+    echo "  missing: $pkg" >&2
+    continue
+  fi
+
+  if is_stowed "$pkg"; then
+    stow --restow -t "$HOME" "$pkg"
+    echo "  restowed: $pkg"
+  else
+    if stow -t "$HOME" "$pkg" 2>/dev/null; then
+      echo "  stowed: $pkg"
+    else
+      echo "  conflict: $pkg" >&2
+      echo "           Run: stow --adopt -t \"$HOME\" $pkg   (moves your existing file into the repo)" >&2
+      echo "           Or:  rm ~/$(find "$pkg" -maxdepth 1 | head -1 | sed "s|^$pkg/||")   (if you don't need the existing file)" >&2
+    fi
+  fi
+done
