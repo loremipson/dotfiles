@@ -30,6 +30,7 @@ stow_packages=(
   ghostty
   atuin
   yazi
+  vicinae
 )
 
 # Check whether a stow package appears to already be stowed (at least one
