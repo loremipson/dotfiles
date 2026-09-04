@@ -1,5 +1,6 @@
 # Initializers
 eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
 
 # PATH additions
 
@@ -38,10 +39,21 @@ bindkey '^I' expand-or-complete        # Tab to complete
 bindkey '^[[A' history-search-backward # Up arrow searches history
 bindkey '^[[B' history-search-forward  # Down arrow searches history
 
+# Short aliases
+alias n='nvim'     # Neovim
+alias gg='lazygit' # Lazygit TUI
+alias oc='opencode --port' # OpenCode
+
 # Remap aliases
 export BAT_THEME="rose-pine"
 cat() {
   bat "$@"
+}
+ls() {
+  eza "$@" --icons
+}
+tree() {
+  eza -T "$@" --icons
 }
 
 # Plugins
