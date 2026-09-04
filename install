@@ -92,4 +92,5 @@ fi
 info "Done."
 echo ""
 echo "Next steps:"
+echo "  - Restart your terminal or run: source ~/.zshrc"
 echo "  - Inside tmux, press prefix + I to install tmux plugins"
