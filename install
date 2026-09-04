@@ -31,6 +31,7 @@ stow_packages=(
   atuin
   yazi
   vicinae
+  zsh
 )
 
 # Check whether a stow package appears to already be stowed (at least one
@@ -76,6 +77,14 @@ done
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   info "Installing Tmux Plugin Manager..."
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Shell
+# ---------------------------------------------------------------------------
+if [[ "$SHELL" != *"/zsh" ]]; then
+  info "Changing default shell to zsh..."
+  chsh -s "$(which zsh)"
 fi
 
 info "Done."
