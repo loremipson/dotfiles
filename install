@@ -32,6 +32,8 @@ stow_packages=(
   yazi
   vicinae
   zsh
+  bat
+  opencode
 )
 
 # Check whether a stow package appears to already be stowed (at least one

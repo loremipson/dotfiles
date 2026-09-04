@@ -11,6 +11,7 @@ brew "neovim"
 brew "sketchybar"
 brew "fzf"
 brew "ripgrep"
+brew "bat"
 brew "borders"
 brew "stow"
 

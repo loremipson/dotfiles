@@ -38,6 +38,12 @@ bindkey '^I' expand-or-complete        # Tab to complete
 bindkey '^[[A' history-search-backward # Up arrow searches history
 bindkey '^[[B' history-search-forward  # Down arrow searches history
 
+# Remap aliases
+export BAT_THEME="rose-pine"
+cat() {
+  bat "$@"
+}
+
 # Plugins
 if [[ -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
 	source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
