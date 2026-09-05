@@ -68,3 +68,9 @@ fi
 if [[ -r "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
 	source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
+
+# Local overrides - machine-specific settings not checked into git
+if [[ -r "$HOME/.zshrc.local" ]]; then
+	source "$HOME/.zshrc.local"
+fi
+
