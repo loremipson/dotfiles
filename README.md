@@ -36,3 +36,21 @@ dotfiles/
 ├── yazi/          # Terminal file manager
 └── zsh/           # Shell config
 ```
+
+## Time Tracking (optional)
+
+Tmux hooks can log session activity to [Timewarrior](https://timewarrior.net/) so time is tracked per tmux session. This is off by default, since it's only useful for specific situations, not every machine.
+
+To enable it:
+
+1. Create `~/.tmux.conf.local` with:
+
+```tmux
+   set-hook -g client-attached 'run-shell "~/.config/tmux/track-time.sh"'
+   set-hook -g client-session-changed 'run-shell "~/.config/tmux/track-time.sh"'
+   set-hook -g client-detached 'run-shell "~/.config/tmux/track-time.sh"'
+```
+
+2. Reload tmux config or restart the server.
+
+Each tmux session name becomes a Timewarrior tag. View tracked time with `timew summary :all` or `timew day`.

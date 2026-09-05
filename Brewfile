@@ -9,6 +9,7 @@ brew "opencode"
 brew "tmux"
 brew "neovim"
 brew "sketchybar"
+brew "timewarrior"
 
 brew "jq"
 brew "fzf"
