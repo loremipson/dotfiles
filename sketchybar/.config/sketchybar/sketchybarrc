@@ -97,11 +97,32 @@ sketchybar --add item clock right \
     script="$PLUGIN_DIR/clock.sh" \
   --subscribe clock system_woke
 
+sketchybar --add item weather right \
+  --set weather script="$PLUGIN_DIR/weather.sh" \
+    update_freq=1800 \
+  --subscribe weather system_woke
+
 sketchybar --add item battery right \
   --set battery update_freq=60 script="$PLUGIN_DIR/battery.sh" \
     click_script="sketchybar --set battery popup.drawing=toggle" \
   --add item battery.details popup.battery \
   --set battery.details label.drawing=on \
   --subscribe battery system_woke power_source_change
+
+sketchybar --add item network right \
+  --set network script="$PLUGIN_DIR/network.sh" \
+    update_freq=10 \
+    click_script="$PLUGIN_DIR/network.sh toggle_popup" \
+  --add item network.wifi_toggle popup.network \
+  --set network.wifi_toggle icon= label="Toggle WiFi" \
+    click_script="$PLUGIN_DIR/network.sh toggle_wifi" \
+  --add item network.vpn_toggle popup.network \
+  --set network.vpn_toggle icon= label="Toggle VPN" \
+    click_script="$PLUGIN_DIR/network.sh toggle_vpn" \
+  --add item network.settings popup.network \
+  --set network.settings icon= label="Network Settings…" \
+    click_script="open x-apple.systempreferences:com.apple.Network-Settings.extension" \
+  --subscribe network system_woke wifi_change
+
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
