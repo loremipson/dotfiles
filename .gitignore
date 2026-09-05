@@ -1,7 +1,28 @@
 .DS_Store
+.localized
 
-# vim
-.vim/autoload
-.vim/plugged
-.vim/.netrwhist
-.vim/sessions
+# Editors/IDEs
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Secrets/sensitive
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Generated/lock files
+nvim/.config/nvim/nvim-pack-lock.json
+
+# Dependencies
+node_modules/
+
+# General
+*.log
+*.tmp
+*.bak
