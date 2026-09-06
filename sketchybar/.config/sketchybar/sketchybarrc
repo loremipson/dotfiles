@@ -13,7 +13,7 @@ AEROSPACE="$(command -v aerospace 2>/dev/null || echo /opt/homebrew/bin/aerospac
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=30 blur_radius=30 color=0x40000000
+sketchybar --bar position=top height=30 blur_radius=30 color=0x00000000
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -23,14 +23,17 @@ sketchybar --bar position=top height=30 blur_radius=30 color=0x40000000
 default=(
   padding_left=2
   padding_right=2
-  icon.font="JetBrainsMono Nerd Font:Regular:12.0"
+  icon.font="JetBrainsMono Nerd Font:Regular:11.0"
   label.font="JetBrainsMono Nerd Font:Regular:11.0"
   icon.color=0xffffffff
   label.color=0xffffffff
+  background.color=0x90000000
+  background.corner_radius=4
+  background.height=20
   icon.padding_left=4
   icon.padding_right=4
-  label.padding_left=4
-  label.padding_right=4
+  label.padding_left=6
+  label.padding_right=6
 )
 sketchybar --default "${default[@]}"
 
@@ -40,18 +43,16 @@ sketchybar --add event aerospace_workspace_change
 # Aerospace workspaces (1-6) - using item type, not space type
 for sid in $(seq 1 6); do
   extra_pad=0
-  [ "$sid" = "1" ] && extra_pad=3
+  [ "$sid" = "1" ] && extra_pad=1
   space=(
     label="$sid"
-    label.font="JetBrainsMono Nerd Font Mono:Regular:12.0"
+    label.font="JetBrainsMono Nerd Font Mono:Regular:10.0"
     label.color=0x50ffffff
-    label.padding_left=6
-    label.padding_right=$((6 + extra_pad))
+    label.padding_left=5
+    label.padding_right=$((5 + extra_pad))
     icon.drawing=off
-    background.color=0x00000000
     background.corner_radius=4
-    background.height=18
-    background.drawing=off
+    background.height=16
     update_freq=2
     click_script="$AEROSPACE workspace $sid"
     script="$PLUGIN_DIR/aerospace.sh $sid"
@@ -70,7 +71,7 @@ sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED_INIT
 # only the properties deviating from the current defaults need to be set
 
 sketchybar --add item front_app left \
-            --set front_app icon.font="sketchybar-app-font:Regular:13.0" \
+            --set front_app icon.font="sketchybar-app-font:Regular:10.0" \
               icon.drawing=on \
               script="$PLUGIN_DIR/front_app.sh" \
             --subscribe front_app front_app_switched

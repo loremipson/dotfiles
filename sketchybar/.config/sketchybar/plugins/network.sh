@@ -17,11 +17,11 @@ update() {
   fi
 
   if [ "$VPN_ACTIVE" -gt 0 ]; then
-    LABEL="$LABEL 󰦝"
+    ICON="󰦝"
     COLOR=0xff98c379
   fi
 
-  sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="$LABEL"
+  sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label.drawing=off
 }
 
 case "$1" in
