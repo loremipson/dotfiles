@@ -30,15 +30,20 @@ default=(
   background.color=0x90000000
   background.corner_radius=4
   background.height=20
-  icon.padding_left=4
-  icon.padding_right=4
+  icon.padding_left=6
+  icon.padding_right=6
   label.padding_left=6
   label.padding_right=6
+  y_offset=-2
 )
 sketchybar --default "${default[@]}"
 
 # Register the custom event from AeroSpace
 sketchybar --add event aerospace_workspace_change
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar, where
+# only the properties deviating from the current defaults need to be set
 
 # Aerospace workspaces (1-6) - using item type, not space type
 for sid in $(seq 1 6); do
@@ -47,11 +52,9 @@ for sid in $(seq 1 6); do
   space=(
     label="$sid"
     label.font="JetBrainsMono Nerd Font Mono:Regular:10.0"
-    label.color=0x50ffffff
     label.padding_left=5
     label.padding_right=$((5 + extra_pad))
     icon.drawing=off
-    background.corner_radius=4
     background.height=16
     update_freq=2
     click_script="$AEROSPACE workspace $sid"
@@ -62,17 +65,20 @@ for sid in $(seq 1 6); do
     --set space.$sid "${space[@]}"
 done
 
+sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.5 space.6 \
+  --set workspaces background.color=0x90000000 \
+    background.height=20
+
+
 # Trigger initial highlight for the currently focused workspace
 FOCUSED_INIT=$("$AEROSPACE" list-workspaces --focused 2>/dev/null)
 sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$FOCUSED_INIT"
 
-##### Adding Left Items #####
-# We add some regular items to the left side of the bar, where
-# only the properties deviating from the current defaults need to be set
-
 sketchybar --add item front_app left \
             --set front_app icon.font="sketchybar-app-font:Regular:10.0" \
               icon.drawing=on \
+              icon.padding_right=0 \
+              padding_left=4 \
               script="$PLUGIN_DIR/front_app.sh" \
             --subscribe front_app front_app_switched
 
@@ -89,11 +95,13 @@ sketchybar --add item front_app left \
 
 sketchybar --add item timew right \
   --set timew script="$PLUGIN_DIR/timew.sh" update_freq=2 \
+      icon.padding_right=0 \
   --subscribe timew system_woke
 
 sketchybar --add item clock right \
   --set clock icon= \
     update_freq=10 \
+    icon.padding_right=0 \
     click_script="open -a Calendar" \
     script="$PLUGIN_DIR/clock.sh" \
   --subscribe clock system_woke

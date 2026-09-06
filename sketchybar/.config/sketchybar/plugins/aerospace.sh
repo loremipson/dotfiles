@@ -13,12 +13,12 @@ fi
 
 if [ "$SID" = "$FOCUSED" ]; then
   sketchybar --set "$NAME" drawing=$DRAWING \
-    label.color=0xffffffff \
-    background.color=0x60ffffff \
+    label.color=0xff000000 \
+    background.color=0xffff8f4d \
     background.drawing=on
 else
   sketchybar --set "$NAME" drawing=$DRAWING \
-    label.color=0x50ffffff \
+    label.color=0x80ffffff \
     background.color=0x00000000 \
     background.drawing=off
 fi
