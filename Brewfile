@@ -1,3 +1,6 @@
+tap "FelixKratz/formulae", trusted: true
+tap "nikitabobko/tap", trusted: true
+
 brew "bun"
 brew "node@26"
 brew "deno"
