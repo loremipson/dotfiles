@@ -19,6 +19,13 @@ The install script will:
 
 After installation, open tmux and press `prefix + I` to install tmux plugins.
 
+## Post-install
+
+There's a couple things you'll want to do after (or before, honestly) installing.
+
+- Set the Menu Bar in MacOS Settings to "Always" hide. You might want to enable the background as well, the default Menu Bar is still accessible by hovering at the top, and background enabled makes it easier to interact with.
+- Change or remove the shortcut for MacOS Spotlight found in System Settings -> Keyboard -> Keyboard Shortcuts -> Spotlight. I set mine to `⌥+space` so that it's still accessible if I ever need it. Vicinae will operate with `⌘+space`.
+
 ## Structure
 
 Each top-level directory is a Stow package that mirrors the target filesystem layout from `$HOME`.
