@@ -23,6 +23,7 @@ brew "eza"
 brew "atuin"
 brew "borders"
 brew "stow"
+brew "yazi"
 
 brew "starship"
 brew "zsh-autosuggestions"
