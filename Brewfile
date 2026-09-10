@@ -25,6 +25,7 @@ brew "atuin"
 brew "borders"
 brew "stow"
 brew "yazi"
+brew "zoxide"
 
 brew "starship"
 brew "zsh-autosuggestions"

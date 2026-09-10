@@ -1,6 +1,7 @@
 # Initializers
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
 
 # PATH additions
 
@@ -54,6 +55,9 @@ ls() {
 }
 tree() {
   eza -T "$@" --icons
+}
+cd() {
+  z "$@"
 }
 
 # Plugins
