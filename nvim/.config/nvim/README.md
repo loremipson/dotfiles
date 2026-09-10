@@ -30,11 +30,15 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 - Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
 - Linting via nvim-lint
 - Git signs, Lazygit, and git log via Snacks
+- Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
-- Diagnostics and quickfix via Trouble.nvim
+- Diagnostics via tiny-inline-diagnostic.nvim, with Trouble.nvim for quickfix-style overview
+- Code actions via tiny-code-action.nvim with snacks.picker integration
 - TypeScript error translation via ts-error-translator
 - TailwindCSS value inspection via tw-values
 - Surround motions via nvim-surround
+- Editing helpers via mini.nvim — ai (textobjects), pairs (auto-pairs), jump (enhanced f/t motions), icons (devicon provider)
+- Search match highlighting via nvim-hlslens
 - Snacks.nvim — picker, notifier, input, indent guides, scroll, statuscolumn, scratch buffers, words, toggles
 - Theme picker with live preview (`<leader>cs`)
 - Yazi support with netrw fallback
@@ -88,6 +92,8 @@ The picker live-previews each theme against your current buffer as you browse. Y
 | `<leader>gg` | Lazygit              |
 | `<leader>gl` | Lazygit log          |
 | `<leader>gf` | Lazygit file history |
+| `<leader>zd` | Zdiff (uncommitted)  |
+| `<leader>zD` | Zdiff (vs main)      |
 
 ### Toggles
 
@@ -120,7 +126,8 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 
 ### Prerequisites
 
-- Neovim 0.11+
+- Neovim 0.12+
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
 - `node` in `$PATH` (for TypeScript scratch buffer runner)
 - `lazygit` in `$PATH` (optional, for git UI)
+- `git` in `$PATH` (for zdiff.nvim diff review)
