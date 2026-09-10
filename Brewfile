@@ -13,6 +13,7 @@ brew "tmux"
 brew "neovim"
 brew "sketchybar"
 brew "timewarrior"
+brew "tree-sitter-cli"
 
 brew "jq"
 brew "fzf"
