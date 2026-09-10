@@ -178,14 +178,7 @@ local plugins = {
       require('plugin-configs.blink-cmp').setup()
     end,
   },
-  {
-    'numToStr/Comment.nvim',
-    lazy = false,
-    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
-    config = function()
-      require('Comment').setup()
-    end,
-  },
+  { 'JoosepAlviste/nvim-ts-context-commentstring', cond = not is_vscode },
   {
     'numToStr/Navigator.nvim',
     cond = not is_vscode,
@@ -250,6 +243,39 @@ local plugins = {
     end,
   },
   {
+    'nvim-mini/mini.icons',
+    cond = not is_vscode,
+    lazy = false,
+    priority = 999,
+    config = function()
+      require('plugin-configs.mini').icons()
+    end,
+  },
+  {
+    'nvim-mini/mini.ai',
+    cond = not is_vscode,
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.mini').ai()
+    end,
+  },
+  {
+    'nvim-mini/mini.pairs',
+    cond = not is_vscode,
+    event = 'InsertEnter',
+    config = function()
+      require('plugin-configs.mini').pairs()
+    end,
+  },
+  {
+    'nvim-mini/mini.jump',
+    cond = not is_vscode,
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.mini').jump()
+    end,
+  },
+  {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = not is_vscode,
@@ -272,7 +298,6 @@ local plugins = {
   },
   {
     'folke/which-key.nvim',
-    dependencies = { 'echasnovski/mini.icons' },
     event = 'VeryLazy',
     config = function()
       require('plugin-configs.which-key').setup()
