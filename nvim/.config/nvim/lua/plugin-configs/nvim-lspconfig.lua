@@ -29,8 +29,9 @@ function M.on_attach(client, bufnr)
   opts.desc = 'Go to declaration'
   keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 
-  opts.desc = 'See available code actions'
-  keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
+  vim.keymap.set({ 'n', 'x' }, '<leader>la', function()
+    require('tiny-code-action').code_action()
+  end, { noremap = true, silent = true, desc = 'See available code action' })
 
   opts.desc = 'Smart rename'
   keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)

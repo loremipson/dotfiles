@@ -115,6 +115,17 @@ local plugins = {
     end,
   },
   {
+    'rachartier/tiny-code-action.nvim',
+    cond = not is_vscode,
+    event = 'LspAttach',
+    dependencies = {
+      'folke/snacks.nvim',
+    },
+    config = function()
+      require('plugin-configs.tiny-code-action').setup()
+    end,
+  },
+  {
     'mikavilpas/yazi.nvim',
     version = '*',
     event = 'VeryLazy',
