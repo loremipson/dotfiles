@@ -107,6 +107,14 @@ local plugins = {
     end,
   },
   {
+    'kevinhwang91/nvim-hlslens',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' }, -- or lazy = false if you want it live at startup
+    config = function()
+      require('plugin-configs.nvim-hlslens').setup()
+    end,
+  },
+  {
     'mikavilpas/yazi.nvim',
     version = '*',
     event = 'VeryLazy',
