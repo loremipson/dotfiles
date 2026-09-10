@@ -126,6 +126,15 @@ local plugins = {
     end,
   },
   {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    cond = not is_vscode,
+    event = 'LspAttach',
+    priority = 1000,
+    config = function()
+      require('plugin-configs.tiny-inline-diagnostic').setup()
+    end,
+  },
+  {
     'mikavilpas/yazi.nvim',
     version = '*',
     event = 'VeryLazy',
