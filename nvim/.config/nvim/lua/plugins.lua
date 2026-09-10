@@ -221,6 +221,30 @@ local plugins = {
     end,
   },
   {
+    'martindur/zdiff.nvim',
+    cond = not is_vscode,
+    cmd = 'Zdiff',
+    keys = {
+      {
+        '<leader>zd',
+        function()
+          require('zdiff').open()
+        end,
+        desc = 'Zdiff (uncommitted)',
+      },
+      {
+        '<leader>zD',
+        function()
+          require('zdiff').open 'main'
+        end,
+        desc = 'Zdiff (vs main)',
+      },
+    },
+    config = function()
+      require('plugin-configs.zdiff').setup()
+    end,
+  },
+  {
     'lewis6991/gitsigns.nvim',
     cond = not is_vscode,
     config = function()
