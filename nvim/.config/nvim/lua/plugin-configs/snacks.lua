@@ -2,7 +2,12 @@ local M = {}
 function M.setup()
   local snacks = require 'snacks'
   snacks.setup {
-    indent = { enabled = true },
+    indent = {
+      enabled = true,
+      chunk = {
+        enabled = true,
+      },
+    },
     lazygit = { enabled = true },
     scroll = { enabled = true },
     dashboard = {
