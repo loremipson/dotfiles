@@ -4,8 +4,7 @@ function M.setup()
   local conform = require 'conform'
 
   -- Returns the first available formatter from the candidates list.
-  -- Used to pick one formatter from a fallback chain and then append
-  -- additional formatters (e.g. rustywind) that must always run after.
+  -- Used to pick one formatter from a fallback chain.
   local function first(bufnr, ...)
     local args = { ... }
     for _, formatter in ipairs(args) do
@@ -19,32 +18,31 @@ function M.setup()
   conform.setup {
     formatters_by_ft = {
       lua = { 'stylua' },
-      -- Use first available prettier-variant, then always run rustywind to sort classes
+      -- Use the first available Prettier-compatible formatter.
       javascript = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       typescript = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       javascriptreact = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       typescriptreact = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       vue = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       astro = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       svelte = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
       html = function(bufnr)
-        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier'), 'rustywind' }
+        return { first(bufnr, 'oxfmt', 'prettierd', 'prettier') }
       end,
-      -- No class sorting needed for these
       css = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       scss = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
       json = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
@@ -64,9 +62,6 @@ function M.setup()
       go = { 'goimports', 'gofumpt' },
     },
     formatters = {
-      rustywind = {
-        prepend_args = { '--stdin' },
-      },
       dxfmt = {
         command = 'dx',
         args = { 'fmt', '--file', '$FILENAME' },
