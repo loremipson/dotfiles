@@ -1,4 +1,3 @@
----@type vim.lsp.Config
 local function has_ts(path)
   return path ~= '' and vim.uv.fs_stat(path .. '/typescript.js') ~= nil
 end

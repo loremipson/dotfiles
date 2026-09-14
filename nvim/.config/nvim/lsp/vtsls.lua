@@ -1,5 +1,4 @@
-local vue_language_server_path = vim.fn.expand('$MASON/packages/vue-language-server')
-  .. '/node_modules/@vue/language-server'
+local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
 
 ---@type vim.lsp.Config
 return {
@@ -13,8 +12,7 @@ return {
   -- project (Deno has its own config/lock and shouldn't be claimed by vtsls).
   root_dir = function(bufnr, on_dir)
     local root_markers = { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' }
-    root_markers = vim.fn.has('nvim-0.11.3') == 1 and { root_markers, { '.git' } }
-      or vim.list_extend(root_markers, { '.git' })
+    root_markers = vim.fn.has 'nvim-0.11.3' == 1 and { root_markers, { '.git' } } or vim.list_extend(root_markers, { '.git' })
     local deno_root = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc' })
     local deno_lock_root = vim.fs.root(bufnr, { 'deno.lock' })
     local project_root = vim.fs.root(bufnr, root_markers)
