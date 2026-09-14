@@ -1,4 +1,5 @@
 local vue_language_server_path = vim.fn.expand '$MASON/packages/vue-language-server' .. '/node_modules/@vue/language-server'
+local typescript_native = require 'util.typescript-native'
 
 ---@type vim.lsp.Config
 return {
@@ -22,7 +23,11 @@ return {
     if deno_root and (not project_root or #deno_root >= #project_root) then
       return
     end
-    on_dir(project_root or vim.fn.getcwd())
+    local root_dir = project_root or vim.fn.getcwd()
+    if typescript_native.is_available(root_dir) then
+      return
+    end
+    on_dir(root_dir)
   end,
   settings = {
     vtsls = {

@@ -80,6 +80,7 @@ function M.setup()
 
   vim.lsp.enable {
     'vtsls',
+    'tsc_native',
     'dockerls',
     'docker_compose_language_service',
     'graphql',
