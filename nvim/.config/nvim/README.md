@@ -24,11 +24,11 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 - Space as `<leader>`
 - TypeScript, React, Node, Lua, Astro, Vue, TailwindCSS
 - Lazy plugin loading via lazy.nvim
-- LSP via nvim-lspconfig + Mason (auto-installs servers)
+- LSP via native lsp + Mason (auto-installs servers)
 - Autocompletion via blink.cmp with LuaSnip + friendly-snippets
 - AI support via OpenCode (chat/agent)
 - Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
-- Linting via nvim-lint
+- Linting via lsp
 - Git signs, Lazygit, and git log via Snacks
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
