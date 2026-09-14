@@ -75,7 +75,7 @@ end
 
 function M.setup()
   vim.lsp.config('*', {
-    capabilities = require('blink.cmp').get_lsp_capabilities(),
+    capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), require('lsp-file-operations').default_capabilities()),
   })
 
   vim.lsp.enable {
@@ -97,6 +97,9 @@ function M.setup()
     'pyright',
     'ruff',
     'gopls',
+    'eslint',
+    'biome',
+    'oxlint',
   }
 
   vim.diagnostic.config {
@@ -154,9 +157,13 @@ function M.setup()
       opts.desc = 'Go to declaration'
       keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 
-      keymap.set({ 'n', 'x' }, '<leader>la', function()
-        require('tiny-code-action').code_action()
-      end, { noremap = true, silent = true, desc = 'See available code action' })
+      -- rust-analyzer sets its own grouped code-action mapping on this same key
+      -- inside rustaceanvim's on_attach.
+      if client.name ~= 'rust-analyzer' then
+        keymap.set({ 'n', 'x' }, '<leader>la', function()
+          require('tiny-code-action').code_action()
+        end, { noremap = true, silent = true, desc = 'See available code action' })
+      end
 
       opts.desc = 'Smart rename'
       keymap.set('n', '<leader>ln', vim.lsp.buf.rename, opts)

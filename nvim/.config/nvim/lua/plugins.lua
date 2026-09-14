@@ -205,14 +205,6 @@ local plugins = {
     end,
   },
   {
-    'mfussenegger/nvim-lint',
-    cond = not is_vscode,
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('plugin-configs.nvim-lint').setup()
-    end,
-  },
-  {
     'kylechui/nvim-surround',
     version = '*',
     event = 'VeryLazy',

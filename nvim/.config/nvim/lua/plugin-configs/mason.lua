@@ -22,6 +22,8 @@ function M.setup()
   }
   require('mason-lspconfig').setup {
     ensure_installed = {
+      'oxlint',
+      'biome',
       'eslint',
       'vtsls',
       'docker_compose_language_service',
