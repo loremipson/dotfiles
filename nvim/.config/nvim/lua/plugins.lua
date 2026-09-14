@@ -159,18 +159,6 @@ local plugins = {
   },
   { 'b0o/schemastore.nvim' },
   {
-    'neovim/nvim-lspconfig',
-    cond = not is_vscode,
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      { 'antosha417/nvim-lsp-file-operations', config = true },
-      'saghen/blink.cmp', -- ensure blink is initialized before LSP configs run
-    },
-    config = function()
-      require('plugin-configs.nvim-lspconfig').setup()
-    end,
-  },
-  {
     'L3MON4D3/LuaSnip',
     version = 'v2.*',
     build = 'make install_jsregexp',
@@ -185,6 +173,18 @@ local plugins = {
     },
     config = function()
       require('plugin-configs.blink-cmp').setup()
+    end,
+  },
+  {
+    name = 'lsp-setup',
+    dir = vim.fn.stdpath 'config',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'saghen/blink.cmp',
+      { 'antosha417/nvim-lsp-file-operations', config = true },
+    },
+    config = function()
+      require('plugin-configs.lsp').setup()
     end,
   },
   { 'JoosepAlviste/nvim-ts-context-commentstring', cond = not is_vscode },

@@ -1,3 +1,5 @@
+-- rustaceanvim manages its own LSP client internally (not via vim.lsp.enable()),
+-- so it never goes through lsp.lua's vim.lsp.config('*', {...}) merge.
 local M = {}
 
 function M.setup()
@@ -5,13 +7,18 @@ function M.setup()
     return
   end
 
-  local lspconfig = require 'plugin-configs.nvim-lspconfig'
-
   vim.g.rustaceanvim = {
     server = {
-      on_attach = function(client, bufnr)
-        lspconfig.on_attach(client, bufnr)
+      capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), require('lsp-file-operations').default_capabilities()),
 
+      on_attach = function(_, bufnr)
+        -- Shared keymaps (gd, gR, K, diagnostics, <leader>ln, <leader>lr, etc.)
+        -- come from the global LspAttach autocmd in lsp.lua. It fires for
+        -- every attaching client, including this one, so nothing to call here.
+        --
+        -- <leader>la below overrides the global tiny-code-action mapping with
+        -- Rust's grouped code action. This only works because lsp.lua's
+        -- LspAttach autocmd skips setting <leader>la for rust-analyzer.
         local opts = { noremap = true, silent = true, buffer = bufnr }
 
         opts.desc = 'Rust: code action (grouped)'
