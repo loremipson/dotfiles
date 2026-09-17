@@ -1,0 +1,16 @@
+mode: session
+nerdfont: true
+
+window_prefix: "{project} 󰘬 "
+
+windows:
+  - name: editor
+    panes:
+      - command: nvim
+        focus: true
+      - command: opencode --port
+        name: agent
+        split: horizontal
+  - name: server
+    panes:
+      - command: pnpm dev

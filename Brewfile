@@ -1,5 +1,6 @@
 tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
+tap "raine/workmux", trusted: true
 
 brew "bun"
 brew "node@26"
@@ -10,6 +11,7 @@ brew "git"
 brew "lazygit"
 brew "opencode"
 brew "tmux"
+brew "workmux"
 brew "neovim"
 brew "sketchybar"
 brew "timewarrior"

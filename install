@@ -34,6 +34,7 @@ stow_packages=(
   zsh
   bat
   opencode
+  workmux
 )
 
 # Check whether a stow package appears to already be stowed (at least one
