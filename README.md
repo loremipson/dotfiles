@@ -61,3 +61,26 @@ To enable it:
 2. Reload tmux config or restart the server.
 
 Each tmux session name becomes a Timewarrior tag. View tracked time with `timew summary :all` or `timew day`.
+
+## Workmux
+
+This configuration uses [workmux](https://github.com/raine/workmux) to manage Git worktrees and their associated tmux sessions.
+
+There are two supported workflows:
+
+- **Git** — the default, for repositories using normal Git branches.
+- **Graphite** — for repositories where Graphite owns the branch/stack topology and workmux owns the worktrees.
+
+The workflow can be selected per project in `.tmux.conf.local`:
+
+```tmux
+set -g @workflow "graphite"
+```
+
+If no Graphite workflow is configured, the normal Git/workmux workflow is used.
+
+Open the workmux menu with:
+
+```text
+prefix + w
+```
