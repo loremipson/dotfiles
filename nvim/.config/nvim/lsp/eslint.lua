@@ -1,20 +1,5 @@
-local root_markers_util = require 'util.lsp-root-markers'
+local js_linter = require 'util.js-linter'
 local lsp = vim.lsp
-
-local eslint_config_files = {
-  '.eslintrc',
-  '.eslintrc.js',
-  '.eslintrc.cjs',
-  '.eslintrc.yaml',
-  '.eslintrc.yml',
-  '.eslintrc.json',
-  'eslint.config.js',
-  'eslint.config.mjs',
-  'eslint.config.cjs',
-  'eslint.config.ts',
-  'eslint.config.mts',
-  'eslint.config.cts',
-}
 
 ---@type vim.lsp.Config
 return {
@@ -49,33 +34,18 @@ return {
             version = lsp.util.buf_versions[bufnr],
           },
         },
-      }, nil, bufnr)
+      }, 1000, bufnr)
     end, {})
   end,
   root_dir = function(bufnr, on_dir)
-    local root_markers = { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' }
-    root_markers = vim.fn.has 'nvim-0.11.3' == 1 and { root_markers, { '.git' } } or vim.list_extend(root_markers, { '.git' })
-
     if vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc', 'deno.lock' }) then
       return
     end
 
-    local project_root = vim.fs.root(bufnr, root_markers) or vim.fn.getcwd()
-
-    local filename = vim.api.nvim_buf_get_name(bufnr)
-    local eslint_config_files_with_package_json = root_markers_util.insert_package_json(eslint_config_files, 'eslintConfig', filename)
-    local is_buffer_using_eslint = vim.fs.find(eslint_config_files_with_package_json, {
-      path = filename,
-      type = 'file',
-      limit = 1,
-      upward = true,
-      stop = vim.fs.dirname(project_root),
-    })[1]
-    if not is_buffer_using_eslint then
-      return
+    local linter, root_dir = js_linter.find(bufnr)
+    if linter == 'eslint' then
+      on_dir(root_dir)
     end
-
-    on_dir(project_root)
   end,
   -- Refer to https://github.com/Microsoft/vscode-eslint#settings-options
   settings = {

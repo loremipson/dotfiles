@@ -161,9 +161,10 @@ function M.setup()
       -- rust-analyzer sets its own grouped code-action mapping on this same key
       -- inside rustaceanvim's on_attach.
       if client.name ~= 'rust-analyzer' then
+        opts.desc = 'See available code action'
         keymap.set({ 'n', 'x' }, '<leader>la', function()
           require('tiny-code-action').code_action()
-        end, { noremap = true, silent = true, desc = 'See available code action' })
+        end, opts)
       end
 
       opts.desc = 'Smart rename'

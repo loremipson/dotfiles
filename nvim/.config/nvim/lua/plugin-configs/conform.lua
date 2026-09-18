@@ -15,6 +15,17 @@ function M.setup()
     return args[1]
   end
 
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = vim.api.nvim_create_augroup('eslint_fix_on_save', { clear = true }),
+    pattern = { '*.ts', '*.tsx', '*.js', '*.jsx', '*.vue', '*.svelte', '*.astro' },
+    callback = function()
+      local clients = vim.lsp.get_clients { bufnr = 0, name = 'eslint' }
+      if #clients > 0 and vim.fn.exists ':LspEslintFixAll' == 2 then
+        vim.cmd 'LspEslintFixAll'
+      end
+    end,
+  })
+
   conform.setup {
     formatters_by_ft = {
       lua = { 'stylua' },
@@ -73,17 +84,6 @@ function M.setup()
     },
     format_on_save = { timeout_ms = 2500, lsp_format = 'fallback' },
   }
-
-  -- Run eslint --fix before the formatter on save, but only if eslint LSP is active
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = { '*.ts', '*.tsx', '*.js', '*.jsx', '*.vue', '*.svelte', '*.astro' },
-    callback = function()
-      local clients = vim.lsp.get_clients { bufnr = 0, name = 'eslint' }
-      if #clients > 0 and vim.fn.exists ':EslintFixAll' == 2 then
-        vim.cmd 'EslintFixAll'
-      end
-    end,
-  })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>F', function()
     conform.format { timeout_ms = 2500, lsp_format = 'fallback' }

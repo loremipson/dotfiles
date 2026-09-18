@@ -128,7 +128,7 @@ local plugins = {
   {
     'rachartier/tiny-inline-diagnostic.nvim',
     cond = not is_vscode,
-    event = 'LspAttach',
+    lazy = false,
     priority = 1000,
     config = function()
       require('plugin-configs.tiny-inline-diagnostic').setup()
