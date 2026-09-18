@@ -9,7 +9,7 @@ config-version = 2
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  "exec-and-forget borders width=4 active_color=0xffff8f4d"
+  "exec-and-forget borders width=4 active_color=0xffe6c384"
 ]
 
 # Start AeroSpace at login
@@ -78,12 +78,12 @@ key-mapping.preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
-gaps.inner.horizontal = 6
-gaps.inner.vertical =   6
-gaps.outer.left =       5
-gaps.outer.bottom =     5
-gaps.outer.top =        2
-gaps.outer.right =      5
+gaps.inner.horizontal = 8
+gaps.inner.vertical =   8
+gaps.outer.left =       8
+gaps.outer.bottom =     8
+gaps.outer.top =        3
+gaps.outer.right =      8
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

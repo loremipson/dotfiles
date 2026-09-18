@@ -1836,5 +1836,5 @@ function __icon_map() {
 
 if [ "$SENDER" = "front_app_switched" ]; then
   __icon_map "$INFO"
-  sketchybar --set "$NAME" icon="$icon_result" icon.color=0xfff2f1ef label="$INFO"
+  sketchybar --set "$NAME" icon="$icon_result" icon.color=0xffe6c384 label="$INFO"
 fi

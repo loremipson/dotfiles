@@ -27,7 +27,7 @@ default=(
   label.font="JetBrainsMono Nerd Font:Regular:11.0"
   icon.color=0xffffffff
   label.color=0xffffffff
-  background.color=0x90000000
+  background.color=0xff14171d
   background.corner_radius=4
   background.height=20
   icon.padding_left=6
@@ -66,7 +66,7 @@ for sid in $(seq 1 6); do
 done
 
 sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.5 space.6 \
-  --set workspaces background.color=0x90000000 \
+  --set workspaces background.color=0xff14171d \
     background.height=20
 
 
