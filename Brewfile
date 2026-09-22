@@ -1,6 +1,5 @@
 tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
-tap "raine/workmux", trusted: true
 
 brew "bun"
 brew "node@26"
