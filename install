@@ -76,7 +76,15 @@ for pkg in "${stow_packages[@]}"; do
 done
 
 # ---------------------------------------------------------------------------
-# 3. Tmux plugins
+# 3. Bat cache
+# ---------------------------------------------------------------------------
+if command -v bat >/dev/null 2>&1; then
+  info "Building bat theme cache..."
+  bat cache --build
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Tmux plugins
 # ---------------------------------------------------------------------------
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   info "Installing Tmux Plugin Manager..."
@@ -84,7 +92,7 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 4. Shell
+# 5. Shell
 # ---------------------------------------------------------------------------
 if [[ "$SHELL" != *"/zsh" ]]; then
   info "Changing default shell to zsh..."

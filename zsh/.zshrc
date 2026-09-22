@@ -46,7 +46,6 @@ alias gg='lazygit' # Lazygit TUI
 alias oc='opencode --port' # OpenCode
 
 # Remap aliases
-export BAT_THEME="rose-pine"
 cat() {
   bat "$@"
 }
