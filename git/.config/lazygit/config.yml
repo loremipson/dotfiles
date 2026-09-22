@@ -1,0 +1,51 @@
+gui:
+  nerdFontsVersion: "3"
+
+  theme:
+    # Kanso blue
+    activeBorderColor:
+      - "#8ba4b0"
+      - bold
+
+    # Kanso gray
+    inactiveBorderColor:
+      - "#717c7c"
+
+    # Kanso yellow
+    searchingActiveBorderColor:
+      - "#e6c384"
+      - bold
+
+    optionsTextColor:
+      - "#7fb4ca"
+
+    # Subtle Ink backgrounds rather than bright selection colors
+    selectedLineBgColor:
+      - "#1f1f26"
+
+    inactiveViewSelectedLineBgColor:
+      - "#22262d"
+
+    cherryPickedCommitFgColor:
+      - "#938aa9"
+
+    cherryPickedCommitBgColor:
+      - "#223249"
+
+    markedBaseCommitFgColor:
+      - "#e6c384"
+
+    markedBaseCommitBgColor:
+      - "#49443c"
+
+    unstagedChangesColor:
+      - "#c4746e"
+
+    defaultFgColor:
+      - "#c5c9c7"
+
+git:
+  diffRenderers:
+    - name: delta
+      command: delta --paging=never
+      colorArg: always
