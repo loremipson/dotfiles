@@ -77,3 +77,5 @@ if [[ -r "$HOME/.zshrc.local" ]]; then
 	source "$HOME/.zshrc.local"
 fi
 
+# Keep CLI application config under ~/.config
+export XDG_CONFIG_HOME="$HOME/.config"
