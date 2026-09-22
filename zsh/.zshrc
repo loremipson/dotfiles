@@ -50,7 +50,7 @@ cat() {
   bat "$@"
 }
 ls() {
-  eza "$@" --icons
+  eza "$@" --git --icons=always --group-directories-first
 }
 tree() {
   eza -T "$@" --icons
