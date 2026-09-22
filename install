@@ -31,6 +31,7 @@ stow_packages=(
   ghostty
   atuin
   yazi
+  git
   vicinae
   zsh
   bat

@@ -1,0 +1,34 @@
+[user]
+	email = tyler.ipson@gmail.com
+	name = Tyler Ipson
+[core]
+  editor = nvim
+  pager = delta
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[rerere]
+  enabled = true
+[merge]
+  conflictStyle = zdiff3
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = Kanso_Ink
+
+	# Kanso diff backgrounds
+	minus-style = "syntax #43242b"
+	minus-emph-style = "syntax #c34043"
+
+	plus-style = "syntax #2b3328"
+	plus-emph-style = "syntax #76946a"
+
+	zero-style = syntax
+
+	# Headers
+	file-style = "#7fb4ca bold"
+	file-decoration-style = "#7fb4ca ul"
+	hunk-header-style = "syntax #252535"
