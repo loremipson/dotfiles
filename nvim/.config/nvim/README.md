@@ -19,6 +19,20 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 
 </details>
 
+## Install
+
+```sh
+git clone git@github.com:loremipson/nvim.git ~/.config
+```
+
+### Prerequisites
+
+- Neovim 0.12+
+- A [Nerd Font](https://www.nerdfonts.com/) for icons
+- `node` in `$PATH` (for TypeScript scratch buffer runner)
+- `lazygit` in `$PATH` (optional, for git UI)
+- `git` in `$PATH` (for zdiff.nvim diff review)
+
 ## Features
 
 - Space as `<leader>`
@@ -48,10 +62,11 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 
 ## Themes
 
-Four theme packages are included, switchable at any time via `<leader>cs`:
+Five theme packages are included, switchable at any time via `<leader>cs`:
 
 | Package                                                              | Variants                                                        |
 | -------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [Base46](https://github.com/NvChad/base46)                           | All nvchad base46 themes                                        |
 | [Kanso](https://github.com/webhooked/kanso.nvim)                     | `kanso-ink`, `kanso-zen`, `kanso`                               |
 | [Black Metal](https://github.com/metalelf0/black-metal-theme-neovim) | 16 bands × default + alt (32 total)                             |
 | [Neomodern](https://github.com/casedami/neomodern.nvim)              | `moon`, `iceclimber`, `gyokuro`, `hojicha`, `roseprime`         |
@@ -117,17 +132,3 @@ The picker live-previews each theme against your current buffer as you browse. Y
 | ----------- | --------------------- |
 | `<leader>.` | Toggle scratch buffer |
 | `<leader>S` | Select scratch buffer |
-
-## Install
-
-```sh
-git clone git@github.com:loremipson/nvim.git ~/.config
-```
-
-### Prerequisites
-
-- Neovim 0.12+
-- A [Nerd Font](https://www.nerdfonts.com/) for icons
-- `node` in `$PATH` (for TypeScript scratch buffer runner)
-- `lazygit` in `$PATH` (optional, for git UI)
-- `git` in `$PATH` (for zdiff.nvim diff review)
