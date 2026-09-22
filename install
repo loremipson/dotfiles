@@ -37,6 +37,7 @@ stow_packages=(
   bat
   opencode
   workmux
+  ripgrep
 )
 
 # Check whether a stow package appears to already be stowed (at least one

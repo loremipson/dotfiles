@@ -58,6 +58,9 @@ tree() {
 cd() {
   z "$@"
 }
+grep() {
+  rg "$@" --color=auto
+}
 
 # Plugins
 if [[ -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
@@ -76,6 +79,8 @@ fi
 if [[ -r "$HOME/.zshrc.local" ]]; then
 	source "$HOME/.zshrc.local"
 fi
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Keep CLI application config under ~/.config
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
