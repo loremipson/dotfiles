@@ -20,6 +20,7 @@ brew "bitwarden-cli"
 
 brew "jq"
 brew "fzf"
+brew "fd"
 brew "ripgrep"
 brew "tuicr"
 brew "bat"

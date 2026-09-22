@@ -61,6 +61,9 @@ cd() {
 grep() {
   rg "$@" --color=auto
 }
+find() {
+  fd "$@"
+}
 
 # Plugins
 if [[ -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
