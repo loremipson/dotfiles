@@ -163,6 +163,7 @@ main() {
     # Pane styling
     set pane-border-style "fg=$thm_hl_high"
     set pane-active-border-style "fg=$thm_gold"
+    set popup-border-style "fg=$thm_hl_high"
     set display-panes-active-colour "${thm_text}"
     set display-panes-colour "${thm_gold}"
 
