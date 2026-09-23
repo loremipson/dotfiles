@@ -2,50 +2,47 @@ gui:
   nerdFontsVersion: "3"
 
   theme:
-    # Kanso blue
     activeBorderColor:
-      - "#8ba4b0"
+      - blue
       - bold
 
-    # Kanso gray
     inactiveBorderColor:
-      - "#717c7c"
+      - default
 
-    # Kanso yellow
     searchingActiveBorderColor:
-      - "#e6c384"
+      - yellow
       - bold
 
     optionsTextColor:
-      - "#7fb4ca"
+      - blue
 
-    # Subtle Ink backgrounds rather than bright selection colors
+    # Uses the terminal's current fg/bg, so it works in both Ink and Pearl.
     selectedLineBgColor:
-      - "#1f1f26"
+      - reverse
 
     inactiveViewSelectedLineBgColor:
-      - "#22262d"
+      - bold
 
     cherryPickedCommitFgColor:
-      - "#938aa9"
+      - magenta
 
     cherryPickedCommitBgColor:
-      - "#223249"
+      - cyan
 
     markedBaseCommitFgColor:
-      - "#e6c384"
+      - yellow
 
     markedBaseCommitBgColor:
-      - "#49443c"
+      - yellow
 
     unstagedChangesColor:
-      - "#c4746e"
+      - red
 
     defaultFgColor:
-      - "#c5c9c7"
+      - default
 
 git:
   diffRenderers:
     - name: delta
-      command: delta --paging=never
+      command: delta-kanso --paging=never
       colorArg: always
