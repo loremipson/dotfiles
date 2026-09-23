@@ -222,8 +222,8 @@ function M.load()
       return
     end
   end
-  -- Fallback: kanso-ink on first run or if the saved name is gone.
-  pcall(vim.cmd.colorscheme, 'kanso-ink')
+  -- Fallback: kanso on first run or if the saved name is gone.
+  pcall(vim.cmd.colorscheme, 'kanso')
 end
 
 function M.pick()
