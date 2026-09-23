@@ -1,33 +1,17 @@
-# This is a demo config to showcase some of the most important commands.
-# It is meant to be changed and configured, as it is intentionally kept sparse.
-# For a (much) more advanced configuration example see my dotfiles:
-# https://github.com/FelixKratz/dotfiles
-
+source "$CONFIG_DIR/colors.sh"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 AEROSPACE="$(command -v aerospace 2>/dev/null || echo /opt/homebrew/bin/aerospace)"
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
-
 sketchybar --bar position=top height=30 blur_radius=30 color=0x00000000
-
-##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
 
 default=(
   padding_left=2
   padding_right=2
   icon.font="JetBrainsMono Nerd Font:Regular:13.0"
   label.font="JetBrainsMono Nerd Font:Regular:11.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  background.color=0xff14171d
+  icon.color="$FG"
+  label.color="$FG"
+  background.color="$BG"
   background.corner_radius=5
   background.height=24
   icon.padding_left=7
@@ -38,8 +22,13 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-# Register the custom event from AeroSpace
+# Register custom events
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event theme_changed AppleInterfaceThemeChangedNotification
+
+sketchybar --add item theme_listener left \
+  --set theme_listener drawing=off script="$PLUGIN_DIR/theme.sh" \
+  --subscribe theme_listener theme_changed
 
 ##### Adding Left Items #####
 # We add some regular items to the left side of the bar, where
@@ -66,9 +55,8 @@ for sid in $(seq 1 6); do
 done
 
 sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.5 space.6 \
-  --set workspaces background.color=0xff14171d \
+  --set workspaces background.color="$BG" \
     background.height=24
-
 
 # Trigger initial highlight for the currently focused workspace
 FOCUSED_INIT=$("$AEROSPACE" list-workspaces --focused 2>/dev/null)

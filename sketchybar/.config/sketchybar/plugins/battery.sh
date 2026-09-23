@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/colors.sh"
+
 BATTERY_INFO="$(pmset -g batt)"
 PERCENTAGE="$(echo "$BATTERY_INFO" | grep -Eo "[0-9]+%" | cut -d% -f1)"
 CHARGING="$(echo "$BATTERY_INFO" | grep -c 'AC Power')"
@@ -7,7 +9,7 @@ TIME_REMAINING="$(echo "$BATTERY_INFO" | grep -Eo '[0-9]+:[0-9]+' | head -1)"
 
 if [ "$CHARGING" -gt 0 ]; then
   ICON=""
-  COLOR=0xff98c379
+  COLOR="$GREEN"
 else
   case "$PERCENTAGE" in
     9[0-9]|100) ICON="" ;;
@@ -17,9 +19,9 @@ else
     *) ICON="" ;;
   esac
   if [ "$PERCENTAGE" -le 20 ]; then
-    COLOR=0xffe06c75
+    COLOR="$RED"
   else
-    COLOR=0xffffffff
+    COLOR="$FG"
   fi
 fi
 

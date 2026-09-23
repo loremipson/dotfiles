@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source "$CONFIG_DIR/colors.sh"
+
 # Some events send additional information specific to the event in the $INFO
 # variable. E.g. the front_app_switched event sends the name of the newly
 # focused application in the $INFO variable:
@@ -1836,5 +1838,5 @@ function __icon_map() {
 
 if [ "$SENDER" = "front_app_switched" ]; then
   __icon_map "$INFO"
-  sketchybar --set "$NAME" icon="$icon_result" icon.color=0xffe6c384 label="$INFO"
+  sketchybar --set "$NAME" icon="$icon_result" icon.color="$YELLOW" label="$INFO"
 fi

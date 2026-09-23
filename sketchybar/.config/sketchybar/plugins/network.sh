@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/colors.sh"
+
 WIFI_INTERFACE="$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}')"
 VPN_SERVICE="$(scutil --nc list 2>/dev/null | head -1 | sed -E 's/^\* \(.*\) [^"]*"([^"]+)".*/\1/')"
 
@@ -10,15 +12,15 @@ update() {
 
   if [ "$WIFI_STATUS" = "On" ] && [ -n "$SSID" ]; then
     ICON="󰖩"
-    COLOR=0xffffffff
+    COLOR="$FG"
   else
     ICON="󰖪"
-    COLOR=0x60ffffff
+    COLOR="$MUTED"
   fi
 
   if [ "$VPN_ACTIVE" -gt 0 ]; then
     ICON="󰦝"
-    COLOR=0xff98c379
+    COLOR="$BLUE"
   fi
 
   sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label.drawing=off
