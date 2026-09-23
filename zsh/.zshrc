@@ -4,6 +4,7 @@ eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 
 # PATH additions
+export PATH="$PATH:$HOME/.config/git"
 
 # Zsh options
 setopt no_beep              # Disable terminal bell

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark; then
+  export DELTA_FEATURES="kanso-ink"
+else
+  export DELTA_FEATURES="kanso-pearl"
+fi
+
+exec delta "$@"

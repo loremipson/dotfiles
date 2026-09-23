@@ -1,26 +1,32 @@
 [user]
 	email = tyler.ipson@gmail.com
 	name = Tyler Ipson
+
 [core]
   editor = nvim
-  pager = delta
+  pager = delta-kanso
+
 [init]
   defaultBranch = main
+
 [pull]
   rebase = true
+
 [rerere]
   enabled = true
+
 [merge]
   conflictStyle = zdiff3
+
 [interactive]
-  diffFilter = delta --color-only
+  diffFilter = delta-kanso --color-only
+
 [delta]
 	navigate = true
 	line-numbers = true
-  features = kanso
 
-[delta "kanso"]
-  dark = true
+[delta "kanso-ink"]
+	dark = true
 	syntax-theme = Kanso_Ink
 
 	minus-style = "syntax #2d1f24"
@@ -31,34 +37,35 @@
 
 	zero-style = syntax
 
-	# Kanso line numbers
 	line-numbers-minus-style = "#c4746e"
 	line-numbers-plus-style = "#8a9a7b"
 	line-numbers-zero-style = "#717c7c"
-
-	# Keep separators subdued
 	line-numbers-left-style = "#717c7c"
 	line-numbers-right-style = "#717c7c"
 
-	# Headers
 	file-style = "#7fb4ca bold"
 	file-decoration-style = "#7fb4ca ul"
 	hunk-header-style = "syntax #252535"
 
 [delta "kanso-pearl"]
-    light = true
-    syntax-theme = Kanso_Pearl
+	light = true
+	syntax-theme = Kanso_Pearl
 
-    zero-style = "syntax #F2F1EF"
+	zero-style = "syntax #F2F1EF"
 
-    minus-style = "syntax #F1DCDC"
-    minus-emph-style = "syntax #EABDBD"
+	minus-style = "syntax #F1DCDC"
+	minus-emph-style = "syntax #EABDBD"
 
-    plus-style = "syntax #E3E9DD"
-    plus-emph-style = "syntax #CBD9BF"
+	plus-style = "syntax #E3E9DD"
+	plus-emph-style = "syntax #CBD9BF"
 
-    hunk-header-style = "syntax #E2E1DF"
+	hunk-header-style = "syntax #E2E1DF"
 
-    line-numbers-minus-style = "#C84053"
-    line-numbers-plus-style = "#668A4C"
-    line-numbers-zero-style = "#A09F93"
+	line-numbers-minus-style = "#C84053"
+	line-numbers-plus-style = "#668A4C"
+	line-numbers-zero-style = "#A09F93"
+	line-numbers-left-style = "#A09F93"
+	line-numbers-right-style = "#A09F93"
+
+	file-style = "#4D699B bold"
+	file-decoration-style = "#4D699B ul"
