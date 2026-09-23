@@ -3,3 +3,5 @@ font-size = 13
 
 theme = light:Kanso_Pearl,dark:Kanso_Ink
 
+cursor-color = cell-foreground
+cursor-text = cell-background
