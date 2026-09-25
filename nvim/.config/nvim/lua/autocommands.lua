@@ -10,12 +10,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Open help in vertical split
 vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("help_vsplit", { clear = true }),
   pattern = "help",
   command = "wincmd L",
 })
 
 -- Auto resize splits when resizing nvim window
 vim.api.nvim_create_autocmd("VimResized", {
+  group = vim.api.nvim_create_augroup("resize_splits", { clear = true }),
   command = "wincmd =",
 })
 
