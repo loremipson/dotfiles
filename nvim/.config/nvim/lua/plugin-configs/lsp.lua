@@ -135,8 +135,6 @@ function M.setup()
       local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
       local bufnr = args.buf
       local keymap = vim.keymap
-      print('LSP attached: ' .. client.name .. ' to buffer ' .. bufnr)
-
       local opts = { noremap = true, silent = true, buffer = bufnr }
 
       opts.desc = 'Show LSP references'
