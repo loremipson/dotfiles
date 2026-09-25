@@ -75,7 +75,8 @@ end
 
 function M.setup()
   vim.lsp.config('*', {
-    capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), require('lsp-file-operations').default_capabilities()),
+    capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(),
+      require('lsp-file-operations').default_capabilities()),
   })
 
   vim.lsp.enable {
@@ -103,13 +104,16 @@ function M.setup()
     'oxlint',
   }
 
+  local icons = require('icons').diagnostics
+  local sev = vim.diagnostic.severity
+
   vim.diagnostic.config {
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = ' ',
-        [vim.diagnostic.severity.WARN] = ' ',
-        [vim.diagnostic.severity.HINT] = ' ',
-        [vim.diagnostic.severity.INFO] = ' ',
+        [sev.ERROR] = icons.ERROR,
+        [sev.WARN] = icons.WARN,
+        [sev.HINT] = icons.HINT,
+        [sev.INFO] = icons.INFO,
       },
     },
     virtual_text = {
