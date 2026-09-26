@@ -1,7 +1,3 @@
-[user]
-	email = tyler.ipson@gmail.com
-	name = Tyler Ipson
-
 [core]
   editor = nvim
   pager = delta-kanso
