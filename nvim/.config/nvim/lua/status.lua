@@ -109,6 +109,47 @@ local function apply()
   set('WinBarModified', { fg = hl('DiagnosticWarn').fg, bg = base.winbar_bg, italic = true })
 end
 
+local width = fn.strdisplaywidth
+local function file_segment(budget)
+  local name = api.nvim_buf_get_name(0)
+  if name == '' then
+    return '[No Name]'
+  end
+  local rel = fn.fnamemodify(name, ':~:.') -- relative to cwd, or ~
+  if width(rel) <= budget then
+    return rel
+  end
+  local short = fn.pathshorten(rel) -- src/plugins/nvim/statusline.lua -> s/p/n/statusline.lua
+  if width(short) <= budget then
+    return short
+  end
+  return fn.fnamemodify(name, ':t') -- just the filename
+end
+
+local lsp_helpers = {
+  emmet_language_server = true,
+  tailwindcss = true,
+  graphql = true,
+  oxlint = true,
+  eslint = true,
+  copilot = true,
+}
+
+local function lsp_segment()
+  local primary, helpers = {}, {}
+  for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    table.insert(lsp_helpers[c.name] and helpers or primary, c.name)
+  end
+  vim.list_extend(primary, helpers)
+
+  if #primary == 0 then
+    return nil
+  elseif #primary == 1 then
+    return primary[1]
+  end
+  return primary[1] .. ' +' .. (#primary - 1)
+end
+
 function _G.build_statusline()
   local parts = {}
   local function add(s)
@@ -145,21 +186,22 @@ function _G.build_statusline()
     add('%#StlDelete#-' .. deleted .. ' ')
   end
 
+  local win_w = api.nvim_win_get_width(vim.g.statusline_winid or 0)
+  local file_budget = math.floor(win_w * 0.35)
+
   -- Filename: italic and warning-colored when unsaved
-  add((vim.bo.modified and '%#StlModified#' or '%#StlFile#') .. ' %f ')
+  local file = file_segment(file_budget):gsub('%%', '%%%%')
+  add((vim.bo.modified and '%#StlModified#' or '%#StlFile#') .. ' %<' .. file .. ' ')
   if vim.bo.readonly or not vim.bo.modifiable then
     add('%#StlLock#' .. icons.ui.lock .. ' ')
   end
 
   add('%#StatusLine#%=')
 
-  -- Attached LSP clients
-  local clients = {}
-  for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-    clients[#clients + 1] = c.name
-  end
-  if #clients > 0 then
-    add('%#StlMuted#' .. icons.ui.lsp .. ' ' .. table.concat(clients, ', ') .. ' ')
+  -- LSP clients
+  local lsp = lsp_segment()
+  if lsp then
+    add('%#StlMuted#' .. icons.ui.lsp .. ' ' .. lsp .. ' ')
   end
 
   -- Diagnostics
