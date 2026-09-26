@@ -1,0 +1,6 @@
+[tools]
+node = "lts"
+pnpm = "latest"
+bun = "latest"
+deno = "latest"
+go = "latest"

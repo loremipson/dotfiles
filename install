@@ -38,6 +38,7 @@ stow_packages=(
   opencode
   workmux
   ripgrep
+  mise
 )
 
 # Check whether a stow package appears to already be stowed (at least one
@@ -86,7 +87,15 @@ if command -v bat >/dev/null 2>&1; then
 fi
 
 # ---------------------------------------------------------------------------
-# 4. Tmux plugins
+# 4. Language runtimes
+# ---------------------------------------------------------------------------
+if command -v mise >/dev/null 2>&1; then
+  info "Installing global language runtimes with mise..."
+  mise install -C "$HOME"
+fi
+
+# ---------------------------------------------------------------------------
+# 5. Tmux plugins
 # ---------------------------------------------------------------------------
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   info "Installing Tmux Plugin Manager..."
@@ -94,7 +103,7 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 5. Shell
+# 6. Shell
 # ---------------------------------------------------------------------------
 if [[ "$SHELL" != *"/zsh" ]]; then
   info "Changing default shell to zsh..."

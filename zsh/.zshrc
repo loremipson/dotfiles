@@ -2,6 +2,7 @@
 eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"

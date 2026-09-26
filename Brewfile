@@ -1,14 +1,9 @@
 tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
 
-brew "bun"
-brew "node@26"
-brew "deno"
-brew "go"
-brew "pnpm"
 brew "git"
-brew "lazygit"
 brew "git-delta"
+brew "lazygit"
 brew "opencode"
 brew "tmux"
 brew "workmux"
@@ -17,6 +12,7 @@ brew "sketchybar"
 brew "timewarrior"
 brew "tree-sitter-cli"
 brew "bitwarden-cli"
+brew "mise"
 
 brew "jq"
 brew "fzf"
