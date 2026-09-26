@@ -91,11 +91,11 @@ local plugins = {
       }
       local alreadyInstalled = require('nvim-treesitter.config').get_installed()
       local toInstall = vim
-        .iter(ensureInstalled)
-        :filter(function(p)
-          return not vim.tbl_contains(alreadyInstalled, p)
-        end)
-        :totable()
+          .iter(ensureInstalled)
+          :filter(function(p)
+            return not vim.tbl_contains(alreadyInstalled, p)
+          end)
+          :totable()
       require('nvim-treesitter').install(toInstall)
     end,
     config = function()
