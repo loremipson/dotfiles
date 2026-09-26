@@ -69,6 +69,8 @@ function M.setup()
           keys = {
             ['<a-a>'] = { 'opencode_send', mode = { 'n', 'i' } },
           },
+          -- works around snacks#2810 (cursor jumps left in live grep)
+          wo = { virtualedit = 'onemore' },
         },
       },
     },
