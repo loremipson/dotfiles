@@ -1,117 +1,332 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# ./install                      run every step
+# ./install stow bat             run only these steps
+# ./install stow git yazi        stow only these packages (package names go after "stow")
+# ./install bat stow git         steps can be combined; anything after "stow" is a package
+# ./install --backup stow git    move files that are in the way to a backup dir, then stow
 
-# Usage: ./install
+set -uo pipefail
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$script_dir"
 
-die() { echo "install: $*" >&2; exit 1; }
-info() { echo "==> $*"; }
+all_steps=(brew stow identity bat mise tpm shell)
 
-# ---------------------------------------------------------------------------
-# 1. Homebrew
-# ---------------------------------------------------------------------------
-if ! command -v brew >/dev/null 2>&1; then
-  info "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-info "Installing brew dependencies..."
-brew bundle --file="$script_dir/Brewfile"
-
-# ---------------------------------------------------------------------------
-# 2. Stow packages
-# ---------------------------------------------------------------------------
+# Edit to match the package folders in this repo. Missing ones are skipped with a warning.
 stow_packages=(
-  agents
   aerospace
-  tmux
-  sketchybar
-  ghostty
+  agents
   atuin
-  yazi
-  git
-  vicinae
-  zsh
   bat
-  opencode
-  workmux
-  ripgrep
+  ghostty
+  git
   mise
+  opencode
+  ripgrep
+  sketchybar
+  tmux
+  vicinae
+  workmux
+  yazi
+  zsh
 )
 
-# Check whether a stow package appears to already be stowed (at least one
-# expected symlink exists in home pointing back into this repo).
-is_stowed() {
-  local pkg="$1"
-  local pkg_file
-  while IFS= read -r pkg_file; do
-    local home_file="$HOME/${pkg_file#$pkg/}"
-    if [[ -L "$home_file" ]]; then
-      local target
-      target="$(readlink "$home_file")"
-      [[ "$target" == "$script_dir/"* ]] && return 0
-    fi
-  done < <(find "$pkg" -maxdepth 3 -type f | head -20)
-  return 1
-}
+# ---------------------------------------------------------------------------
+# Arguments
+# ---------------------------------------------------------------------------
+backup=false
+steps=()
+packages=()
 
-info "Stowing packages..."
-for pkg in "${stow_packages[@]}"; do
-  if [[ ! -d "$pkg" ]]; then
-    echo "  missing: $pkg" >&2
-    continue
-  fi
-
-  if is_stowed "$pkg"; then
-    stow --restow -t "$HOME" "$pkg"
-    echo "  restowed: $pkg"
-  else
-    if stow -t "$HOME" "$pkg" 2>/dev/null; then
-      echo "  stowed: $pkg"
-    else
-      echo "  conflict: $pkg" >&2
-      echo "           Run: stow --adopt -t \"$HOME\" $pkg   (moves your existing file into the repo)" >&2
-      echo "           Or:  rm ~/$(find "$pkg" -maxdepth 1 | head -1 | sed "s|^$pkg/||")   (if you don't need the existing file)" >&2
-    fi
-  fi
+while (($#)); do
+  case "$1" in
+    --backup) backup=true ;;
+    -h | --help) sed -n '2,12p' "$0"; exit 0 ;;
+    *)
+      if [[ " ${steps[*]-} " == *" stow "* ]]; then
+        packages+=("$1")
+      elif [[ " ${all_steps[*]} " == *" $1 "* ]]; then
+        steps+=("$1")
+      else
+        echo "Unknown step: $1 (steps: ${all_steps[*]})" >&2
+        exit 2
+      fi
+      ;;
+  esac
+  shift
 done
 
-# ---------------------------------------------------------------------------
-# 3. Bat cache
-# ---------------------------------------------------------------------------
-if command -v bat >/dev/null 2>&1; then
-  info "Building bat theme cache..."
-  bat cache --build
-fi
+((${#steps[@]})) || steps=("${all_steps[@]}")
+((${#packages[@]})) || packages=("${stow_packages[@]}")
 
 # ---------------------------------------------------------------------------
-# 4. Language runtimes
+# Logging and failure tracking
 # ---------------------------------------------------------------------------
-if command -v mise >/dev/null 2>&1; then
-  info "Installing global language runtimes with mise..."
+timestamp="$(date +%Y%m%d-%H%M%S)"
+log_dir="$HOME/.local/state/dotfiles"
+log_file="$log_dir/install-$timestamp.log"
+backup_dir="$HOME/.dotfiles-backup/$timestamp"
+fail_file="$(mktemp)"
+trap 'rm -f "$fail_file"' EXIT
+
+mkdir -p "$log_dir"
+exec > >(tee -a "$log_file") 2>&1
+
+export HOMEBREW_COLOR=1
+
+info() { printf '\n==> %s\n' "$*"; }
+ok() { printf '  ok: %s\n' "$*"; }
+warn() { printf '  warn: %s\n' "$*"; }
+
+# fail <what went wrong> <command to rerun> [detail lines...]
+fail() {
+  local what=$1 rerun=$2 d
+  shift 2
+  printf '  FAILED: %s\n' "$what"
+  for d in "$@"; do printf '%s\n' "$d" | sed 's/^/    /'; done
+  {
+    printf '  x %s\n' "$what"
+    for d in "$@"; do printf '%s\n' "$d" | sed 's/^/      /'; done
+    printf '      rerun: %s\n' "$rerun"
+  } >>"$fail_file"
+}
+
+count_failures() { grep -c '^  x ' "$fail_file" || true; }
+
+# Each step runs in a subshell with `set -e`, so a failure stops that step
+# but not the whole install. Steps report expected problems with `fail` and
+# keep going; any command that errors unexpectedly ends the step here.
+run_step() {
+  local name=$1 status
+  info "$name"
+  (
+    set -e
+    "step_$name"
+  )
+  status=$?
+  if ((status != 0)); then
+    fail "$name exited with status $status (details above)" "./install $name"
+  fi
+}
+
+load_brew() {
+  local b
+  for b in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [[ -x $b ]]; then
+      eval "$("$b" shellenv)"
+      return 0
+    fi
+  done
+}
+
+# ---------------------------------------------------------------------------
+# Steps
+# ---------------------------------------------------------------------------
+step_brew() {
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "  Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    load_brew
+  fi
+
+  if brew bundle check --file="$script_dir/Brewfile" >/dev/null 2>&1; then
+    ok "everything in the Brewfile is installed"
+  else
+    brew bundle install --file="$script_dir/Brewfile"
+  fi
+}
+
+# Print every path in $HOME that would block stowing a package: anything
+# already at a target location that isn't a link back into this repo.
+stow_conflicts() {
+  local pkg=$1 rel target
+  while IFS= read -r -d '' rel; do
+    rel=${rel#./}
+    target="$HOME/$rel"
+    [[ -e $target || -L $target ]] || continue
+    [[ "$(realpath "$target" 2>/dev/null)" == "$script_dir/$pkg/$rel" ]] && continue
+    printf '%s\n' "$target"
+  done < <(
+    cd "$pkg" &&
+      find . \( -name .git -o -name node_modules \) -prune -o \( -type f -o -type l \) \
+        ! -name .DS_Store ! -name .gitignore ! -name .gitmodules -print0
+  )
+}
+
+backup_file() {
+  local src=$1
+  local dest="$backup_dir/${src#"$HOME"/}"
+  mkdir -p "$(dirname "$dest")"
+  mv "$src" "$dest"
+  echo "  moved $src -> $dest"
+}
+
+step_stow() {
+  if ! command -v stow >/dev/null 2>&1; then
+    fail "stow is not installed" "./install brew stow"
+    return 0
+  fi
+
+  local pkg f out conflicts
+  for pkg in "${packages[@]}"; do
+    if [[ ! -d $pkg ]]; then
+      warn "$pkg: no such package folder in the repo, skipping"
+      continue
+    fi
+
+    conflicts=()
+    while IFS= read -r f; do conflicts+=("$f"); done < <(stow_conflicts "$pkg")
+
+    if ((${#conflicts[@]})); then
+      if $backup; then
+        for f in "${conflicts[@]}"; do backup_file "$f"; done
+      else
+        fail "stow $pkg: files already exist where links should go" \
+          "./install --backup stow $pkg" "${conflicts[@]}"
+        continue
+      fi
+    fi
+
+    if out="$(stow --restow -t "$HOME" "$pkg" 2>&1)"; then
+      ok "$pkg"
+    else
+      fail "stow $pkg" "./install stow $pkg" "$out"
+    fi
+  done
+}
+
+# Shared git settings are stowed to ~/.config/git/config. ~/.gitconfig is the
+# user's own file: git reads it after the XDG one, so anything in it wins.
+# It must exist, or `git config --global` writes into the stowed (repo) file.
+step_identity() {
+  local file="$HOME/.gitconfig" name email input
+
+  if [[ -L $file ]]; then
+    fail "$file is a symlink; it should be a regular file you own" "./install identity"
+    return 0
+  fi
+  if [[ ! -e $file ]]; then
+    touch "$file"
+    ok "created empty $file for your personal settings"
+  fi
+
+  name="$(git config --global user.name 2>/dev/null || true)"
+  email="$(git config --global user.email 2>/dev/null || true)"
+
+  if [[ -n $name && -n $email ]]; then
+    ok "git identity: $name <$email>"
+    return 0
+  fi
+
+  if [[ ! -t 0 ]]; then
+    fail "git name/email not set (no terminal to ask)" "./install identity"
+    return 0
+  fi
+
+  [[ -n $name ]] || name="$(id -F 2>/dev/null || true)"
+
+  read -r -p "  Git name [$name]: " input
+  name="${input:-$name}"
+  read -r -p "  Git email [$email]: " input
+  email="${input:-$email}"
+
+  if [[ -z $name || -z $email ]]; then
+    fail "git name and email are both required" "./install identity"
+    return 0
+  fi
+
+  git config --file "$file" user.name "$name"
+  git config --file "$file" user.email "$email"
+  ok "saved $name <$email> to $file"
+}
+
+step_bat() {
+  if ! command -v bat >/dev/null 2>&1; then
+    warn "bat is not installed, skipping"
+    return 0
+  fi
+
+  # Output is only shown on failure; otherwise it's just a note that there
+  # are no custom syntaxes, which is expected.
+  local out
+  if out="$(bat cache --build 2>&1)"; then
+    ok "rebuilt theme cache"
+  else
+    fail "bat cache --build" "./install bat" "$out"
+  fi
+}
+
+step_mise() {
+  if ! command -v mise >/dev/null 2>&1; then
+    fail "mise is not installed" "./install brew mise"
+    return 0
+  fi
+  if [[ ! -e $HOME/.config/mise/config.toml ]]; then
+    warn "no ~/.config/mise/config.toml, is the mise package stowed?"
+  fi
   mise install -C "$HOME"
-fi
+}
+
+# Clones TPM and installs the plugins listed in ~/.tmux.conf, so there's no
+# need to press prefix + I after a fresh install.
+step_tpm() {
+  local tpm_dir="$HOME/.tmux/plugins/tpm"
+
+  if ! command -v tmux >/dev/null 2>&1; then
+    fail "tmux is not installed" "./install brew tpm"
+    return 0
+  fi
+
+  if [[ -d $tpm_dir ]]; then
+    ok "TPM already installed"
+  else
+    git clone --depth 1 https://github.com/tmux-plugins/tpm "$tpm_dir"
+  fi
+
+  if [[ ! -e $HOME/.tmux.conf ]]; then
+    warn "no ~/.tmux.conf yet, is the tmux package stowed? skipping plugins"
+    return 0
+  fi
+
+  local out
+  if out="$("$tpm_dir/bin/install_plugins" 2>&1)"; then
+    ok "tmux plugins installed"
+  else
+    fail "tmux plugin install" "./install tpm" "$out"
+  fi
+}
+
+step_shell() {
+  local current
+  current="$(dscl . -read "/Users/$USER" UserShell 2>/dev/null | awk '{print $2}')"
+  if [[ $current == */zsh ]]; then
+    ok "login shell is already zsh"
+    return 0
+  fi
+  chsh -s "$(command -v zsh)"
+}
 
 # ---------------------------------------------------------------------------
-# 5. Tmux plugins
+# Main
 # ---------------------------------------------------------------------------
-if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
-  info "Installing Tmux Plugin Manager..."
-  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+load_brew
+echo "Logging to $log_file"
+
+for s in "${all_steps[@]}"; do
+  [[ " ${steps[*]} " == *" $s "* ]] || continue
+  run_step "$s"
+  [[ $s == brew ]] && load_brew
+done
+
+n=$(count_failures)
+if ((n == 0)); then
+  info "All done."
+  exit 0
 fi
 
-# ---------------------------------------------------------------------------
-# 6. Shell
-# ---------------------------------------------------------------------------
-if [[ "$SHELL" != *"/zsh" ]]; then
-  info "Changing default shell to zsh..."
-  chsh -s "$(which zsh)"
-fi
-
-info "Done."
-echo ""
-echo "Next steps:"
-echo "  - Restart your terminal or run: source ~/.zshrc"
-echo "  - Inside tmux, press prefix + I to install tmux plugins"
+info "Finished with $n problem(s):"
+cat "$fail_file"
+if $backup; then echo; echo "Anything moved out of the way is in $backup_dir"; fi
+echo
+echo "Full log: $log_file"
+exit 1
