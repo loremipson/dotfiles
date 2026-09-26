@@ -14,27 +14,27 @@ function M.setup()
       enabled = true,
       preset = {
         header = [[
-            █                                                █            
-             █    █                                         █   █         
-             ██    █                                  █    █   █          
-          █  █      █                █       █   █   █     █  █           
-           █ █    ██  █     █   █    █       █      █      ███            
-           ████   █    █████  █████   █     █    █  ██     ████           
-            ██ █  ██  ██     █     █  █     █   ██  ███   █ ██            
-            ██  █ ██  █████  █     █  ██   ██    █  ██ █ █  ██            
-            ██   ███  ██     █     █  ███ ███    █  ██ ███  ██            
-            ██    ██  ██   █ ██   ██   █████    ██  ██  █   ███           
-            ██     █  █████    ███      ███    ██  ████     ███           
-           ███     █    █  █  █          █    █     █       ███           
-          ██ ██     ██   █     █          █        █       ██  ██         
-         █     █     █                     █      █       █     █         
-        █       █     █                          █       █       █        
-         █       █                                      █         █       
+            █                                                █
+             █    █                                         █   █
+             ██    █                                  █    █   █
+          █  █      █                █       █   █   █     █  █
+           █ █    ██  █     █   █    █       █      █      ███
+           ████   █    █████  █████   █     █    █  ██     ████
+            ██ █  ██  ██     █     █  █     █   ██  ███   █ ██
+            ██  █ ██  █████  █     █  ██   ██    █  ██ █ █  ██
+            ██   ███  ██     █     █  ███ ███    █  ██ ███  ██
+            ██    ██  ██   █ ██   ██   █████    ██  ██  █   ███
+            ██     █  █████    ███      ███    ██  ████     ███
+           ███     █    █  █  █          █    █     █       ███
+          ██ ██     ██   █     █          █        █       ██  ██
+         █     █     █                     █      █       █     █
+        █       █     █                          █       █       █
+         █       █                                      █         █
           █                                            █         █         ]],
       },
       sections = {
         { section = 'header' },
-        { section = 'keys', gap = 1, padding = 1 },
+        { section = 'keys',   gap = 1, padding = 1 },
         { section = 'startup' },
       },
     },
@@ -57,7 +57,8 @@ function M.setup()
         ---@param picker snacks.Picker
         opencode_send = function(picker)
           local items = vim.tbl_map(function(item) ---@param item snacks.picker.Item
-            return item.file and require('opencode').format { path = item.file, from = item.pos, to = item.end_pos } or item.text
+            return item.file and require('opencode').format { path = item.file, from = item.pos, to = item.end_pos } or
+                item.text
           end, picker:selected { fallback = true })
 
           require('opencode').prompt(table.concat(items, ', ') .. ' ')
@@ -113,11 +114,11 @@ function M.setup()
                 end
 
                 local result = require('plenary.job')
-                  :new({
-                    command = 'node',
-                    args = { '-e', script },
-                  })
-                  :sync()
+                    :new({
+                      command = 'node',
+                      args = { '-e', script },
+                    })
+                    :sync()
 
                 if result then
                   for _, line in pairs(result) do
@@ -244,23 +245,24 @@ function M.setup()
       snacks.toggle.diagnostics():map '<leader>tD'
       snacks.toggle.line_number():map '<leader>tl'
       snacks.toggle
-        .option('conceallevel', {
-          off = 0,
-          on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
-        })
-        :map '<leader>tc'
+          .option('conceallevel', {
+            off = 0,
+            on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
+          })
+          :map '<leader>tc'
       snacks.toggle.treesitter():map '<leader>tT'
       snacks.toggle
-        .option('background', {
-          off = 'light',
-          on = 'dark',
-          name = 'Dark Background',
-        })
-        :map '<leader>tB'
+          .option('background', {
+            off = 'light',
+            on = 'dark',
+            name = 'Dark Background',
+          })
+          :map '<leader>tB'
       snacks.toggle.inlay_hints():map '<leader>th'
       snacks.toggle.indent():map '<leader>tg'
       snacks.toggle.dim():map '<leader>tm'
     end,
   })
 end
+
 return M
