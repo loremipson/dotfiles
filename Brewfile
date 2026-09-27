@@ -1,10 +1,11 @@
 tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
+tap "anomalyco/tap", trusted: true
 
 brew "git"
 brew "git-delta"
 brew "lazygit"
-brew "opencode"
+brew "opencode-v2"
 brew "tmux"
 brew "workmux"
 brew "neovim"

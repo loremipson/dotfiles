@@ -45,7 +45,7 @@ bindkey '^[[B' history-search-forward  # Down arrow searches history
 # Short aliases
 alias n='nvim'     # Neovim
 alias gg='lazygit' # Lazygit TUI
-alias oc='opencode --port' # OpenCode
+alias oc='opencode' # OpenCode
 
 # Remap aliases
 cat() {
