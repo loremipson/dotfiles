@@ -21,6 +21,7 @@ stow_packages=(
   ghostty
   git
   mise
+  nvim
   opencode
   ripgrep
   sketchybar
