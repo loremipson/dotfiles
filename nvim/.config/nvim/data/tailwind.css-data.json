@@ -1,0 +1,32 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Define theme variables that generate utilities."
+    },
+    {
+      "name": "@source",
+      "description": "Add or exclude sources Tailwind scans for class names."
+    },
+    { "name": "@utility", "description": "Register a custom utility." },
+    {
+      "name": "@variant",
+      "description": "Apply a Tailwind variant to styles in CSS."
+    },
+    { "name": "@custom-variant", "description": "Register a custom variant." },
+    {
+      "name": "@apply",
+      "description": "Inline existing utility classes into custom CSS."
+    },
+    {
+      "name": "@reference",
+      "description": "Import a stylesheet for reference without emitting its CSS."
+    },
+    {
+      "name": "@config",
+      "description": "Load a legacy JavaScript config file."
+    },
+    { "name": "@plugin", "description": "Load a legacy JavaScript plugin." }
+  ]
+}

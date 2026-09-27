@@ -1,3 +1,6 @@
+local tailwind_data = vim.fn.stdpath("config") .. "/data/tailwind.css-data.json"
+
+
 ---@type vim.lsp.Config
 return {
   cmd = function(dispatchers, config)
@@ -11,7 +14,13 @@ return {
     return vim.lsp.rpc.start({ cmd, '--stdio' }, dispatchers)
   end,
   filetypes = { 'css', 'scss', 'less' },
-  init_options = { provideFormatter = true },
+  on_init = function(client)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    client:notify("css/customDataChanged", { { vim.uri_from_fname(tailwind_data) } })
+  end,
+  init_options = {
+    provideFormatter = true
+  },
   root_markers = { 'package.json', '.git' },
   settings = {
     css = { validate = true },
