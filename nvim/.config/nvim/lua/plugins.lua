@@ -1,0 +1,342 @@
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Check if running inside VSCode/Cursor
+local is_vscode = vim.g.vscode ~= nil
+
+local plugins = {
+  {
+    'webhooked/kanso.nvim',
+    cond = not is_vscode,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('plugin-configs.colorscheme').setup()
+    end,
+  },
+  {
+    'metalelf0/black-metal-theme-neovim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'AvengeMedia/base46',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'casedami/neomodern.nvim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'loctvl842/monokai-pro.nvim',
+    cond = not is_vscode,
+    lazy = true,
+  },
+  {
+    'nvim-tree/nvim-web-devicons',
+    cond = not is_vscode,
+    opts = {},
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    build = ':TSUpdate',
+    lazy = false,
+    init = function()
+      local ensureInstalled = {
+        'vim',
+        'vimdoc',
+        'bash',
+        'make',
+        'html',
+        'javascript',
+        'typescript',
+        'tsx',
+        'vue',
+        'svelte',
+        'astro',
+        'css',
+        'scss',
+        'json',
+        'regex',
+        'comment',
+        'prisma',
+        'sql',
+        'graphql',
+        'yaml',
+        'markdown',
+        'markdown_inline',
+        'latex',
+        'typst',
+        'lua',
+        'rust',
+        'python',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
+        'gotmpl',
+      }
+      local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+      local toInstall = vim
+          .iter(ensureInstalled)
+          :filter(function(p)
+            return not vim.tbl_contains(alreadyInstalled, p)
+          end)
+          :totable()
+      require('nvim-treesitter').install(toInstall)
+    end,
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+    end,
+  },
+  {
+    'kevinhwang91/nvim-hlslens',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' }, -- or lazy = false if you want it live at startup
+    config = function()
+      require('plugin-configs.nvim-hlslens').setup()
+    end,
+  },
+  {
+    'rachartier/tiny-code-action.nvim',
+    cond = not is_vscode,
+    event = 'LspAttach',
+    dependencies = {
+      'folke/snacks.nvim',
+    },
+    config = function()
+      require('plugin-configs.tiny-code-action').setup()
+    end,
+  },
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    cond = not is_vscode,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('plugin-configs.tiny-inline-diagnostic').setup()
+    end,
+  },
+  {
+    'mikavilpas/yazi.nvim',
+    version = '*',
+    event = 'VeryLazy',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', lazy = true },
+    },
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.yazi').setup()
+    end,
+  },
+  {
+    'williamboman/mason.nvim',
+    cond = not is_vscode,
+    dependencies = {
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    },
+    config = function()
+      require('plugin-configs.mason').setup()
+    end,
+  },
+  { 'b0o/schemastore.nvim' },
+  {
+    'L3MON4D3/LuaSnip',
+    version = 'v2.*',
+    build = 'make install_jsregexp',
+  },
+  {
+    'saghen/blink.cmp',
+    cond = not is_vscode,
+    version = 'v0.*',
+    dependencies = {
+      'rafamadriz/friendly-snippets', -- VSCode-style snippets for JS/TS/React/HTML etc.
+      'L3MON4D3/LuaSnip',
+    },
+    config = function()
+      require('plugin-configs.blink-cmp').setup()
+    end,
+  },
+  {
+    name = 'lsp-setup',
+    dir = vim.fn.stdpath 'config',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'saghen/blink.cmp',
+      { 'antosha417/nvim-lsp-file-operations', config = true },
+    },
+    config = function()
+      require('plugin-configs.lsp').setup()
+    end,
+  },
+  { 'JoosepAlviste/nvim-ts-context-commentstring', cond = not is_vscode },
+  {
+    'numToStr/Navigator.nvim',
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.navigator').setup()
+    end,
+  },
+  {
+    'stevearc/conform.nvim',
+    cond = not is_vscode,
+    cmd = 'ConformInfo',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.conform').setup()
+    end,
+  },
+  {
+    'kylechui/nvim-surround',
+    version = '*',
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-surround').setup()
+    end,
+  },
+  {
+    'martindur/zdiff.nvim',
+    cond = not is_vscode,
+    cmd = 'Zdiff',
+    keys = {
+      {
+        '<leader>zd',
+        function()
+          require('zdiff').open()
+        end,
+        desc = 'Zdiff (uncommitted)',
+      },
+      {
+        '<leader>zD',
+        function()
+          require('zdiff').open 'main'
+        end,
+        desc = 'Zdiff (vs main)',
+      },
+    },
+    config = function()
+      require('plugin-configs.zdiff').setup()
+    end,
+  },
+  {
+    'lewis6991/gitsigns.nvim',
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.git-signs').setup()
+    end,
+  },
+  {
+    'NickvanDyke/opencode.nvim',
+    version = '*',
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.opencode').setup()
+    end,
+  },
+  {
+    'dmmulroy/ts-error-translator.nvim',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.ts-error-translator').setup()
+    end,
+  },
+  {
+    'MaximilianLloyd/tw-values.nvim',
+    cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.tw-values').setup()
+    end,
+  },
+  {
+    'nvim-mini/mini.icons',
+    cond = not is_vscode,
+    lazy = false,
+    priority = 999,
+    config = function()
+      require('plugin-configs.mini').icons()
+    end,
+  },
+  {
+    'nvim-mini/mini.ai',
+    cond = not is_vscode,
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.mini').ai()
+    end,
+  },
+  {
+    'nvim-mini/mini.pairs',
+    cond = not is_vscode,
+    event = 'InsertEnter',
+    config = function()
+      require('plugin-configs.mini').pairs()
+    end,
+  },
+  {
+    'nvim-mini/mini.jump',
+    cond = not is_vscode,
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.mini').jump()
+    end,
+  },
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    cond = not is_vscode,
+  },
+  {
+    'folke/trouble.nvim',
+    cond = not is_vscode,
+    config = function()
+      require('plugin-configs.trouble').setup()
+    end,
+  },
+  {
+    'folke/snacks.nvim',
+    cond = not is_vscode,
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require('plugin-configs.snacks').setup()
+    end,
+  },
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('plugin-configs.which-key').setup()
+    end,
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^9',
+    lazy = false, -- plugin lazy-loads itself via ftplugin
+    cond = not is_vscode,
+    init = function()
+      require('plugin-configs.rustaceanvim').setup()
+    end,
+  },
+}
+
+require('lazy').setup(plugins)

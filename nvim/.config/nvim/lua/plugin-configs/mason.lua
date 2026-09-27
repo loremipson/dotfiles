@@ -1,0 +1,52 @@
+local M = {}
+
+function M.setup()
+  require('mason').setup {
+    ui = {
+      icons = {
+        package_installed = '✓',
+        package_pending = '➜',
+        package_uninstalled = '✗',
+      },
+    },
+  }
+  require('mason-tool-installer').setup {
+    ensure_installed = {
+      'prettier',
+      'rustywind',
+      'markdownlint',
+      'codelldb',
+      'goimports',
+      'staticcheck',
+    },
+  }
+  require('mason-lspconfig').setup {
+    automatic_enable = false,
+    ensure_installed = {
+      'oxlint',
+      'biome',
+      'eslint',
+      'vtsls',
+      'docker_compose_language_service',
+      'dockerls',
+      'graphql',
+      'html',
+      'jsonls',
+      'tailwindcss',
+      'lua_ls',
+      'prismals',
+      'yamlls',
+      'vue_ls',
+      'astro',
+      'svelte',
+      'cssls',
+      'emmet_language_server',
+      'pyright',
+      'ruff',
+      'gopls',
+    },
+    automatic_installation = true,
+  }
+end
+
+return M
