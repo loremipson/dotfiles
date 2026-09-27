@@ -245,7 +245,6 @@ local plugins = {
   },
   {
     'NickvanDyke/opencode.nvim',
-    version = '*',
     cond = not is_vscode,
     config = function()
       require('plugin-configs.opencode').setup()
