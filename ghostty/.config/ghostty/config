@@ -3,5 +3,7 @@ font-size = 13
 
 theme = light:Kanso_Pearl,dark:Kanso_Ink
 
+macos-titlebar-style = hidden
+
 cursor-color = cell-foreground
 cursor-text = cell-background
