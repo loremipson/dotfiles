@@ -110,12 +110,28 @@ local function apply()
 end
 
 local width = fn.strdisplaywidth
-local function file_segment(budget)
-  local name = api.nvim_buf_get_name(0)
+
+local function shorten_middle(text, budget)
+  if width(text) <= budget then
+    return text
+  end
+
+  local marker = '...'
+  local available = budget - width(marker)
+  if available < 2 then
+    return marker
+  end
+
+  local chars = fn.strchars(text)
+  local prefix_len = math.min(4, math.floor(available / 2))
+  local suffix_len = available - prefix_len
+  return fn.strcharpart(text, 0, prefix_len) .. marker .. fn.strcharpart(text, chars - suffix_len, suffix_len)
+end
+
+local function file_segment(name, rel, budget)
   if name == '' then
     return '[No Name]'
   end
-  local rel = fn.fnamemodify(name, ':~:.') -- relative to cwd, or ~
   if width(rel) <= budget then
     return rel
   end
@@ -156,8 +172,64 @@ function _G.build_statusline()
     parts[#parts + 1] = s
   end
 
-  -- Mode pill
   local m = current_mode()
+  local win_w = api.nvim_win_get_width(vim.g.statusline_winid or 0)
+  local branch = vim.b.gitsigns_head or ''
+  local status = vim.b.gitsigns_status or ''
+  local added = status:match '%+(%d+)'
+  local changed = status:match '~(%d+)'
+  local deleted = status:match '%-(%d+)'
+  local name = api.nvim_buf_get_name(0)
+  local rel = name == '' and '[No Name]' or fn.fnamemodify(name, ':~:.')
+  local locked = vim.bo.readonly or not vim.bo.modifiable
+  local lsp = lsp_segment()
+  local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+  local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+
+  local fixed_width = width(' ' .. m[1] .. '  ') + 2
+  if recording ~= '' then
+    fixed_width = fixed_width + width('● @' .. recording .. ' ')
+  end
+  if branch ~= '' then
+    fixed_width = fixed_width + width(icons.git.branch .. '  ')
+  end
+  if added then
+    fixed_width = fixed_width + width('+' .. added .. ' ')
+  end
+  if changed then
+    fixed_width = fixed_width + width('~' .. changed .. ' ')
+  end
+  if deleted then
+    fixed_width = fixed_width + width('-' .. deleted .. ' ')
+  end
+  if locked then
+    fixed_width = fixed_width + width(icons.ui.lock .. ' ')
+  end
+  if lsp then
+    fixed_width = fixed_width + width(icons.ui.lsp .. ' ' .. lsp .. ' ')
+  end
+  if errors > 0 then
+    fixed_width = fixed_width + width(icons.diagnostics.ERROR .. ' ' .. errors .. ' ')
+  end
+  if warnings > 0 then
+    fixed_width = fixed_width + width(icons.diagnostics.WARN .. ' ' .. warnings .. ' ')
+  end
+  fixed_width = fixed_width + width(' ' .. fn.line('.') .. ':' .. fn.col('.') .. '  100% ')
+
+  local content_budget = math.max(1, win_w - fixed_width)
+  local branch_budget = 0
+  local file_budget = content_budget
+  if branch ~= '' then
+    branch_budget = math.min(width(branch), math.max(8, math.floor(content_budget * 0.4)))
+    branch_budget = math.min(branch_budget, math.max(3, content_budget - 1))
+    file_budget = math.max(1, content_budget - branch_budget)
+    if width(rel) < file_budget then
+      file_budget = width(rel)
+      branch_budget = content_budget - file_budget
+    end
+  end
+
+  -- Mode pill
   add('%#StlMode# ' .. m[1] .. ' %#StatusLine# ')
 
   -- Macro recording
@@ -166,16 +238,12 @@ function _G.build_statusline()
   end
 
   -- Branch name (escape % so it isn't read as a format item)
-  local branch = vim.b.gitsigns_head or ''
   if branch ~= '' then
-    add('%#StlBranch#' .. icons.git.branch .. ' ' .. branch:gsub('%%', '%%%%') .. ' ')
+    branch = shorten_middle(branch, branch_budget):gsub('%%', '%%%%')
+    add('%@v:lua.statusline_details@%#StlBranch#' .. icons.git.branch .. ' ' .. branch .. '%X ')
   end
 
   -- Git diff: only emit non-zero counts
-  local status = vim.b.gitsigns_status or ''
-  local added = status:match '%+(%d+)'
-  local changed = status:match '~(%d+)'
-  local deleted = status:match '%-(%d+)'
   if added then
     add('%#StlAdd#+' .. added .. ' ')
   end
@@ -186,27 +254,21 @@ function _G.build_statusline()
     add('%#StlDelete#-' .. deleted .. ' ')
   end
 
-  local win_w = api.nvim_win_get_width(vim.g.statusline_winid or 0)
-  local file_budget = math.floor(win_w * 0.35)
-
   -- Filename: italic and warning-colored when unsaved
-  local file = file_segment(file_budget):gsub('%%', '%%%%')
+  local file = file_segment(name, rel, file_budget):gsub('%%', '%%%%')
   add((vim.bo.modified and '%#StlModified#' or '%#StlFile#') .. ' %<' .. file .. ' ')
-  if vim.bo.readonly or not vim.bo.modifiable then
+  if locked then
     add('%#StlLock#' .. icons.ui.lock .. ' ')
   end
 
   add('%#StatusLine#%=')
 
   -- LSP clients
-  local lsp = lsp_segment()
   if lsp then
     add('%#StlMuted#' .. icons.ui.lsp .. ' ' .. lsp .. ' ')
   end
 
   -- Diagnostics
-  local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-  local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
   if errors > 0 then
     add('%#StlError#' .. icons.diagnostics.ERROR .. ' ' .. errors .. ' ')
   end
@@ -218,6 +280,10 @@ function _G.build_statusline()
   add('%#StlMuted# %l:%c  %P ')
 
   return table.concat(parts)
+end
+
+function _G.statusline_details()
+  require('ui.status_info').open()
 end
 
 -- Autocmds
