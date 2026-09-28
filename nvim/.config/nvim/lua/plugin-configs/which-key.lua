@@ -87,6 +87,7 @@ function M.setup()
     { '<leader>u',  group = 'Utilities' },
     { '<leader>un', desc = 'Dismiss notifications' },
     { '<leader>ub', desc = 'Notification history' },
+    { '<leader>us', desc = 'Show status details' },
 
     { '<leader>o',  group = 'Opencode' },
     { '<leader>oa', desc = 'Ask opencode' },

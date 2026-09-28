@@ -6,3 +6,7 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set('ca', 'w', function()
   return (vim.fn.getcmdtype() == ':' and vim.fn.getcmdline() == 'w') and 'silent write' or 'w'
 end, { expr = true })
+
+vim.keymap.set('n', '<leader>us', function()
+  require('ui.status_info').open()
+end, { desc = 'Show status details', silent = true })
