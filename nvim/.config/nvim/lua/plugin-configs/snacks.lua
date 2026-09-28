@@ -8,7 +8,6 @@ function M.setup()
         enabled = true,
       },
     },
-    lazygit = { enabled = true },
     scroll = { enabled = true },
     dashboard = {
       enabled = true,
@@ -53,6 +52,12 @@ function M.setup()
     },
     picker = {
       enabled = true,
+      sources = {
+        grep = {
+          hidden = true,
+          ignored = false,
+        },
+      },
       actions = {
         ---@param picker snacks.Picker
         opencode_send = function(picker)
@@ -156,18 +161,6 @@ function M.setup()
   vim.keymap.set('n', '<leader>un', function()
     snacks.notifier.hide()
   end, { desc = 'Dismiss all notifications' })
-
-  vim.keymap.set('n', '<leader>gf', function()
-    snacks.lazygit.log_file()
-  end, { desc = 'Lazygit current file history' })
-
-  vim.keymap.set('n', '<leader>gg', function()
-    snacks.lazygit()
-  end, { desc = 'Lazygit' })
-
-  vim.keymap.set('n', '<leader>gl', function()
-    snacks.lazygit.log()
-  end, { desc = 'Lazygit log (cmd)' })
 
   vim.keymap.set('n', ']]', function()
     snacks.words.jump(vim.v.count1)

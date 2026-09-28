@@ -33,7 +33,7 @@ function M.setup()
   }
 
   wk.add {
-    { '<leader>f', group = 'Find' },
+    { '<leader>f',  group = 'Find' },
     { '<leader>ff', desc = 'Find files' },
     { '<leader>fg', desc = 'Live grep' },
     { '<leader>fb', desc = 'Find buffers' },
@@ -47,24 +47,19 @@ function M.setup()
     { '<leader>fw', desc = 'Search word under cursor' },
     { '<leader>fy', desc = 'Registers' },
 
-    { '<leader>l', group = 'LSP' },
+    { '<leader>l',  group = 'LSP' },
     { '<leader>la', desc = 'Code actions' },
     { '<leader>ln', desc = 'Rename symbol' },
     { '<leader>lr', desc = 'Restart LSP' },
     { '<leader>lt', desc = 'Show Tailwind CSS values' },
 
-    { '<leader>x', group = 'Diagnostics' },
+    { '<leader>x',  group = 'Diagnostics' },
     { '<leader>xx', desc = 'Toggle diagnostics' },
     { '<leader>xd', desc = 'Buffer diagnostics' },
     { '<leader>xq', desc = 'Quickfix list' },
     { '<leader>xl', desc = 'Location list' },
 
-    { '<leader>g', group = 'Git' },
-    { '<leader>gg', desc = 'LazyGit' },
-    { '<leader>gf', desc = 'File history' },
-    { '<leader>gl', desc = 'Git log' },
-
-    { '<leader>h', group = 'Git Hunks' },
+    { '<leader>h',  group = 'Git Hunks' },
     { '<leader>hs', desc = 'Stage hunk' },
     { '<leader>hr', desc = 'Reset hunk' },
     { '<leader>hu', desc = 'Undo stage' },
@@ -74,7 +69,7 @@ function M.setup()
     { '<leader>hd', desc = 'Diff this' },
     { '<leader>hD', desc = 'Diff against last commit' },
 
-    { '<leader>t', group = 'Toggle' },
+    { '<leader>t',  group = 'Toggle' },
     { '<leader>tb', desc = 'Toggle blame' },
     { '<leader>td', desc = 'Toggle deleted' },
     { '<leader>ts', desc = 'Toggle spelling' },
@@ -89,40 +84,40 @@ function M.setup()
     { '<leader>tg', desc = 'Toggle indent guides' },
     { '<leader>tm', desc = 'Toggle dim' },
 
-    { '<leader>u', group = 'Utilities' },
+    { '<leader>u',  group = 'Utilities' },
     { '<leader>un', desc = 'Dismiss notifications' },
     { '<leader>ub', desc = 'Notification history' },
 
-    { '<leader>o', group = 'Opencode' },
+    { '<leader>o',  group = 'Opencode' },
     { '<leader>oa', desc = 'Ask opencode' },
     { '<leader>ox', desc = 'Execute opencode action' },
     { '<leader>ou', desc = 'Opencode scroll up' },
     { '<leader>od', desc = 'Opencode scroll down' },
 
-    { '<leader>F', desc = 'Format' },
-    { '<leader>L', desc = 'Trigger linting' },
-    { '<leader>S', desc = 'Select scratch buffer' },
-    { '<leader>d', desc = 'Show diagnostic' },
-    { '<leader>.', desc = 'Scratch buffer' },
+    { '<leader>F',  desc = 'Format' },
+    { '<leader>L',  desc = 'Trigger linting' },
+    { '<leader>S',  desc = 'Select scratch buffer' },
+    { '<leader>d',  desc = 'Show diagnostic' },
+    { '<leader>.',  desc = 'Scratch buffer' },
 
-    { 'g', group = 'Go to' },
-    { 'gR', desc = 'Show references' },
-    { 'gD', desc = 'Go to declaration' },
-    { 'gd', desc = 'Show definitions' },
-    { 'gi', desc = 'Show implementations' },
-    { 'gt', desc = 'Show type definitions' },
-    { 'go', desc = 'Add range to opencode' },
-    { 'goo', desc = 'Add line to opencode' },
+    { 'g',          group = 'Go to' },
+    { 'gR',         desc = 'Show references' },
+    { 'gD',         desc = 'Go to declaration' },
+    { 'gd',         desc = 'Show definitions' },
+    { 'gi',         desc = 'Show implementations' },
+    { 'gt',         desc = 'Show type definitions' },
+    { 'go',         desc = 'Add range to opencode' },
+    { 'goo',        desc = 'Add line to opencode' },
 
-    { ']', group = 'Next' },
-    { ']d', desc = 'Next diagnostic' },
-    { ']]', desc = 'Next reference' },
+    { ']',          group = 'Next' },
+    { ']d',         desc = 'Next diagnostic' },
+    { ']]',         desc = 'Next reference' },
 
-    { '[', group = 'Previous' },
-    { '[d', desc = 'Previous diagnostic' },
-    { '[[', desc = 'Previous reference' },
+    { '[',          group = 'Previous' },
+    { '[d',         desc = 'Previous diagnostic' },
+    { '[[',         desc = 'Previous reference' },
 
-    { 'K', desc = 'Hover documentation' },
+    { 'K',          desc = 'Hover documentation' },
   }
 end
 

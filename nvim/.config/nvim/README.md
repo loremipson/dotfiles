@@ -30,7 +30,6 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - Neovim 0.12+
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
 - `node` in `$PATH` (for TypeScript scratch buffer runner)
-- `lazygit` in `$PATH` (optional, for git UI)
 - `git` in `$PATH` (for zdiff.nvim diff review)
 
 ## Features
@@ -43,7 +42,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - AI support via OpenCode (chat/agent)
 - Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
 - Linting via lsp
-- Git signs, Lazygit, and git log via Snacks
+- Git signs
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
 - Diagnostics via tiny-inline-diagnostic.nvim, with Trouble.nvim for quickfix-style overview
@@ -102,13 +101,10 @@ The picker live-previews each theme against your current buffer as you browse. Y
 
 ### Git
 
-| Key          | Action               |
-| ------------ | -------------------- |
-| `<leader>gg` | Lazygit              |
-| `<leader>gl` | Lazygit log          |
-| `<leader>gf` | Lazygit file history |
-| `<leader>zd` | Zdiff (uncommitted)  |
-| `<leader>zD` | Zdiff (vs main)      |
+| Key          | Action              |
+| ------------ | ------------------- |
+| `<leader>zd` | Zdiff (uncommitted) |
+| `<leader>zD` | Zdiff (vs main)     |
 
 ### Toggles
 
