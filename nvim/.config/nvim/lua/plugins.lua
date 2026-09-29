@@ -296,9 +296,12 @@ local plugins = {
     end,
   },
   {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    'nvim-mini/mini.hipatterns',
     cond = not is_vscode,
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('plugin-configs.mini').hipatterns()
+    end,
   },
   {
     'folke/trouble.nvim',

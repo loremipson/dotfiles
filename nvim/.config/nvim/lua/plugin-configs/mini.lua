@@ -17,6 +17,30 @@ function M.jump()
   require('mini.jump').setup()
 end
 
+function M.hipatterns()
+  local hipatterns = require 'mini.hipatterns'
+  local keyword_patterns = function(keywords)
+    return vim.tbl_map(function(keyword)
+      return '%f[%w]()' .. keyword .. '()%f[%W]'
+    end, keywords)
+  end
+
+  hipatterns.setup {
+    highlighters = {
+      fixme = {
+        pattern = keyword_patterns { 'FIX', 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
+        group = 'MiniHipatternsFixme',
+      },
+      hack = { pattern = keyword_patterns { 'HACK' }, group = 'MiniHipatternsHack' },
+      todo = { pattern = keyword_patterns { 'TODO' }, group = 'MiniHipatternsTodo' },
+      note = { pattern = keyword_patterns { 'NOTE', 'INFO', 'HINT' }, group = 'MiniHipatternsNote' },
+      warn = { pattern = keyword_patterns { 'WARN', 'WARNING', 'XXX' }, group = 'DiagnosticWarn' },
+      perf = { pattern = keyword_patterns { 'PERF', 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' }, group = 'DiagnosticInfo' },
+      test = { pattern = keyword_patterns { 'TEST', 'TESTING', 'PASSED', 'FAILED' }, group = 'DiagnosticHint' },
+    },
+  }
+end
+
 function M.surround()
   require('mini.surround').setup {
     mappings = {
