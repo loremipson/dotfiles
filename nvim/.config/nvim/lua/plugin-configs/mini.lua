@@ -17,6 +17,21 @@ function M.jump()
   require('mini.jump').setup()
 end
 
+function M.surround()
+  require('mini.surround').setup {
+    mappings = {
+      add = 'ys',
+      delete = 'ds',
+      replace = 'cs',
+    },
+    search_method = 'cover_or_next',
+  }
+
+  vim.keymap.del('x', 'ys')
+  vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+  vim.keymap.set('n', 'yss', 'ys_', { remap = true })
+end
+
 function M.snippets()
   local snippets = require 'mini.snippets'
   local snippets_by_language = {}

@@ -40,8 +40,8 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - LSP via native lsp + Mason (auto-installs servers)
 - Autocompletion via mini.completion and mini.snippets+friendly snippets
 - AI support via OpenCode (chat/agent)
-- Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
-- Linting via lsp
+- Formatting via Conform — Auto supports oxfmt -> Prettier -> Stylua
+- Linting via lsp — Auto supports oxlint -> biome -> eslint
 - Git signs
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
@@ -49,10 +49,23 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - Code actions via tiny-code-action.nvim with snacks.picker integration
 - TypeScript error translation via ts-error-translator
 - TailwindCSS value inspection via tw-values
-- Surround motions via nvim-surround
-- Editing helpers via mini.nvim — ai (textobjects), pairs (auto-pairs), jump (enhanced f/t motions), icons (devicon provider)
+- Editing helpers via mini.nvim
+  - ai (textobjects)
+  - pairs (auto-pairs)
+  - jump (enhanced f/t motions)
+  - icons (devicon provider)
+  - surround (surround motions, using nvim-surround shortcuts)
 - Search match highlighting via nvim-hlslens
-- Snacks.nvim — picker, notifier, input, indent guides, scroll, statuscolumn, scratch buffers, words, toggles
+- Snacks.nvim
+  - picker
+  - notifier
+  - input
+  - indent guides
+  - scroll
+  - statuscolumn
+  - scratch buffers
+  - words
+  - toggles
 - Theme picker with live preview (`<leader>cs`)
 - Yazi support with netrw fallback
 - Rust + Dioxus support via rustacean, rustfmt, and dxfmt

@@ -202,11 +202,10 @@ local plugins = {
     end,
   },
   {
-    'kylechui/nvim-surround',
-    version = '*',
+    'nvim-mini/mini.surround',
     event = 'VeryLazy',
     config = function()
-      require('nvim-surround').setup()
+      require('plugin-configs.mini').surround()
     end,
   },
   {
