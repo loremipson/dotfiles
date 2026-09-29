@@ -102,20 +102,10 @@ local plugins = {
     end,
   },
   {
-    'kevinhwang91/nvim-hlslens',
-    cond = not is_vscode,
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('plugin-configs.nvim-hlslens').setup()
-    end,
-  },
-  {
     'rachartier/tiny-code-action.nvim',
     cond = not is_vscode,
     event = 'LspAttach',
-    dependencies = {
-      'folke/snacks.nvim',
-    },
+    dependencies = { 'folke/snacks.nvim' },
     config = function()
       require('plugin-configs.tiny-code-action').setup()
     end,
@@ -127,18 +117,6 @@ local plugins = {
     priority = 1000,
     config = function()
       require('plugin-configs.tiny-inline-diagnostic').setup()
-    end,
-  },
-  {
-    'mikavilpas/yazi.nvim',
-    version = '*',
-    event = 'VeryLazy',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', lazy = true },
-    },
-    cond = not is_vscode,
-    config = function()
-      require('plugin-configs.yazi').setup()
     end,
   },
   {
@@ -195,6 +173,14 @@ local plugins = {
     event = 'VeryLazy',
     config = function()
       require('plugin-configs.mini').surround()
+    end,
+  },
+  {
+    'nvim-mini/mini.files',
+    cond = not is_vscode,
+    lazy = false,
+    config = function()
+      require('plugin-configs.mini').files()
     end,
   },
   {

@@ -9,4 +9,5 @@ return {
       return name:match '^%.graphqlrc' ~= nil or name:match '^%.graphql%.config%.' ~= nil or name:match '^graphql%.config%.' ~= nil
     end))
   end,
+  workspace_required = true,
 }

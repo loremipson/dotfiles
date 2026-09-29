@@ -61,19 +61,30 @@ local function install_bounded_finder()
       diagnostics = get_line_diagnostics(opts.bufnr),
       triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
     }, opts.context or {})
+    local optional_clients = { oxlint = true }
     local pending = #clients
+    local required_pending = 0
+    for _, client in ipairs(clients) do
+      if not optional_clients[client.name] or #clients == 1 then
+        required_pending = required_pending + 1
+      end
+    end
     local requests = {}
     local results = {}
     local finished = false
     local finish_scheduled = false
 
-    local function finish()
+    local function finish(timed_out)
       if finished then
         return
       end
       finished = true
 
+      local pending_clients = {}
       for _, request in pairs(requests) do
+        if not request.optional then
+          pending_clients[#pending_clients + 1] = request.client.name
+        end
         request.client:cancel_request(request.id)
       end
 
@@ -82,6 +93,11 @@ local function install_bounded_finder()
       elseif config.notify and config.notify.enabled and config.notify.on_empty then
         vim.notify('No code actions found.', vim.log.levels.INFO)
       end
+
+      if timed_out and #pending_clients > 0 then
+        table.sort(pending_clients)
+        vim.notify('Code actions timed out: ' .. table.concat(pending_clients, ', '), vim.log.levels.WARN)
+      end
     end
 
     local function schedule_finish()
@@ -89,10 +105,19 @@ local function install_bounded_finder()
         return
       end
       finish_scheduled = true
-      vim.defer_fn(finish, config.request_grace or 150)
+      vim.defer_fn(finish, config.optional_grace or 50)
+    end
+
+    local function complete_request()
+      if pending == 0 then
+        finish()
+      elseif required_pending == 0 then
+        schedule_finish()
+      end
     end
 
     for _, client in ipairs(clients) do
+      local optional = optional_clients[client.name] and #clients > 1
       local responded = false
       local success, request_id = client:request('textDocument/codeAction', make_params(opts, client, context), function(err, actions)
         responded = true
@@ -102,30 +127,32 @@ local function install_bounded_finder()
         end
 
         pending = pending - 1
+        if not optional then
+          required_pending = required_pending - 1
+        end
         if not err then
           for _, action in ipairs(actions or {}) do
             results[#results + 1] = { client = client, action = action, context = context }
           end
         end
 
-        if pending == 0 then
-          finish()
-        elseif #results > 0 then
-          schedule_finish()
-        end
+        complete_request()
       end, opts.bufnr)
 
       if success and request_id and not responded then
-        requests[client.id] = { client = client, id = request_id }
+        requests[client.id] = { client = client, id = request_id, optional = optional }
       elseif not responded then
         pending = pending - 1
-        if pending == 0 then
-          finish()
+        if not optional then
+          required_pending = required_pending - 1
         end
+        complete_request()
       end
     end
 
-    vim.defer_fn(finish, config.request_timeout or 3000)
+    vim.defer_fn(function()
+      finish(true)
+    end, config.request_timeout or 1000)
   end
 end
 
@@ -134,7 +161,7 @@ function M.setup()
   require('tiny-code-action').setup {
     backend = 'vim',
     picker = 'snacks',
-    request_grace = 150,
+    optional_grace = 50,
     request_timeout = 1000,
   }
 end

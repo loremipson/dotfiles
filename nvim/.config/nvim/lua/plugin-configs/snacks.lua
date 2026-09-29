@@ -120,17 +120,12 @@ function M.setup()
                   script = script .. line .. '\n'
                 end
 
-                local result = require('plenary.job')
-                    :new({
-                      command = 'node',
-                      args = { '-e', script },
-                    })
-                    :sync()
+                local result = vim.system({ 'node', '-e', script }, { text = true }):wait()
 
-                if result then
-                  for _, line in pairs(result) do
-                    local line_number, output = line:match '%[eval%]:(%d+): (.*)'
-                    -- Subtract the lines of the injected script.
+                for _, line in ipairs(vim.split(result.stdout or '', '\n', { trimempty = true })) do
+                  local line_number, output = line:match '%[eval%]:(%d+): (.*)'
+                  if line_number then
+                    -- Account for the injected logging wrapper above.
                     vim.api.nvim_buf_set_extmark(0, namespace, line_number - 21, 0, {
                       virt_text = { { output, 'Comment' } },
                     })

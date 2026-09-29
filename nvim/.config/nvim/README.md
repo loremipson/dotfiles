@@ -46,7 +46,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
 - Diagnostics via tiny-inline-diagnostic.nvim, with Snacks picker overviews
-- Code actions via tiny-code-action.nvim with snacks.picker integration
+- Code actions via tiny-code-action.nvim with Snacks picker integration
 - TypeScript error translation via ts-error-translator
 - TailwindCSS value inspection via tw-values
 - Editing helpers via mini.nvim
@@ -56,7 +56,8 @@ git clone git@github.com:loremipson/nvim.git ~/.config
   - icons (devicon provider)
   - surround (surround motions, using nvim-surround shortcuts)
   - clue (keybinding hints)
-- Search match highlighting via nvim-hlslens
+  - files (file explorer and filesystem editing)
+- Native search highlighting with statusline counts
 - Snacks.nvim
   - picker
   - notifier
@@ -68,7 +69,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
   - words
   - toggles
 - Theme picker with live preview (`<leader>cs`)
-- Yazi support with netrw fallback
+- Mini Files explorer (`-`)
 - Rust + Dioxus support via rustacean, rustfmt, and dxfmt
 - Python support via pyright, and ruff
 - Go support via gopls, and staticcheck

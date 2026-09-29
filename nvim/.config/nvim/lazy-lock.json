@@ -12,6 +12,7 @@
   "mini.ai": { "branch": "main", "commit": "6c39ae7b11abe479fbe1bc81bf00ac6bca7afa07" },
   "mini.clue": { "branch": "main", "commit": "1c136d62729c8c3b0c2d91379bc37efac15d916e" },
   "mini.completion": { "branch": "main", "commit": "15fb3542b11f23b20e126c873111297f41d740e5" },
+  "mini.files": { "branch": "main", "commit": "f1cfece89892274f4f4a59d71f24eb90dcfe1b5a" },
   "mini.hipatterns": { "branch": "main", "commit": "7c840c71d6a91f53d734cab2b6fe2290d285ec3b" },
   "mini.icons": { "branch": "main", "commit": "f642e3ba8c12afbc8f32f6d77ef6597eac56786f" },
   "mini.jump": { "branch": "main", "commit": "6a1688315d69e4f8428d529e194714447b0d4e82" },
@@ -19,12 +20,10 @@
   "mini.surround": { "branch": "main", "commit": "33a2ebe5df8eb4751828fcba133e18ed0fbbdfab" },
   "monokai-pro.nvim": { "branch": "master", "commit": "a68e38b8e55d69a215d0f02598900a79c356da9d" },
   "neomodern.nvim": { "branch": "main", "commit": "d41469578922a23d75a0d9e8deef1e34837230a6" },
-  "nvim-hlslens": { "branch": "main", "commit": "be2d7b2be01860b5445a007ff2bc72b29896db6b" },
   "nvim-lsp-file-operations": { "branch": "master", "commit": "b1168a921c1648143ae5bb02dc0c1462240caeba" },
   "nvim-treesitter": { "branch": "main", "commit": "728e031f6b11d03d1f0708b7dc4fb0f1d9c8a137" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "6141a40173c6efa98242dc951ed4b6f892c97027" },
   "opencode.nvim": { "branch": "main", "commit": "06770e2e3618b82703e3e7af1f2d5dc67bde0002" },
-  "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "rustaceanvim": { "branch": "main", "commit": "9cb125de42c0256ed1bc1f9ded8d8f0381317a17" },
   "schemastore.nvim": { "branch": "main", "commit": "b5d7de0d5be19ff7c1df71fa4ad1ea63ba1d2ea6" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
@@ -32,6 +31,5 @@
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "6264451f14119d63a52580e5198d6baf8518b0b2" },
   "ts-error-translator.nvim": { "branch": "main", "commit": "558abff11b9e8f4cefc0de09df780c56841c7a4b" },
   "tw-values.nvim": { "branch": "main", "commit": "7afb3f5770431cbd870edf406be3cbbe74b27415" },
-  "yazi.nvim": { "branch": "main", "commit": "d8bd4cc258fdbe2bad71a383d390a96c80ecb628" },
   "zdiff.nvim": { "branch": "main", "commit": "6e2a105d7cc138b25e2907589ad2c5251e608424" }
 }

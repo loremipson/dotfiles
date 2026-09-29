@@ -48,6 +48,7 @@ local TINT = 0.18
 
 local base = {}      -- colors captured from the colorscheme before we modify them
 local recording = '' -- register currently being recorded to
+local search_generation = 0
 
 local function hl(name)
   return api.nvim_get_hl(0, { name = name, link = false })
@@ -166,6 +167,24 @@ local function lsp_segment()
   return primary[1] .. ' +' .. (#primary - 1)
 end
 
+local function search_segment()
+  if vim.v.hlsearch == 0 then
+    return nil
+  end
+
+  local result = fn.searchcount { recompute = 0 }
+  if not result.current or result.total == 0 then
+    return nil
+  end
+  if result.incomplete == 1 then
+    return '?/??'
+  end
+
+  local current = result.current > result.maxcount and '>' .. result.maxcount or result.current
+  local total = result.total > result.maxcount and '>' .. result.maxcount or result.total
+  return current .. '/' .. total
+end
+
 function _G.build_statusline()
   local parts = {}
   local function add(s)
@@ -183,6 +202,7 @@ function _G.build_statusline()
   local rel = name == '' and '[No Name]' or fn.fnamemodify(name, ':~:.')
   local locked = vim.bo.readonly or not vim.bo.modifiable
   local lsp = lsp_segment()
+  local search = search_segment()
   local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
   local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 
@@ -207,6 +227,9 @@ function _G.build_statusline()
   end
   if lsp then
     fixed_width = fixed_width + width(icons.ui.lsp .. ' ' .. lsp .. ' ')
+  end
+  if search then
+    fixed_width = fixed_width + width('[' .. search .. '] ')
   end
   if errors > 0 then
     fixed_width = fixed_width + width(icons.diagnostics.ERROR .. ' ' .. errors .. ' ')
@@ -262,6 +285,10 @@ function _G.build_statusline()
   end
 
   add('%#StatusLine#%=')
+
+  if search then
+    add('%#StlMuted#[' .. search .. '] ')
+  end
 
   -- LSP clients
   if lsp then
@@ -330,6 +357,22 @@ api.nvim_create_autocmd({ 'LspAttach', 'LspDetach' }, {
     vim.schedule(function()
       vim.cmd.redrawstatus()
     end)
+  end,
+})
+
+api.nvim_create_autocmd('CursorMoved', {
+  group = group,
+  callback = function()
+    search_generation = search_generation + 1
+    local generation = search_generation
+
+    vim.defer_fn(function()
+      if generation ~= search_generation or vim.v.hlsearch == 0 then
+        return
+      end
+      fn.searchcount { recompute = true, timeout = 50 }
+      vim.cmd.redrawstatus()
+    end, 25)
   end,
 })
 

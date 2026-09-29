@@ -17,6 +17,19 @@ function M.jump()
   require('mini.jump').setup()
 end
 
+function M.files()
+  require('mini.files').setup()
+
+  vim.keymap.set('n', '-', function()
+    if MiniFiles.close() then
+      return
+    end
+
+    local path = vim.api.nvim_buf_get_name(0)
+    MiniFiles.open(path ~= '' and path or nil)
+  end, { desc = 'Toggle file explorer' })
+end
+
 function M.hipatterns()
   local hipatterns = require 'mini.hipatterns'
   local keyword_patterns = function(keywords)
