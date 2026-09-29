@@ -43,10 +43,7 @@ function M.setup()
         [sev.INFO] = icons.INFO,
       },
     },
-    virtual_text = {
-      prefix = '●',
-      source = 'if_many',
-    },
+    virtual_text = false,
     underline = true,
     update_in_insert = false,
     severity_sort = true,
