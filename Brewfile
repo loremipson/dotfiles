@@ -30,8 +30,8 @@ brew "zoxide"
 
 brew "starship"
 brew "zsh-autosuggestions"
-brew "zsh-syntax-highlighting"
 brew "zsh-system-clipboard"
+brew "zsh-patina"
 
 cask "aerospace"
 cask "ghostty"

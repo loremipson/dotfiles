@@ -3,6 +3,7 @@ eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
+eval "$($(brew --prefix)/bin/zsh-patina activate)"
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
@@ -68,16 +69,12 @@ find() {
 }
 
 # Plugins
-if [[ -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-	source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -r "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
-if [[ -r "/opt/homebrew/share/zsh-system-clipboard/zsh-system-clipboard.zsh" ]]; then
-	source "/opt/homebrew/share/zsh-system-clipboard/zsh-system-clipboard.zsh"
-fi
-
-if [[ -r "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-	source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -r "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh" ]]; then
+  source "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh"
 fi
 
 # Local overrides - machine-specific settings not checked into git
