@@ -72,6 +72,14 @@ function M.completion()
     },
   }
 
+  vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('user_mini_completion', { clear = true }),
+    pattern = 'snacks_picker_input',
+    callback = function(args)
+      vim.b[args.buf].minicompletion_disable = true
+    end,
+  })
+
   vim.keymap.set('i', '<CR>', function()
     local completion = vim.fn.complete_info()
     if completion.pum_visible == 1 then
