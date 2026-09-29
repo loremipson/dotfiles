@@ -221,6 +221,22 @@ function M.setup()
     snacks.picker.command_history()
   end, { desc = 'Command history' })
 
+  vim.keymap.set('n', '<leader>xx', function()
+    snacks.picker.diagnostics()
+  end, { desc = 'Diagnostics' })
+
+  vim.keymap.set('n', '<leader>xd', function()
+    snacks.picker.diagnostics_buffer()
+  end, { desc = 'Buffer diagnostics' })
+
+  vim.keymap.set('n', '<leader>xq', function()
+    snacks.picker.qflist()
+  end, { desc = 'Quickfix list' })
+
+  vim.keymap.set('n', '<leader>xl', function()
+    snacks.picker.loclist()
+  end, { desc = 'Location list' })
+
   vim.api.nvim_create_autocmd('User', {
     pattern = 'VeryLazy',
     callback = function()

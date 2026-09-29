@@ -41,6 +41,48 @@ function M.hipatterns()
   }
 end
 
+function M.clue()
+  local clue = require 'mini.clue'
+
+  clue.setup {
+    triggers = {
+      { mode = { 'n', 'x' }, keys = '<Leader>' },
+      { mode = 'n',          keys = '[' },
+      { mode = 'n',          keys = ']' },
+      { mode = { 'n', 'x' }, keys = 'g' },
+    },
+    clues = {
+      clue.gen_clues.square_brackets(),
+      clue.gen_clues.g(),
+      { mode = 'n', keys = '<Leader>f', desc = '+Find' },
+      { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
+      { mode = 'n', keys = '<Leader>x', desc = '+Diagnostics' },
+      { mode = 'n', keys = '<Leader>h', desc = '+Git Hunks' },
+      { mode = 'n', keys = '<Leader>t', desc = '+Toggle' },
+      { mode = 'n', keys = '<Leader>u', desc = '+Utilities' },
+      { mode = 'n', keys = '<Leader>o', desc = '+OpenCode' },
+      { mode = 'n', keys = '<Leader>r', desc = '+Rust' },
+      { mode = 'n', keys = '<Leader>z', desc = '+Diff' },
+    },
+    window = {
+      delay = 300,
+      config = {
+        border = 'rounded',
+        width = 'auto',
+      },
+    },
+  }
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('user_mini_clue', { clear = true }),
+    callback = function(args)
+      vim.schedule(function()
+        clue.ensure_buf_triggers(args.buf)
+      end)
+    end,
+  })
+end
+
 function M.surround()
   require('mini.surround').setup {
     mappings = {
@@ -54,44 +96,6 @@ function M.surround()
   vim.keymap.del('x', 'ys')
   vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
   vim.keymap.set('n', 'yss', 'ys_', { remap = true })
-end
-
-function M.snippets()
-  local snippets = require 'mini.snippets'
-  local snippets_by_language = {}
-
-  for _, manifest_path in ipairs(vim.api.nvim_get_runtime_file('package.json', true)) do
-    local ok, manifest = pcall(function()
-      return vim.json.decode(table.concat(vim.fn.readfile(manifest_path), '\n'))
-    end)
-
-    if ok and manifest.name == 'friendly-snippets' then
-      local root = vim.fs.dirname(manifest_path)
-      for _, entry in ipairs(manifest.contributes.snippets) do
-        local languages = type(entry.language) == 'table' and entry.language or { entry.language }
-        for _, language in ipairs(languages) do
-          snippets_by_language[language] = snippets_by_language[language] or {}
-          table.insert(snippets_by_language[language], vim.fs.joinpath(root, entry.path))
-        end
-      end
-      break
-    end
-  end
-
-  snippets.setup {
-    snippets = {
-      function(context)
-        local filetype = vim.bo[context.buf_id].filetype
-        return vim.tbl_map(snippets.read_file, snippets_by_language[filetype] or {})
-      end,
-    },
-    mappings = {
-      jump_next = '<Tab>',
-      jump_prev = '<S-Tab>',
-    },
-  }
-
-  snippets.start_lsp_server { match = false }
 end
 
 function M.completion()

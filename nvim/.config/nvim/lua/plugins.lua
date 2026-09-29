@@ -154,20 +154,9 @@ local plugins = {
   },
   { 'b0o/schemastore.nvim' },
   {
-    'nvim-mini/mini.snippets',
-    cond = not is_vscode,
-    dependencies = { 'rafamadriz/friendly-snippets' },
-    config = function()
-      require('plugin-configs.mini').snippets()
-    end,
-  },
-  {
     'nvim-mini/mini.completion',
     cond = not is_vscode,
-    dependencies = {
-      'nvim-mini/mini.icons',
-      'nvim-mini/mini.snippets',
-    },
+    dependencies = { 'nvim-mini/mini.icons' },
     config = function()
       require('plugin-configs.mini').completion()
     end,
@@ -304,10 +293,11 @@ local plugins = {
     end,
   },
   {
-    'folke/trouble.nvim',
+    'nvim-mini/mini.clue',
     cond = not is_vscode,
+    event = 'VeryLazy',
     config = function()
-      require('plugin-configs.trouble').setup()
+      require('plugin-configs.mini').clue()
     end,
   },
   {
@@ -317,13 +307,6 @@ local plugins = {
     lazy = false,
     config = function()
       require('plugin-configs.snacks').setup()
-    end,
-  },
-  {
-    'folke/which-key.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('plugin-configs.which-key').setup()
     end,
   },
   {

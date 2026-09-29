@@ -9,7 +9,7 @@ A minimal, efficient, opinionated Neovim configuration targeting frontend develo
 
   <img width="3024" height="1891" alt="SCR-20260321-klhp-2" src="https://github.com/user-attachments/assets/a403c9db-0e7d-49bf-ada7-1b3f12b9f743" />
 
-### Blink cmp
+### Completion
 
   <img width="1512" height="328" alt="SCR-20260321-klxi" src="https://github.com/user-attachments/assets/827d862b-c86a-49e8-94fa-d0db04cf022f" />
 
@@ -38,14 +38,14 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - TypeScript, React, Node, Lua, Astro, Vue, TailwindCSS
 - Lazy plugin loading via lazy.nvim
 - LSP via native lsp + Mason (auto-installs servers)
-- Autocompletion via mini.completion and mini.snippets+friendly snippets
+- Autocompletion via mini.completion and native LSP snippets
 - AI support via OpenCode (chat/agent)
 - Formatting via Conform — Auto supports oxfmt -> Prettier -> Stylua
 - Linting via lsp — Auto supports oxlint -> biome -> eslint
 - Git signs
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
-- Diagnostics via tiny-inline-diagnostic.nvim, with Trouble.nvim for quickfix-style overview
+- Diagnostics via tiny-inline-diagnostic.nvim, with Snacks picker overviews
 - Code actions via tiny-code-action.nvim with snacks.picker integration
 - TypeScript error translation via ts-error-translator
 - TailwindCSS value inspection via tw-values
@@ -55,6 +55,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
   - jump (enhanced f/t motions)
   - icons (devicon provider)
   - surround (surround motions, using nvim-surround shortcuts)
+  - clue (keybinding hints)
 - Search match highlighting via nvim-hlslens
 - Snacks.nvim
   - picker

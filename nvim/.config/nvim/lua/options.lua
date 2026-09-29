@@ -38,7 +38,7 @@ local options = {
   undofile = true,                       -- persist undo across sessions
   autoread = true,                       -- auto reload a file if it changes on disk outside of nvim
   inccommand = 'split',                  -- show substitutions as you type before you hit enter
-  timeoutlen = 300,                      -- make which-key feel snappier
+  timeoutlen = 300,                      -- mapped-key sequence timeout
 
   completeopt = 'menu,menuone,noselect', -- better completion for menus
   pumheight = 10,                        -- max number of entries in the completion menus

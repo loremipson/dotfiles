@@ -65,6 +65,7 @@ local function install_bounded_finder()
     local requests = {}
     local results = {}
     local finished = false
+    local finish_scheduled = false
 
     local function finish()
       if finished then
@@ -81,6 +82,14 @@ local function install_bounded_finder()
       elseif config.notify and config.notify.enabled and config.notify.on_empty then
         vim.notify('No code actions found.', vim.log.levels.INFO)
       end
+    end
+
+    local function schedule_finish()
+      if finish_scheduled then
+        return
+      end
+      finish_scheduled = true
+      vim.defer_fn(finish, config.request_grace or 150)
     end
 
     for _, client in ipairs(clients) do
@@ -101,6 +110,8 @@ local function install_bounded_finder()
 
         if pending == 0 then
           finish()
+        elseif #results > 0 then
+          schedule_finish()
         end
       end, opts.bufnr)
 
@@ -123,7 +134,8 @@ function M.setup()
   require('tiny-code-action').setup {
     backend = 'vim',
     picker = 'snacks',
-    request_timeout = 3000,
+    request_grace = 150,
+    request_timeout = 1000,
   }
 end
 
