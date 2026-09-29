@@ -45,11 +45,6 @@ local plugins = {
     lazy = true,
   },
   {
-    'nvim-tree/nvim-web-devicons',
-    cond = not is_vscode,
-    opts = {},
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     build = ':TSUpdate',
@@ -109,7 +104,7 @@ local plugins = {
   {
     'kevinhwang91/nvim-hlslens',
     cond = not is_vscode,
-    event = { 'BufReadPre', 'BufNewFile' }, -- or lazy = false if you want it live at startup
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('plugin-configs.nvim-hlslens').setup()
     end,
@@ -168,7 +163,7 @@ local plugins = {
     cond = not is_vscode,
     version = 'v0.*',
     dependencies = {
-      'rafamadriz/friendly-snippets', -- VSCode-style snippets for JS/TS/React/HTML etc.
+      'rafamadriz/friendly-snippets',
       'L3MON4D3/LuaSnip',
     },
     config = function()
