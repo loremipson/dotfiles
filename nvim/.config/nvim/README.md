@@ -38,7 +38,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - TypeScript, React, Node, Lua, Astro, Vue, TailwindCSS
 - Lazy plugin loading via lazy.nvim
 - LSP via native lsp + Mason (auto-installs servers)
-- Autocompletion via blink.cmp with LuaSnip + friendly-snippets
+- Autocompletion via mini.completion and mini.snippets+friendly snippets
 - AI support via OpenCode (chat/agent)
 - Formatting via Conform — oxlint/oxfmt, Biome, ESLint, Prettier, Stylua
 - Linting via lsp

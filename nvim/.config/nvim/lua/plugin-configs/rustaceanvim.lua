@@ -9,7 +9,7 @@ function M.setup()
 
   vim.g.rustaceanvim = {
     server = {
-      capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(), require('lsp-file-operations').default_capabilities()),
+      capabilities = vim.tbl_deep_extend('force', require('mini.completion').get_lsp_capabilities(), require('lsp-file-operations').default_capabilities()),
 
       on_attach = function(_, bufnr)
         -- Shared keymaps (gd, gR, K, diagnostics, <leader>ln, <leader>lr, etc.)

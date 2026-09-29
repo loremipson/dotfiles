@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   vim.lsp.config('*', {
-    capabilities = vim.tbl_deep_extend('force', require('blink.cmp').get_lsp_capabilities(),
+    capabilities = vim.tbl_deep_extend('force', require('mini.completion').get_lsp_capabilities(),
       require('lsp-file-operations').default_capabilities()),
   })
 

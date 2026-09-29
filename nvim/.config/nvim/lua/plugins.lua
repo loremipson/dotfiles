@@ -154,20 +154,22 @@ local plugins = {
   },
   { 'b0o/schemastore.nvim' },
   {
-    'L3MON4D3/LuaSnip',
-    version = 'v2.*',
-    build = 'make install_jsregexp',
+    'nvim-mini/mini.snippets',
+    cond = not is_vscode,
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    config = function()
+      require('plugin-configs.mini').snippets()
+    end,
   },
   {
-    'saghen/blink.cmp',
+    'nvim-mini/mini.completion',
     cond = not is_vscode,
-    version = 'v0.*',
     dependencies = {
-      'rafamadriz/friendly-snippets',
-      'L3MON4D3/LuaSnip',
+      'nvim-mini/mini.icons',
+      'nvim-mini/mini.snippets',
     },
     config = function()
-      require('plugin-configs.blink-cmp').setup()
+      require('plugin-configs.mini').completion()
     end,
   },
   {
@@ -175,7 +177,7 @@ local plugins = {
     dir = vim.fn.stdpath 'config',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'saghen/blink.cmp',
+      'nvim-mini/mini.completion',
       { 'antosha417/nvim-lsp-file-operations', config = true },
     },
     config = function()
