@@ -3,10 +3,10 @@ local c = vim.fn.nr2char
 local M = {}
 
 M.diagnostics = {
-  ERROR = c(0xea87),
-  WARN = c(0xea6c),
-  INFO = c(0xea74),
-  HINT = c(0xea61),
+  ERROR = c(0xf057),
+  WARN = c(0xf06a),
+  INFO = c(0xf05a),
+  HINT = c(0xf059),
 }
 
 M.git = {
