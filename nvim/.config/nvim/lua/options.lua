@@ -48,6 +48,11 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+
 vim.opt.shortmess:append 'W'           -- don't show "written" when saving
 vim.opt.shortmess:append 'F'           -- don't show file info when opening a file
 vim.opt.shortmess:append 'c'           -- don't show completion menu messages
