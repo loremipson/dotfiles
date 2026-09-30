@@ -1,15 +1,13 @@
-# Initializers
-eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(mise activate zsh)"
-eval "$($(brew --prefix)/bin/zsh-patina activate)"
-eval "$(deja init zsh)"
+# Environment
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export DEJA_CYCLE_KEY="^N"
+export DEJA_ACCEPT_KEY="^I"
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
 
-# Zsh options
+# Shell behavior
 setopt no_beep              # Disable terminal bell
 setopt extended_glob        # Enable extended globbing (**, ~(foo|bar), etc.)
 setopt auto_pushd           # cd pushes old dir onto the directory stack
@@ -25,31 +23,23 @@ setopt hist_find_no_dups    # Don't show duplicates when searching history
 setopt hist_reduce_blanks   # Remove superfluous blanks from history entries
 setopt prompt_subst         # Enable command substitution in prompt strings
 
-# History configuration
-HISTSIZE=5000              # Max number of commands in memory
-HISTFILE="$HOME/.zsh_history"  # History file location
-SAVEHIST=$HISTSIZE         # Max lines saved to history file
-HISTDUP=erase              # Remove duplicates when loading history
+HISTSIZE=5000
+HISTFILE="$HOME/.zsh_history"
+SAVEHIST=$HISTSIZE
 
-# Completion system
-autoload -Uz compinit       # Load completion system on demand (fast startup)
-compinit                    # Initialize completion
+# Completion and keymaps
+autoload -Uz compinit
+compinit
 
-# Vi mode - vi-style keybindings for command line editing
-set -o vi                   # Enable vi mode
-bindkey -v                  # Load vi keymap
+bindkey -v # vi mode
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
 
-# Keybindings
-bindkey '^I' expand-or-complete        # Tab to complete
-bindkey '^[[A' history-search-backward # Up arrow searches history
-bindkey '^[[B' history-search-forward  # Down arrow searches history
-
-# Short aliases
-alias n='nvim'     # Neovim
-alias gg='lazygit' # Lazygit TUI
+# Commands
+alias n='nvim'      # Neovim
+alias gg='lazygit'  # Lazygit TUI
 alias oc='opencode' # OpenCode
 
-# Remap aliases
 cat() {
   bat "$@"
 }
@@ -69,24 +59,21 @@ find() {
   fd "$@"
 }
 
-# Plugins
-if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
-  source "$HOME/.local/share/deja/init.zsh"
-fi
+# Integrations
+eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
+eval "$($(brew --prefix)/bin/zsh-patina activate)"
 
 if [[ -r "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh" ]]; then
   source "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh"
 fi
 
+# Initialize deja and starship last
+eval "$(deja init zsh)"
+eval "$(starship init zsh)"
+
 # Local overrides - machine-specific settings not checked into git
 if [[ -r "$HOME/.zshrc.local" ]]; then
-	source "$HOME/.zshrc.local"
+  source "$HOME/.zshrc.local"
 fi
-
-export DEJA_CYCLE_KEY=^N
-export DEJA_ACCEPT_KEY=^I
-
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# Keep CLI application config under ~/.config
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
