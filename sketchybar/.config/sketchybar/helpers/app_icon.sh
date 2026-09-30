@@ -82,21 +82,39 @@ if [ ! -s "$cache" ] || [ "$font" -nt "$cache" ]; then
   }
 fi
 
-awk -F '\t' -v app="$1" '
-  $1 == "exact" && $2 == app {
-    print $3
-    found = 1
-    exit
-  }
-  $1 == "exact" && $2 == "Default" {
-    default_icon = $3
-  }
-  $1 == "prefix" && prefix_icon == "" && index(app, $2) == 1 {
-    prefix_icon = $3
-  }
-  END {
-    if (!found) {
-      print (prefix_icon != "" ? prefix_icon : default_icon)
+emit_app_names() {
+  if [ "$#" -gt 0 ]; then
+    printf '%s\n' "$@"
+  else
+    cat
+  fi
+}
+
+emit_app_names "$@" | awk -F '\t' '
+  NR == FNR {
+    if ($1 == "exact" && !($2 in exact_icons)) {
+      exact_icons[$2] = $3
+    } else if ($1 == "prefix") {
+      prefix_count++
+      prefix_names[prefix_count] = $2
+      prefix_icons[prefix_count] = $3
     }
+    next
   }
-' "$cache"
+
+  $0 != "" {
+    if ($0 in exact_icons) {
+      print exact_icons[$0]
+      next
+    }
+
+    for (i = 1; i <= prefix_count; i++) {
+      if (index($0, prefix_names[i]) == 1) {
+        print prefix_icons[i]
+        next
+      }
+    }
+
+    print exact_icons["Default"]
+  }
+' "$cache" -
