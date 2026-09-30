@@ -1,6 +1,7 @@
 tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
 tap "anomalyco/tap", trusted: true
+tap "Giammarco-Ferranti/deja", trusted: true
 
 brew "git"
 brew "git-delta"
@@ -29,9 +30,9 @@ brew "yazi"
 brew "zoxide"
 
 brew "starship"
-brew "zsh-autosuggestions"
 brew "zsh-system-clipboard"
 brew "zsh-patina"
+brew "deja"
 
 cask "aerospace"
 cask "ghostty"

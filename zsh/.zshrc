@@ -4,6 +4,7 @@ eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(mise activate zsh)"
 eval "$($(brew --prefix)/bin/zsh-patina activate)"
+eval "$(deja init zsh)"
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
@@ -69,8 +70,8 @@ find() {
 }
 
 # Plugins
-if [[ -r "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
+  source "$HOME/.local/share/deja/init.zsh"
 fi
 
 if [[ -r "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh" ]]; then
@@ -81,6 +82,9 @@ fi
 if [[ -r "$HOME/.zshrc.local" ]]; then
 	source "$HOME/.zshrc.local"
 fi
+
+export DEJA_CYCLE_KEY=^N
+export DEJA_ACCEPT_KEY=^I
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 

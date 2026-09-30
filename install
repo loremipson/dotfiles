@@ -10,7 +10,7 @@ set -uo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$script_dir"
 
-all_steps=(brew stow identity bat mise tpm shell)
+all_steps=(brew stow identity deja bat mise tpm shell)
 
 # Edit to match the package folders in this repo. Missing ones are skipped with a warning.
 stow_packages=(
@@ -239,6 +239,14 @@ step_identity() {
   git config --file "$file" user.name "$name"
   git config --file "$file" user.email "$email"
   ok "saved $name <$email> to $file"
+}
+
+step_deja() {
+  if ! command -v deja >/dev/null 2>&1; then
+    fail "deja is not installed" "./install brew deja"
+    return 0
+  fi
+  deja import
 }
 
 step_bat() {
