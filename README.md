@@ -28,26 +28,41 @@ There's a couple things you'll want to do after (or before, honestly) installing
 - Change or remove the shortcut for MacOS Spotlight found in System Settings -> Keyboard -> Keyboard Shortcuts -> Spotlight. I set mine to `⌥+space` so that it's still accessible if I ever need it. Vicinae will operate with `⌘+space`.
 
 ## Re-running
- 
+
 The install script is safe to run again whenever. If a step fails, the rest still run, and you'll get a summary at the end with the command to rerun just that part.
- 
+
 ```shell
 ./install                     # everything
 ./install mise tpm            # just these steps
 ./install stow git yazi       # just these packages (package names go after "stow")
 ./install --backup stow git   # move existing files out of the way, then stow
 ```
- 
+
 If Stow finds a real file where a symlink should go, it won't touch it. Run with `--backup` to move those files to `~/.dotfiles-backup/` first. Logs from every run end up in `~/.local/state/dotfiles/`.
 
 ## Git
- 
+
 Shared settings (delta, aliases, defaults) live in `~/.config/git/config`, which comes from this repo. Your name, email, and anything else personal go in `~/.gitconfig`, which stays yours. Git reads both, and `~/.gitconfig` wins if they overlap, so `git config --global` works like normal.
 
+## Shell Commands
+
+The Zsh config maps several familiar commands to newer tools:
+
+| Command | Runs                            |
+| ------- | ------------------------------- |
+| `cat`   | `bat`                           |
+| `ls`    | `eza` with Git status and icons |
+| `tree`  | `eza --tree`                    |
+| `cd`    | Zoxide's `z`                    |
+| `grep`  | `rg`                            |
+| `find`  | `fd`                            |
+
+These tools do not support every option or behavior of the commands they replace. Add `_` to use the original command when needed: `cat_`, `ls_`, `grep_`, `find_`, or `cd_`.
+
 ## Language Versions
- 
+
 mise installs the default versions of Node, pnpm, Bun, Deno, and Go from `mise/.config/mise/config.toml`. To pin different versions for a project (or a whole folder of them), drop a `mise.toml` in that directory:
- 
+
 ```toml
 [tools]
 node = "24"

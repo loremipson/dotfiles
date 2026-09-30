@@ -36,9 +36,9 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 # Commands
-alias n='nvim'      # Neovim
-alias gg='lazygit'  # Lazygit TUI
-alias oc='opencode' # OpenCode
+alias n='nvim'
+alias gg='lazygit'
+alias oc='opencode'
 
 cat() {
   bat "$@"
@@ -58,6 +58,13 @@ grep() {
 find() {
   fd "$@"
 }
+
+# Retain access to system commands that are overwritten
+alias cat_='command cat'
+alias ls_='command ls'
+alias grep_='command grep'
+alias find_='command find'
+alias cd_='builtin cd'
 
 # Integrations
 eval "$(atuin init zsh)"
