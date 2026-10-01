@@ -13,7 +13,6 @@ brew "neovim"
 brew "sketchybar"
 brew "timewarrior"
 brew "tree-sitter-cli"
-brew "bitwarden-cli"
 brew "mise"
 
 brew "jq"

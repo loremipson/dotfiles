@@ -4,3 +4,5 @@ pnpm = "latest"
 bun = "latest"
 deno = "latest"
 go = "latest"
+
+"npm:@bitwarden/cli" = "latest"

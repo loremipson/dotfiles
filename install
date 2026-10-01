@@ -289,7 +289,7 @@ step_tpm() {
   if [[ -d $tpm_dir ]]; then
     ok "TPM already installed"
   else
-    git clone --depth 1 https://github.com/tmux-plugins/tpm "$tpm_dir"
+    git clone --depth 1 git@github.com:tmux-plugins/tpm "$tpm_dir"
   fi
 
   if [[ ! -e $HOME/.tmux.conf ]]; then
