@@ -1,9 +1,9 @@
 # Environment
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export DEJA_CYCLE_KEY="^N"
+export DEJA_CYCLE_KEY=^N
 export DEJA_ACCEPT_KEY=
-export DEJA_EMPTY="off"
+export DEJA_EMPTY=off
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
@@ -31,10 +31,6 @@ SAVEHIST=$HISTSIZE
 # Completion and keymaps
 autoload -Uz compinit
 compinit
-
-bindkey -v # vi mode
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
 
 # Commands
 alias n='nvim'
