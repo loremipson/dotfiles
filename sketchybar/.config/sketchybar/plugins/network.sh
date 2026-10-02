@@ -27,28 +27,28 @@ update() {
 }
 
 case "$1" in
-  toggle_popup)
-    sketchybar --set network popup.drawing=toggle
-    ;;
-  toggle_wifi)
-    if [ "$(networksetup -getairportpower "$WIFI_INTERFACE" | awk '{print $NF}')" = "On" ]; then
-      networksetup -setairportpower "$WIFI_INTERFACE" off
+toggle_popup)
+  sketchybar --set network popup.drawing=toggle
+  ;;
+toggle_wifi)
+  if [ "$(networksetup -getairportpower "$WIFI_INTERFACE" | awk '{print $NF}')" = "On" ]; then
+    networksetup -setairportpower "$WIFI_INTERFACE" off
+  else
+    networksetup -setairportpower "$WIFI_INTERFACE" on
+  fi
+  update
+  ;;
+toggle_vpn)
+  if [ -n "$VPN_SERVICE" ]; then
+    if scutil --nc status "$VPN_SERVICE" | grep -q "Connected"; then
+      scutil --nc stop "$VPN_SERVICE"
     else
-      networksetup -setairportpower "$WIFI_INTERFACE" on
+      scutil --nc start "$VPN_SERVICE"
     fi
-    update
-    ;;
-  toggle_vpn)
-    if [ -n "$VPN_SERVICE" ]; then
-      if scutil --nc status "$VPN_SERVICE" | grep -q "Connected"; then
-        scutil --nc stop "$VPN_SERVICE"
-      else
-        scutil --nc start "$VPN_SERVICE"
-      fi
-    fi
-    update
-    ;;
-  *)
-    update
-    ;;
+  fi
+  update
+  ;;
+*)
+  update
+  ;;
 esac

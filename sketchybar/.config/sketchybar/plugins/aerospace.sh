@@ -21,20 +21,20 @@ fi
 if [ "$SID" = "$FOCUSED" ]; then
   sketchybar \
     --set "$NAME" drawing=$DRAWING \
-      icon.color="$BG" \
-      label.color="$BG" \
-      label="$APP_ICONS" \
-      label.drawing=$LABEL_DRAWING \
-      background.corner_radius=3 \
-      background.color="$YELLOW" \
-      background.drawing=on
+    icon.color="$BG" \
+    label.color="$BG" \
+    label="$APP_ICONS" \
+    label.drawing=$LABEL_DRAWING \
+    background.corner_radius=3 \
+    background.color="$YELLOW" \
+    background.drawing=on
 else
   sketchybar \
     --set "$NAME" drawing=$DRAWING \
-      icon.color="$FG" \
-      label.color="0xe6${FG#0xff}" \
-      label="$APP_ICONS" \
-      label.drawing=$LABEL_DRAWING \
-      background.color="$BG" \
-      background.drawing=off
+    icon.color="$FG" \
+    label.color="0xe6${FG#0xff}" \
+    label="$APP_ICONS" \
+    label.drawing=$LABEL_DRAWING \
+    background.color="$BG" \
+    background.drawing=off
 fi

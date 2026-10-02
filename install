@@ -41,18 +41,21 @@ packages=()
 
 while (($#)); do
   case "$1" in
-    --backup) backup=true ;;
-    -h | --help) sed -n '2,12p' "$0"; exit 0 ;;
-    *)
-      if [[ " ${steps[*]-} " == *" stow "* ]]; then
-        packages+=("$1")
-      elif [[ " ${all_steps[*]} " == *" $1 "* ]]; then
-        steps+=("$1")
-      else
-        echo "Unknown step: $1 (steps: ${all_steps[*]})" >&2
-        exit 2
-      fi
-      ;;
+  --backup) backup=true ;;
+  -h | --help)
+    sed -n '2,12p' "$0"
+    exit 0
+    ;;
+  *)
+    if [[ " ${steps[*]-} " == *" stow "* ]]; then
+      packages+=("$1")
+    elif [[ " ${all_steps[*]} " == *" $1 "* ]]; then
+      steps+=("$1")
+    else
+      echo "Unknown step: $1 (steps: ${all_steps[*]})" >&2
+      exit 2
+    fi
+    ;;
   esac
   shift
 done
@@ -341,7 +344,10 @@ fi
 
 info "Finished with $n problem(s):"
 cat "$fail_file"
-if $backup; then echo; echo "Anything moved out of the way is in $backup_dir"; fi
+if $backup; then
+  echo
+  echo "Anything moved out of the way is in $backup_dir"
+fi
 echo
 echo "Full log: $log_file"
 exit 1

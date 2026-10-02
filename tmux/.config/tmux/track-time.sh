@@ -11,8 +11,8 @@ if [[ -z "$REMAINING" ]]; then
 fi
 
 # of the remaining clients, track whichever was most recently active
-SESSION=$(tmux list-clients -F '#{client_activity} #{client_session}' \
-  | sort -rn | head -1 | cut -d' ' -f2-)
+SESSION=$(tmux list-clients -F '#{client_activity} #{client_session}' |
+  sort -rn | head -1 | cut -d' ' -f2-)
 
 CURRENT=$(timew get dom.active.tag.1 2>/dev/null)
 if [[ "$SESSION" != "$CURRENT" ]]; then

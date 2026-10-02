@@ -18,13 +18,16 @@ if [[ "$ACTIVE" == "1" ]]; then
     TIME_PART=""
   fi
 
-  DAYS=0; HOURS=0; MINUTES=0; SECONDS=0
+  DAYS=0
+  HOURS=0
+  MINUTES=0
+  SECONDS=0
   [[ "$DATE_PART" =~ ([0-9]+)D ]] && DAYS="${BASH_REMATCH[1]}"
   [[ "$TIME_PART" =~ ([0-9]+)H ]] && HOURS="${BASH_REMATCH[1]}"
   [[ "$TIME_PART" =~ ([0-9]+)M ]] && MINUTES="${BASH_REMATCH[1]}"
   [[ "$TIME_PART" =~ ([0-9]+)(\.[0-9]+)?S ]] && SECONDS="${BASH_REMATCH[1]}"
 
-  TOTAL_HOURS=$(( DAYS * 24 + HOURS ))
+  TOTAL_HOURS=$((DAYS * 24 + HOURS))
 
   if [ "$TOTAL_HOURS" -gt 0 ]; then
     ELAPSED=$(printf "%d:%02d:%02d" "$TOTAL_HOURS" "$MINUTES" "$SECONDS")

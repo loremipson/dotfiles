@@ -12,11 +12,11 @@ if [ "$CHARGING" -gt 0 ]; then
   COLOR="$GREEN"
 else
   case "$PERCENTAGE" in
-    9[0-9]|100) ICON="" ;;
-    [6-8][0-9]) ICON="" ;;
-    [3-5][0-9]) ICON="" ;;
-    [1-2][0-9]) ICON="" ;;
-    *) ICON="" ;;
+  9[0-9] | 100) ICON="" ;;
+  [6-8][0-9]) ICON="" ;;
+  [3-5][0-9]) ICON="" ;;
+  [1-2][0-9]) ICON="" ;;
+  *) ICON="" ;;
   esac
   if [ "$PERCENTAGE" -le 20 ]; then
     COLOR="$RED"

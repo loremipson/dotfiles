@@ -38,4 +38,3 @@ if ! workmux add "$branch" --base "$parent"; then
   echo "You can retry with: workmux add $branch --base $parent"
   fail "workmux add failed."
 fi
-

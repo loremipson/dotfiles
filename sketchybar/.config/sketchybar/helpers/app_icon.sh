@@ -7,12 +7,12 @@ cache="${TMPDIR:-/tmp}/sketchybar-app-font-v1.tsv"
 
 read_u16() {
   set -- $(od -An -tu1 -j "$1" -N 2 "$font")
-  printf '%s' "$(( $1 * 256 + $2 ))"
+  printf '%s' "$(($1 * 256 + $2))"
 }
 
 read_u32() {
   set -- $(od -An -tu1 -j "$1" -N 4 "$font")
-  printf '%s' "$(( $1 * 16777216 + $2 * 65536 + $3 * 256 + $4 ))"
+  printf '%s' "$(($1 * 16777216 + $2 * 65536 + $3 * 256 + $4))"
 }
 
 build_cache() {
@@ -62,7 +62,7 @@ build_cache() {
         ["exact", ., ([$codepoint] | implode)]
       end |
       @tsv
-    ' > "$temporary_cache"; then
+    ' >"$temporary_cache"; then
     mv "$temporary_cache" "$cache"
   else
     rm -f "$temporary_cache"

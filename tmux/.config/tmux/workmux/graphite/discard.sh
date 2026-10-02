@@ -4,7 +4,7 @@ set -euo pipefail
 selection=$(workmux list | tail -n +2 | fzf)
 [ -z "$selection" ] && exit 0
 
-branch=$(awk '{print $1}' <<< "$selection")
+branch=$(awk '{print $1}' <<<"$selection")
 
 printf 'Discard Graphite branch "%s"? [y/N] ' "$branch"
 read -r confirm
@@ -31,7 +31,7 @@ nohup bash -c '
     cd "$repo_root"
     gt delete "$branch"
 ' _ "$branch" "$repo_root" \
-    </dev/null >/tmp/workmux-discard-"$branch".log 2>&1 &
+  </dev/null >/tmp/workmux-discard-"$branch".log 2>&1 &
 
 # Remove the tmux session and worktree, but deliberately keep the branch.
 workmux remove --keep-branch "$branch"
