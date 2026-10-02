@@ -12,6 +12,7 @@ local options = {
   scrolloff = 8,         -- scroll when you are 8 lines away from the top/bottom
   sidescrolloff = 8,     -- same as above, but for columns
   winborder = 'rounded', -- rounded borders
+  pumborder = 'rounded', -- rounded popup menu borders
   confirm = true,        -- prompt user with unsaved changes instead of erroring
   cmdheight = 0,         -- hide the message area unless typing a command
   laststatus = 3,        -- global statusline instead of just the current window

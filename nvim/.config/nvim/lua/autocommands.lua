@@ -34,3 +34,13 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     vim.opt_local.cursorline = false
   end,
 })
+
+local function link_popup_border()
+  vim.api.nvim_set_hl(0, "PmenuBorder", { link = "FloatBorder" })
+end
+
+link_popup_border()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = vim.api.nvim_create_augroup("popup_border_highlight", { clear = true }),
+  callback = link_popup_border,
+})
