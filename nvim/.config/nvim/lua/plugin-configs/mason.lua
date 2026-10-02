@@ -18,12 +18,14 @@ function M.setup()
       'codelldb',
       'goimports',
       'staticcheck',
+      'shfmt',
     },
   }
   require('mason-lspconfig').setup {
     automatic_enable = false,
     ensure_installed = {
       'oxlint',
+      'oxfmt',
       'biome',
       'eslint',
       'vtsls',

@@ -71,6 +71,7 @@ function M.setup()
       end,
       python = { 'ruff_format', 'ruff_organize_imports' },
       go = { 'goimports', 'gofumpt' },
+      sh = { 'shfmt' },
     },
     formatters = {
       dxfmt = {
