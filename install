@@ -246,7 +246,13 @@ step_deja() {
     fail "deja is not installed" "./install brew deja"
     return 0
   fi
-  deja import
+
+  if [[ ! -f "$HOME/.local/share/deja/init.zsh" ]]; then
+    deja import
+    deja init zsh >/dev/null
+  fi
+
+  deja fuzzy tight
 }
 
 step_bat() {

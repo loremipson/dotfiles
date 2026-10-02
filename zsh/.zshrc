@@ -3,6 +3,7 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export DEJA_CYCLE_KEY="^N"
 export DEJA_ACCEPT_KEY=
+export DEJA_EMPTY="off"
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
@@ -76,8 +77,13 @@ if [[ -r "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh" 
   source "$(brew --prefix)/share/zsh-system-clipboard/zsh-system-clipboard.zsh"
 fi
 
+if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
+  source "$HOME/.local/share/deja/init.zsh"
+else
+  eval "$(deja init zsh)"
+fi
+
 # Initialize deja and starship last
-eval "$(deja init zsh)"
 eval "$(starship init zsh)"
 
 # Local overrides - machine-specific settings not checked into git
