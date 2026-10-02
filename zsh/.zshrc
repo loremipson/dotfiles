@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export DEJA_CYCLE_KEY="^N"
-export DEJA_ACCEPT_KEY="^I"
+export DEJA_ACCEPT_KEY=
 
 # PATH additions
 export PATH="$PATH:$HOME/.config/git"
