@@ -33,7 +33,7 @@ local accents = {
 -- Statusline segment groups. Each takes its fg from `src` and gets the
 -- mode-tinted background, so the whole bar shifts color together.
 local segments = {
-  StlBranch = { src = 'Special' },
+  StlBranch = { src = 'Statement' },
   StlAdd = { src = 'GitSignsAdd' },
   StlChange = { src = 'GitSignsChange' },
   StlDelete = { src = 'GitSignsDelete' },
@@ -226,7 +226,7 @@ function _G.build_statusline()
     fixed_width = fixed_width + width(icons.ui.recording .. ' @' .. recording .. ' ')
   end
   if branch ~= '' then
-    fixed_width = fixed_width + width(icons.git.branch .. '  ')
+    fixed_width = fixed_width + width(' ' .. icons.git.branch .. ' ')
   end
   if added then
     fixed_width = fixed_width + width('+' .. added .. ' ')
@@ -280,13 +280,13 @@ function _G.build_statusline()
 
   -- Macro recording
   if recording ~= '' then
-    add('%#StlRecording# ' .. icons.ui.recording .. ' @' .. recording .. ' ')
+    add('%#StlRecording# ' .. icons.ui.recording .. ' @' .. recording)
   end
 
   -- Branch name (escape % so it isn't read as a format item)
   if branch ~= '' then
     branch = shorten_middle(branch, branch_budget):gsub('%%', '%%%%')
-    add('%@v:lua.statusline_details@%#StlBranch#' .. icons.git.branch .. ' ' .. branch .. '%X ')
+    add('%@v:lua.statusline_details@%#StlBranch# ' .. icons.git.branch .. ' ' .. branch .. '%X ')
   end
 
   -- Git diff: only emit non-zero counts
