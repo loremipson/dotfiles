@@ -3,19 +3,21 @@ local icons = require('icons')
 local api = vim.api
 local fn = vim.fn
 
--- mode() char -> { label, accent key }
+local mode_icon = fn.nr2char(0xe6ae)
+
+-- mode() char -> accent key
 local modes = {
-  n = { 'N', 'normal' },
-  i = { 'I', 'insert' },
-  v = { 'V', 'visual' },
-  V = { 'VL', 'visual' },
-  ['\22'] = { 'VB', 'visual' }, -- Ctrl-v
-  s = { 'S', 'visual' },
-  S = { 'SL', 'visual' },
-  ['\19'] = { 'SB', 'visual' }, -- Ctrl-s
-  c = { 'C', 'command' },
-  R = { 'R', 'replace' },
-  t = { 'T', 'terminal' },
+  n = 'normal',
+  i = 'insert',
+  v = 'visual',
+  V = 'visual',
+  ['\22'] = 'visual', -- Ctrl-v
+  s = 'visual',
+  S = 'visual',
+  ['\19'] = 'visual', -- Ctrl-s
+  c = 'command',
+  R = 'replace',
+  t = 'terminal',
 }
 
 -- accent key -> highlight group whose fg color is used for that mode
@@ -38,13 +40,13 @@ local segments = {
   StlError = { src = 'DiagnosticError' },
   StlWarn = { src = 'DiagnosticWarn' },
   StlMuted = { src = 'Comment' },
-  StlModified = { src = 'DiagnosticWarn', italic = true },
   StlLock = { src = 'DiagnosticError' },
   StlRecording = { src = 'DiagnosticError', bold = true },
 }
 
 -- How strongly the mode color tints the statusline background (0 to 1)
 local TINT = 0.18
+local FILE_BG_OPACITY = 0.5
 
 local base = {}      -- colors captured from the colorscheme before we modify them
 local recording = '' -- register currently being recorded to
@@ -55,7 +57,7 @@ local function hl(name)
 end
 
 local function current_mode()
-  return modes[fn.mode()] or { fn.mode(), 'normal' }
+  return modes[fn.mode()] or 'normal'
 end
 
 -- Mix color a into color b. t = 0 gives b, t = 1 gives a.
@@ -83,19 +85,25 @@ local function capture()
   base.dark = normal.bg or sl.bg or 0x000000 -- text color on top of accent blocks
   base.clnr_bg = hl('CursorLineNr').bg
   base.winbar_bg = hl('WinBar').bg
+  base.file_bg = hl('CursorLine').bg or blend(base.fg, base.bg, 0.1)
+  base.file_icon_bg = blend(0x000000, base.file_bg, 0.2)
 end
 
 -- Rebuild every mode-dependent highlight for the current mode
 local function apply()
-  local key = current_mode()[2]
+  local key = current_mode()
   local accent = hl(accents[key]).fg
   local bg = key == 'normal' and base.bg or blend(accent, base.bg, TINT)
+  local file_bg = blend(base.file_bg, bg, FILE_BG_OPACITY)
+  local file_icon_bg = blend(base.file_icon_bg, bg, FILE_BG_OPACITY)
   local set = function(name, opts)
     api.nvim_set_hl(0, name, opts)
   end
 
   set('StatusLine', { fg = base.fg, bg = bg })
-  set('StlFile', { fg = base.fg, bg = bg })
+  set('StlFile', { fg = base.fg, bg = file_bg })
+  set('StlFileIcon', { fg = base.fg, bg = file_icon_bg })
+  set('StlFileIconModified', { fg = hl('DiagnosticWarn').fg, bg = file_icon_bg })
   set('StlMode', { fg = base.dark, bg = accent, bold = true })
   set('StlModeEdge', { fg = accent, bg = bg })
 
@@ -141,6 +149,13 @@ local function file_segment(name, rel, budget)
     return short
   end
   return fn.fnamemodify(name, ':t') -- just the filename
+end
+
+local function file_icon(name)
+  if name == '' or not MiniIcons then
+    return icons.ui.file
+  end
+  return MiniIcons.get('file', fn.fnamemodify(name, ':t'))
 end
 
 local lsp_helpers = {
@@ -191,7 +206,6 @@ function _G.build_statusline()
     parts[#parts + 1] = s
   end
 
-  local m = current_mode()
   local win_w = api.nvim_win_get_width(vim.g.statusline_winid or 0)
   local branch = vim.b.gitsigns_head or ''
   local status = vim.b.gitsigns_status or ''
@@ -200,15 +214,16 @@ function _G.build_statusline()
   local deleted = status:match '%-(%d+)'
   local name = api.nvim_buf_get_name(0)
   local rel = name == '' and '[No Name]' or fn.fnamemodify(name, ':~:.')
+  local filetype_icon = file_icon(name)
   local locked = vim.bo.readonly or not vim.bo.modifiable
   local lsp = lsp_segment()
   local search = search_segment()
   local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
   local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 
-  local fixed_width = width(' ' .. m[1] .. '  ') + 2
+  local fixed_width = width(' ' .. mode_icon .. '  ') + width(' ' .. filetype_icon .. ' ') + 1
   if recording ~= '' then
-    fixed_width = fixed_width + width('● @' .. recording .. ' ')
+    fixed_width = fixed_width + width(icons.ui.recording .. ' @' .. recording .. ' ')
   end
   if branch ~= '' then
     fixed_width = fixed_width + width(icons.git.branch .. '  ')
@@ -253,11 +268,19 @@ function _G.build_statusline()
   end
 
   -- Mode pill
-  add('%#StlMode# ' .. m[1] .. ' %#StatusLine# ')
+  add('%#StlMode# ' .. mode_icon .. ' %#StatusLine#')
+
+  -- File pill
+  local file = file_segment(name, rel, file_budget):gsub('%%', '%%%%')
+  local file_icon_hl = vim.bo.modified and '%#StlFileIconModified#' or '%#StlFileIcon#'
+  add(file_icon_hl .. ' ' .. filetype_icon .. ' %#StlFile#%<' .. file .. ' ')
+  if locked then
+    add('%#StlLock#' .. icons.ui.lock .. ' ')
+  end
 
   -- Macro recording
   if recording ~= '' then
-    add('%#StlRecording#● @' .. recording .. ' ')
+    add('%#StlRecording# ' .. icons.ui.recording .. ' @' .. recording .. ' ')
   end
 
   -- Branch name (escape % so it isn't read as a format item)
@@ -275,13 +298,6 @@ function _G.build_statusline()
   end
   if deleted then
     add('%#StlDelete#-' .. deleted .. ' ')
-  end
-
-  -- Filename: italic and warning-colored when unsaved
-  local file = file_segment(name, rel, file_budget):gsub('%%', '%%%%')
-  add((vim.bo.modified and '%#StlModified#' or '%#StlFile#') .. ' %<' .. file .. ' ')
-  if locked then
-    add('%#StlLock#' .. icons.ui.lock .. ' ')
   end
 
   add('%#StatusLine#%=')
