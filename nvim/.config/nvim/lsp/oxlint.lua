@@ -73,6 +73,13 @@ return {
         settings = vim.tbl_extend('force', settings, { typeAware = true })
       end
     end
+    if settings.typeAware then
+      settings = vim.tbl_extend('force', settings, { run = 'onSave' })
+      if init_params.capabilities.workspace then
+        -- Oxlint ignores onSave while Neovim advertises pull diagnostics.
+        init_params.capabilities.workspace.diagnostics = nil
+      end
+    end
     local init_options = config.init_options or {}
     init_options.settings = vim.tbl_extend('force', init_options.settings or {}, settings)
 
