@@ -33,6 +33,7 @@ brew "zsh-system-clipboard"
 brew "zsh-patina"
 brew "deja"
 
+cask "figma"
 cask "aerospace"
 cask "ghostty"
 cask "vicinae"
