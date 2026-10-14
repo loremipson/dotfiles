@@ -4,7 +4,7 @@ These apply in every repo. A repo's own AGENTS.md wins where it's more specific.
 
 ## Git
 
-Git history belongs to Tyler. Inspect freely, change the working tree as the task needs, and leave committing, pushing, and branch changes to him. Finish with the commit-preparation summary from the `git-workflow` skill.
+Git history belongs to the user. Inspect freely, change the working tree as the task needs, and leave committing, pushing, and branch changes to them. Finish with the commit-preparation summary from the `git-workflow` skill.
 
 ## Done means proven
 
@@ -19,8 +19,8 @@ Ponytail is on for code size and reuse. Beyond it:
 
 ## Prose
 
-Anything Tyler will read goes through `unslop`. Anything sent or published under his name goes through `my-voice`. No em dashes in either.
+Anything the user will read goes through `unslop`. Anything sent or published under their name goes through `my-voice`. No em dashes in either.
 
 ## Asking
 
-Look up facts yourself. Ask only for decisions that are his to make: product calls, scope, anything irreversible or customer-facing.
+Look up facts yourself. Ask only for decisions that are the user's to make: product calls, scope, anything irreversible or customer-facing.

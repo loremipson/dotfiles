@@ -16,8 +16,8 @@ Shared by every agent through `~/.agents/skills` (stowed from this package). The
 | `spec` | auto | spec file plus implementation brief |
 | `prototype` | auto | throwaway UI variants or logic demos |
 | `writing-for-agents` | auto | editing skills and AGENTS.md |
-| `client-estimate` | auto | scoping and pricing Implemint work |
-| `my-voice` | auto | emails and copy sent as Tyler |
+| `client-estimate` | auto | scoping and pricing client work |
+| `my-voice` | auto | emails and copy sent as the user |
 | `spec-review` | `/spec-review` | diff versus spec |
 | `handoff` | `/handoff` | pass a session to a fresh agent |
 | `correct` | `/correct` | turn repeated mistakes into checks |

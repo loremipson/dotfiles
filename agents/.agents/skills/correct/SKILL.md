@@ -23,7 +23,7 @@ Also look for:
 
 1. **Architecture.** Give each piece of state one owner and each task one supported way. Hide internals so the wrong import fails. Delete the old way the agent keeps copying.
 2. **Types.** Make the bad state impossible to write.
-3. **Lint.** A custom oxlint rule whose error message names the fix, like `ui/prefer-flex-component`. If the pattern is already common, fail only when a change adds more.
+3. **Lint.** A custom lint rule whose error message names the fix, like "use `<Flex>` from `ui/layout` instead of a raw flex `div`". If the pattern is already common, fail only when a change adds more.
 4. **Test.** One that fails on the real past mistake.
 5. **Docs.** Last, and only for judgment calls nothing can check.
 

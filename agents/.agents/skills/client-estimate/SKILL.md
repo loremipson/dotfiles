@@ -1,11 +1,11 @@
 ---
 name: client-estimate
-description: Scope and price client work for Implemint. Use when estimating a client project, pricing a modernization or rewrite of a legacy codebase, sizing a phased engagement, or drafting a proposal or quote.
+description: Scope and price client work. Use when estimating a client project, pricing a modernization or rewrite of a legacy codebase, sizing a phased engagement, or drafting a proposal or quote.
 ---
 
 # Client estimate
 
-Produce an estimate a client can trust and that Implemint can deliver without eating the overrun. An honest wide range beats an optimistic narrow one. Every number traces back to something found in the code or stated by the client.
+Produce an estimate a client can trust and that you can deliver without eating the overrun. An honest wide range beats an optimistic narrow one. Every number traces back to something found in the code or stated by the client.
 
 ## 1. Pin the ask
 
@@ -43,11 +43,7 @@ Price from the inventory. Use a per-unit rate where units are countable, like da
 
 Ask the hard question about each phase: is familiarity with the stack being counted as lower cost? Comfort isn't speed. Then reconcile the phases against any number already sent. If they don't fit, say so plainly, with the gap.
 
-## 5. Check the split
-
-Work is billed as Implemint, so a person's hourly take is a fraction of the billed rate. Before settling on a rate, show the billed rate and what it nets per person under the partnership split, and flag it if solo-delivered work is underpriced.
-
-## 6. Deliver
+## 5. Deliver
 
 - **Internal breakdown.** Inventory, per-phase math, assumptions, risks, and where the range could move. For the user, not the client.
 - **Client version.** Problem in their terms, phases with what each delivers, ranges, assumptions, what's excluded, and what would narrow the range. Written through `my-voice`.
