@@ -12,4 +12,21 @@
   "plugins": [
     "@dietrichgebert/ponytail"
   ],
+  // Last matching rule wins, so the catch-all stays first.
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "git commit*": "deny",
+      "git push*": "deny",
+      "git merge*": "deny",
+      "git rebase*": "deny",
+      "git cherry-pick*": "deny",
+      "git reset --hard*": "deny",
+      "git clean*": "deny",
+      "git branch -D*": "deny",
+      "git checkout -- *": "ask",
+      "git restore*": "ask",
+      "git stash drop*": "ask"
+    }
+  },
 }

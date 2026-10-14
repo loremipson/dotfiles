@@ -1,367 +1,48 @@
 ---
 name: typescript
-description: Apply strict, opinionated TypeScript conventions when writing, modifying, refactoring, or reviewing TypeScript. Enforce type-safe boundaries, avoid `any` and unnecessary assertions, prefer narrowing and discriminated unions, preserve type information, and use TypeScript's type system to model valid states rather than bypassing the compiler.
+description: TypeScript conventions for writing, changing, or reviewing any .ts or .tsx file. Covers type safety at boundaries, modeling state with unions and branded types, and escape hatches to refuse.
 ---
 
 # TypeScript
 
-Write TypeScript that uses the type system to make invalid states difficult to represent. Treat the compiler as a design tool, not an obstacle to work around.
+Make the compiler reject impossible states. When a type error appears, fix the mismatch it exposes. Project config, lint rules, and local AGENTS.md win over this file.
 
-## Hard rules
+## Model the domain
 
-### Never use `any`
+- Model variants as a discriminated union with a literal discriminant. `{ kind: "open" } | { kind: "done"; at: Date }` beats `{ completed: boolean; completedAt?: Date }`. If you could write a comment explaining which field combinations are valid, it wants to be a union.
+- Brand IDs and other semantic primitives so they can't be swapped: `type UserId = string & { readonly __brand: "UserId" }`. Create them once, at the boundary.
+- Build the shape so the illegal value can't exist: `[T, ...T[]]` for non-empty, start plus duration for a range.
+- Strengthen a type only where the loose one forces a `!`, a cast, or a "should never happen" throw. Otherwise keep the plain type.
+- Derive types from the source that owns the shape: Drizzle tables (`$inferSelect`), Zod schemas (`z.infer`), `Parameters`, `ReturnType`, `Awaited`. Declare a parallel interface only when nothing owns it.
+- Literal unions or `as const` arrays over `enum`.
+- End every switch on a union with `const _exhaustive: never = value` so a new variant fails the build.
 
-Do not introduce explicit or implicit `any` to avoid dealing with a type.
+## Boundaries
 
-Prefer:
+External data is `unknown` until parsed: request bodies, JSON, env vars, `localStorage`, SDK responses, raw SQL results. Parse it once with the repo's schema library into a named domain type, then trust that type everywhere inside. Validation lives at the edge, business logic stays pure.
 
-```ts
-const value: unknown = getValue();
-```
+## Escape hatches
 
-Then narrow it before use.
+Each of these hides a real uncertainty. Establish the fact in code instead.
 
-Do not use `any` even temporarily in a fix unless the user explicitly asks for it.
+| Instead of | Write |
+|---|---|
+| `any` | `unknown`, then narrow |
+| `value as User` | a parse function or a type guard that checks the claim |
+| `value!` | an early return or a type that encodes presence |
+| `as unknown as T` | a fix at the boundary where the type went wrong |
+| `@ts-ignore` / `@ts-expect-error` in shipped code | the real type fix |
 
-When a third-party library has inadequate types, isolate the problem at the boundary and preserve strong types everywhere else.
+`satisfies` is the right tool for checking a shape while keeping literal types. Narrowing order: discriminant switch, then `in`, then `typeof`/`instanceof`, then a guard named `isX`. A cast survives only at a genuine boundary where the runtime fact is proven elsewhere, with a one-line comment naming that fact.
 
-### Avoid type assertions
+## Errors and async
 
-Do not use `as` to tell TypeScript something is true merely because the code expects it to be true.
+- Catch as `unknown` and narrow before reading `.message`. Keep the original error as `cause` when wrapping.
+- Every promise is awaited, returned, or explicitly `void`-ed with its failure handled.
 
-Avoid:
+## Readability
 
-```ts
-const user = response.data as User;
-```
-
-Prefer establishing the fact:
-
-```ts
-const user = parseUser(response.data);
-```
-
-or narrowing with a type guard:
-
-```ts
-if (isUser(response.data)) {
-  // response.data is User here
-}
-```
-
-A type assertion is acceptable only at a genuine boundary where the runtime fact is established elsewhere and TypeScript cannot represent that relationship. Keep such assertions narrow, local, and explain why they are sound when the reason is not obvious.
-
-Never use a broad assertion to silence an error and then continue propagating the assumed type.
-
-### Prefer `satisfies` for shape validation
-
-When the goal is to verify that a value conforms to a type while retaining its inferred literal types, prefer `satisfies` over `as`.
-
-```ts
-const routes = {
-  home: "/",
-  settings: "/settings",
-} satisfies Record<string, string>;
-```
-
-Do not use `satisfies` as a substitute for runtime validation. It only checks types at compile time.
-
-### Avoid non-null assertions
-
-Do not use `!` to suppress nullability errors.
-
-Prefer explicit control flow, early returns, helper functions, or APIs whose types encode the invariant.
-
-If a value truly cannot be null at a particular boundary, establish that fact in code rather than suppressing the compiler.
-
-### Prefer narrowing over weakening
-
-When a value is uncertain, keep it uncertain until its type can be established.
-
-Prefer:
-
-```ts
-function isError(value: unknown): value is Error {
-  return value instanceof Error;
-}
-```
-
-over:
-
-```ts
-const error = value as Error;
-```
-
-Put runtime validation and narrowing at system boundaries: HTTP responses, parsed JSON, environment variables, user input, database results, message queues, and third-party APIs.
-
-## Model the domain with types
-
-### Prefer discriminated unions
-
-When behavior depends on a finite set of states, prefer a discriminated union over multiple booleans, nullable fields, or loosely-related optional properties.
-
-Prefer:
-
-```ts
-type Result<T> =
-  { status: "success"; value: T } | { status: "error"; error: Error };
-```
-
-over combinations such as:
-
-```ts
-type Result<T> = {
-  loading: boolean;
-  error?: Error;
-  value?: T;
-};
-```
-
-Make invalid states unrepresentable whenever practical.
-
-Use exhaustive checks for discriminated unions when it matters that every case is handled.
-
-### Prefer precise types
-
-Avoid broad types such as:
-
-```ts
-object;
-Function;
-Record<string, unknown>;
-string;
-```
-
-when the domain has a more precise representation.
-
-Use interfaces, type aliases, unions, generics, branded types, or constrained object types when they communicate meaningful invariants.
-
-Do not add type complexity for its own sake. Prefer the simplest type that accurately describes the domain.
-
-### Preserve inference
-
-Do not annotate every local variable merely to restate what TypeScript already knows.
-
-Prefer inference for straightforward internal values:
-
-```ts
-const users = getUsers();
-const count = users.length;
-```
-
-Add explicit types when they improve an API boundary, document an important contract, constrain inference intentionally, or prevent an invalid widening.
-
-### Exported APIs should be deliberate
-
-For exported functions, classes, public methods, library APIs, and important module boundaries, use explicit return types when doing so makes the contract clearer or prevents accidental API changes.
-
-Do not force explicit annotations onto trivial private implementation details just for consistency.
-
-## Functions and control flow
-
-Prefer small functions with inputs and outputs that are obvious from their types.
-
-Prefer early returns over deeply nested conditionals when they make control flow easier to follow.
-
-Prefer exhaustive branching over a default branch that silently swallows newly-added union members.
-
-When a function cannot meaningfully handle a state, make that impossible through the type system or fail explicitly. Do not quietly coerce the state into something convenient.
-
-Avoid boolean parameters when they obscure meaning or create multiple modes of behavior. Prefer a named options object or a discriminated input when appropriate.
-
-## Nullability and optional values
-
-Treat `null` and `undefined` as meaningful states when the domain uses them. Do not erase them merely to simplify code.
-
-Distinguish between:
-
-- a property that is absent;
-- a property that is explicitly `undefined`;
-- a value that is `null`; and
-- a value that is present and valid.
-
-Use optional properties only when absence is semantically meaningful.
-
-Prefer APIs that return explicit success/failure or optional states over sentinel values when the distinction matters.
-
-## Error handling
-
-Use `unknown` for caught errors unless the runtime guarantees a narrower type.
-
-```ts
-try {
-  await work();
-} catch (error: unknown) {
-  if (error instanceof Error) {
-    logger.error(error.message);
-  }
-}
-```
-
-Do not assert caught values to `Error` without establishing that they are errors.
-
-Preserve the original error and useful context when wrapping errors.
-
-Do not use `throw new Error(...)` merely to normalize everything if the original error contains important information that should be retained.
-
-## Generics
-
-Use generics when they preserve a real relationship between types.
-
-Avoid generic parameters that exist only to make an API appear flexible or that are immediately widened to another type.
-
-Prefer constraints that express requirements:
-
-```ts
-function getId<T extends { id: string }>(value: T): string {
-  return value.id;
-}
-```
-
-Do not reach for advanced conditional, mapped, or recursive types when a straightforward type is easier to understand and maintain.
-
-## Collections and iteration
-
-Prefer APIs that preserve element types throughout a transformation.
-
-Avoid introducing untyped intermediate arrays, objects, or callbacks.
-
-Use `Map` and `Set` when their semantics are clearer than object-based lookup or arrays.
-
-Avoid mutating shared objects or arrays when mutation creates unclear ownership or makes reasoning about state difficult. Do not impose immutability mechanically where local mutation is clearly simpler and safe.
-
-## Async code
-
-Preserve types across async boundaries.
-
-Make rejected operations explicit and handle failure states where they matter.
-
-Avoid fire-and-forget promises unless the lifetime and error behavior are intentional.
-
-Do not use non-null assertions or assertions to paper over values that are not guaranteed to exist after an asynchronous operation.
-
-When concurrency matters, model the state and ownership explicitly rather than relying on timing assumptions.
-
-## Runtime boundaries
-
-Separate compile-time types from runtime validation.
-
-TypeScript types disappear at runtime. A type annotation does not validate external data.
-
-For untrusted or external data, validate once at the boundary and convert it into a trusted internal type. Do not repeatedly cast the same untrusted value throughout the codebase.
-
-Good boundary candidates include:
-
-- HTTP/API responses
-- request payloads
-- JSON parsing
-- environment variables
-- database results when the driver cannot guarantee the shape
-- message/event payloads
-- browser storage
-- filesystem/configuration input
-- third-party SDKs with incomplete types
-
-## Common escape-hatch patterns to reject
-
-Do not solve type errors with:
-
-```ts
-as any
-```
-
-```ts
-as unknown as SomeType
-```
-
-```ts
-value!;
-```
-
-```ts
-// @ts-ignore
-```
-
-```ts
-// @ts-expect-error
-```
-
-The last form may be appropriate when deliberately testing or documenting a known compiler error, but it must not be used to make production code compile when the underlying type problem can be fixed properly.
-
-Do not weaken compiler settings or suppress diagnostics to accommodate a local implementation problem.
-
-When a type error exposes a real mismatch, fix the mismatch rather than hiding it.
-
-## Naming and readability
-
-Choose names that encode the semantic role of a value rather than its implementation type.
-
-Prefer:
-
-```ts
-const timeoutMs = 5_000;
-```
-
-over:
-
-```ts
-const timeout = 5_000;
-```
-
-when units or meaning could otherwise be ambiguous.
-
-Use type aliases and helper types when they give a domain concept a useful name.
-
-Do not create aliases solely to rename primitive types without adding meaning.
-
-## Enums and literal types
-
-Do not use enums by default.
-
-Prefer string or numeric literal unions when they provide the desired semantics:
-
-```ts
-type Environment = "development" | "staging" | "production";
-```
-
-Use an enum when its runtime representation or project conventions provide a concrete benefit.
-
-Prefer `as const` objects when you need a runtime value and a derived literal type:
-
-```ts
-const ENVIRONMENTS = ["development", "staging", "production"] as const;
-type Environment = (typeof ENVIRONMENTS)[number];
-```
-
-`as const` is appropriate when it intentionally creates readonly literal values; it is not a general replacement for sound typing.
-
-## Comments and documentation
-
-Prefer code whose types and structure explain themselves.
-
-Use comments to explain non-obvious invariants, external constraints, or why a seemingly unusual implementation is required.
-
-Do not add comments that merely restate the TypeScript syntax.
-
-When an assertion or other escape hatch is genuinely necessary, a concise comment should explain the runtime invariant that makes it safe when that reasoning would otherwise be lost.
-
-## Project conventions take precedence
-
-Before introducing a convention that may conflict with the repository, inspect the project's existing configuration, lint rules, TypeScript version, and local instructions.
-
-Follow explicit project requirements where they conflict with these defaults.
-
-Do not introduce a new library, validation framework, or type-level abstraction merely to satisfy this skill. Prefer the repository's existing tools and patterns.
-
-## Final check
-
-Before considering TypeScript work complete, verify:
-
-- No new `any` was introduced.
-- No assertion is being used where narrowing or better modeling can establish the type.
-- No non-null assertion is being used to suppress a real uncertainty.
-- External data is validated before being treated as trusted.
-- Important states are represented explicitly.
-- New APIs have deliberate contracts.
-- Types remain precise through transformations and async boundaries.
-- Type errors were solved rather than suppressed.
+- Let inference handle locals. Annotate exported functions and module boundaries where the return type is the contract.
+- Name units into values: `timeoutMs`, `priceCents`.
+- Pass an options object when two arguments share a type or a boolean would switch modes.
+- Generics must relate two types. A generic used once is a parameter.
