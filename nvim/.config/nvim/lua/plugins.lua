@@ -160,6 +160,24 @@ local plugins = {
     end,
   },
   {
+    'm4xshen/hardtime.nvim',
+    cond = not is_vscode,
+    lazy = false,
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    keys = {
+      { '<leader>tH', function() require('hardtime').toggle() end, desc = 'Toggle Hardtime' },
+    },
+    opts = {
+      hints = {
+        ['[kj][%^_]'] = false,
+        ['j[%^_]'] = {
+          message = function(key) return 'Use <CR> or + instead of ' .. key end,
+          length = 2,
+        },
+      },
+    },
+  },
+  {
     'stevearc/conform.nvim',
     cond = not is_vscode,
     cmd = 'ConformInfo',

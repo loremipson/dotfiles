@@ -45,6 +45,7 @@ git clone git@github.com:loremipson/nvim.git ~/.config
 - Git signs
 - Multi-file diff review via zdiff.nvim
 - Tmux pane navigation via Navigator.nvim
+- Vim motion habit training via hardtime.nvim
 - Diagnostics via tiny-inline-diagnostic.nvim, with Snacks picker overviews
 - Code actions via tiny-code-action.nvim with Snacks picker integration
 - TypeScript error translation via ts-error-translator
@@ -133,6 +134,7 @@ The picker live-previews each theme against your current buffer as you browse. Y
 | `<leader>tT` | Treesitter            |
 | `<leader>tB` | Dark/light background |
 | `<leader>th` | Inlay hints           |
+| `<leader>tH` | Hardtime              |
 | `<leader>tg` | Indent guides         |
 | `<leader>tm` | Dim (focus mode)      |
 | `<leader>tc` | Conceal level         |
