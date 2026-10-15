@@ -96,7 +96,7 @@ There are two supported workflows:
 - **Git** — the default, for repositories using normal Git branches.
 - **Graphite** — for repositories where Graphite owns the branch/stack topology and workmux owns the worktrees.
 
-The workflow can be selected per project in `.tmux.conf.local`:
+The workflow can be selected in `~/.tmux.conf.local`:
 
 ```tmux
 set -g @workflow "graphite"
@@ -109,3 +109,5 @@ Open the workmux menu with:
 ```text
 prefix + w
 ```
+
+Use the menu's `help` entry or run `man dotfiles-workmux` for the full Git and Graphite workflows.

@@ -20,6 +20,7 @@ stow_packages=(
   bat
   ghostty
   git
+  man
   mise
   nvim
   opencode

@@ -1,6 +1,7 @@
 # Environment
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export MANPATH="$HOME/.local/share/man:${MANPATH:-}"
 export DEJA_CYCLE_KEY=^N
 export DEJA_ACCEPT_KEY=
 export DEJA_EMPTY=off

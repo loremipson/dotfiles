@@ -1,0 +1,133 @@
+.Dd October 15, 2026
+.Dt DOTFILES-WORKMUX 7
+.Os
+.Sh NAME
+.Nm dotfiles-workmux
+.Nd personal Git, Graphite, worktree, and tmux workflow
+.Sh DESCRIPTION
+.Nm
+documents how I use workmux to give each branch its own Git worktree and
+tmux session.
+Workmux owns worktrees and sessions.
+Graphite owns branch and stack topology when Graphite mode is enabled.
+.Sh MENU
+Press
+.Ic C-a w
+in tmux to open the workflow menu.
+The active menu depends on the
+.Ic @workflow
+tmux option.
+.Ss Git mode
+.Bl -tag -width "add w/branch"
+.It Ic add
+Create or open a worktree using a branch name.
+.It Ic add w/branch
+Choose an existing local branch and open it in a worktree.
+.It Ic add w/prompt
+Create a named branch and save a prompt for the agent.
+.It Ic open
+Open the tmux session for an existing worktree.
+.It Ic remove
+Remove a worktree, its tmux session, and its local branch.
+.It Ic close
+Close the tmux session but keep the worktree and branch.
+.It Ic dashboard
+Open the workmux dashboard.
+.It Ic sidebar
+Toggle the workmux status sidebar.
+.El
+.Ss Graphite mode
+.Bl -tag -width "new from trunk"
+.It Ic new from trunk
+Create a Graphite branch on trunk, then give it a worktree and tmux session.
+.It Ic stack on current
+Create a Graphite branch on the current branch, then give it a worktree and
+tmux session.
+.It Ic review branch
+Choose an existing local branch and open it in a worktree.
+This does not fetch a pull request.
+.It Ic open
+Open the tmux session for an existing worktree.
+.It Ic discard
+Remove the worktree and tmux session, then delete the local Graphite branch
+and metadata.
+This does not close or delete the remote pull request.
+.It Ic close
+Close the tmux session but keep the worktree and branch.
+.It Ic dashboard
+Open the workmux dashboard.
+.It Ic graphite log
+Show the local Graphite stack.
+.It Ic sidebar
+Toggle the workmux status sidebar.
+.El
+.Sh REVIEWING A PULL REQUEST
+For an ordinary pull request, let workmux fetch it and create the worktree:
+.Bd -literal -offset indent
+workmux add --pr 12345
+.Ed
+.Pp
+This is the default review flow.
+It works for pull requests that do not need local Graphite stack metadata.
+.Pp
+When the review is finished, remove its worktree and local branch:
+.Bd -literal -offset indent
+workmux remove BRANCH
+.Ed
+.Sh REVIEWING A GRAPHITE STACK
+Fetch the pull request and its Graphite metadata without changing the branch
+in the current worktree:
+.Bd -literal -offset indent
+gt get 12345 --no-checkout
+.Ed
+.Pp
+Then open
+.Ic C-a w ,
+choose
+.Ic review branch ,
+and select the fetched branch.
+.Pp
+Use
+.Fl Fl no-checkout
+because workmux needs to check the branch out in its own worktree.
+Running
+.Ic gt get
+without it switches the current worktree and can prevent workmux from opening
+the branch elsewhere.
+.Pp
+To edit someone else's Graphite branch, fetch it unfrozen:
+.Bd -literal -offset indent
+gt get 12345 --no-checkout --unfrozen
+.Ed
+.Sh WORKTREE LIFECYCLE
+.Bl -tag -width "Remove"
+.It Open
+Use
+.Ic open
+to return to an existing worktree and tmux session.
+.It Close
+Use
+.Ic close
+when the worktree should remain available but its tmux session is no longer
+needed.
+.It Remove
+Use
+.Ic remove
+for ordinary Git branches that are no longer needed.
+.It Discard
+Use
+.Ic discard
+for local Graphite branches that are no longer needed.
+It only changes local state.
+.El
+.Sh COMMANDS TO AVOID
+Do not use
+.Ic gh pr checkout
+or plain
+.Ic gt checkout
+to start a review worktree.
+Those commands switch the current worktree and bypass workmux session
+management.
+.Sh SEE ALSO
+.Sy git-worktree(1) ,
+.Sy tmux(1)

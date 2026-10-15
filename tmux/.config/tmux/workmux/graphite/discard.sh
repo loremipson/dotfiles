@@ -29,7 +29,7 @@ nohup bash -c '
     done
 
     cd "$repo_root"
-    gt delete "$branch"
+    gt delete --force "$branch"
 ' _ "$branch" "$repo_root" \
   </dev/null >/tmp/workmux-discard-"$branch".log 2>&1 &
 
