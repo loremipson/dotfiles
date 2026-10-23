@@ -9,8 +9,66 @@
       },
     },
   },
+  "permissions": [
+    {
+      "action": "atlassian_*",
+      "resource": "*",
+      "effect": "deny",
+    },
+    {
+      "action": "atlassian_atlassianUserInfo",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getAccessibleAtlassianResources",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_discover",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_executeRead",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getJiraIssue",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_searchJiraIssuesUsingJql",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getConfluenceContent",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getGraphContext",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getGraphObject",
+      "resource": "*",
+      "effect": "allow",
+    },
+    {
+      "action": "atlassian_getLoomVideo",
+      "resource": "*",
+      "effect": "allow",
+    },
+  ],
   "plugins": [
-    "@dietrichgebert/ponytail"
+    "@dietrichgebert/ponytail",
+    "./plugins/status"
   ],
   // Last matching rule wins, so the catch-all stays first.
   "permission": {
