@@ -36,7 +36,7 @@ compinit
 # Commands
 alias n='nvim'
 alias gg='lazygit'
-alias oc='caffeinate -i opencode'
+alias oc='opencode'
 
 cat() {
   bat "$@"
