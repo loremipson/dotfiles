@@ -149,7 +149,7 @@ stow_conflicts() {
     rel=${rel#./}
     target="$HOME/$rel"
     [[ -e $target || -L $target ]] || continue
-    [[ "$(realpath "$target" 2>/dev/null)" == "$script_dir/$pkg/$rel" ]] && continue
+    [[ "$(realpath "$target" 2>/dev/null)" == "$(realpath "$script_dir/$pkg/$rel" 2>/dev/null)" ]] && continue
     printf '%s\n' "$target"
   done < <(
     cd "$pkg" &&
