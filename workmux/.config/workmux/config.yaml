@@ -8,9 +8,9 @@ windows:
     panes:
       - command: nvim
         focus: true
-      - command: opencode --port
-        name: agent
+      - command: oc
         split: horizontal
   - name: server
-    panes:
-      - command: pnpm dev
+files:
+  copy:
+    - "**/.env*"
