@@ -24,9 +24,24 @@ rex.action({
   end,
 })
 
+rex.action({
+  name = "bitwarden",
+  title = "Bitwarden",
+  keywords = "bitwarden password picker vault",
+  run = function()
+    local _, err = rex.session.new_layer({
+      bounds = { 0.05, 0.05, 0.9, 0.9 },
+      layout = rex.layout.block({ flavor = terminal .. ".shell", options = { command = { os.getenv("HOME") .. "/.config/rex/bw.sh" } } }),
+      focus = true,
+    })
+    if err then error(err) end
+  end,
+})
+
 rex.bind("ctrl+a>ctrl+a", "pane.send_key", { key = "ctrl+a" })
 rex.bind("ctrl+a>c", "client.tab.new")
 rex.bind("ctrl+a>g",       "lazygit_float")
+rex.bind("ctrl+a>b",       "bitwarden")
 rex.bind("ctrl+a>x", "pane.close")
 rex.bind("ctrl+a>z", "pane.zoom")
 rex.bind("ctrl+a>=", "pane.balance")
