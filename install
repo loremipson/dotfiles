@@ -24,6 +24,7 @@ stow_packages=(
   mise
   nvim
   opencode
+  rex
   ripgrep
   sketchybar
   tmux
