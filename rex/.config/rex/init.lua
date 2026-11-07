@@ -23,3 +23,10 @@ rex.action({
     if err then error(err) end
   end,
 })
+
+rex.bind("ctrl+a>ctrl+a", "pane.send_key", { key = "ctrl+a" })
+rex.bind("ctrl+a>c", "client.tab.new")
+rex.bind("ctrl+a>g",       "lazygit_float")
+rex.bind("ctrl+a>x", "pane.close")
+rex.bind("ctrl+a>z", "pane.zoom")
+rex.bind("ctrl+a>=", "pane.balance")
