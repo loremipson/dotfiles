@@ -38,10 +38,16 @@ rex.action({
   end,
 })
 
-rex.bind("ctrl+a>ctrl+a", "pane.send_key", { key = "ctrl+a" })
-rex.bind("ctrl+a>c", "client.tab.new")
-rex.bind("ctrl+a>g",       "lazygit_float")
-rex.bind("ctrl+a>b",       "bitwarden")
-rex.bind("ctrl+a>x", "pane.close")
-rex.bind("ctrl+a>z", "pane.zoom")
-rex.bind("ctrl+a>=", "pane.balance")
+-- shortcut: switch back to lazy path once PR is merged
+local ok, err = pcall(function()
+  dofile(os.getenv("HOME") .. "/Work/rex-navigator.nvim/rex/navigator.lua").setup()
+end)
+if not ok then rex.log("warn", "rex-navigator not loaded: " .. tostring(err)) end
+
+local ok_tb, err_tb = pcall(function()
+  require("rex-tmux-bindings").setup({ prefix = "ctrl+a" })
+end)
+if not ok_tb then rex.log("warn", "rex-tmux-bindings not loaded: " .. tostring(err_tb)) end
+
+rex.bind("ctrl+a>g", "lazygit_float")
+rex.bind("ctrl+a>b", "bitwarden")

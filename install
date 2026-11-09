@@ -10,7 +10,7 @@ set -uo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$script_dir"
 
-all_steps=(brew stow identity deja bat mise tpm shell)
+all_steps=(brew stow identity deja bat mise tpm rex shell)
 
 # Edit to match the package folders in this repo. Missing ones are skipped with a warning.
 stow_packages=(
@@ -314,6 +314,29 @@ step_tpm() {
   else
     fail "tmux plugin install" "./install tpm" "$out"
   fi
+}
+
+# Clones plugins listed in ~/.config/rex/plugins, one GitHub owner/repo per line.
+step_rex() {
+  local plugins_file="$HOME/.config/rex/plugins"
+
+  if [[ ! -f $plugins_file ]]; then
+    warn "no ~/.config/rex/plugins, is the rex package stowed?"
+    return 0
+  fi
+
+  local line repo dest
+  while IFS= read -r line; do
+    [[ -z $line || $line == '#'* ]] && continue
+    repo="${line##*/}"
+    dest="$HOME/.config/rex/$repo"
+    if [[ -d $dest ]]; then
+      ok "$repo already installed"
+    else
+      git clone --depth 1 "git@github.com:$line.git" "$dest"
+      ok "$repo"
+    fi
+  done < "$plugins_file"
 }
 
 step_shell() {
