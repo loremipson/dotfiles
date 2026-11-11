@@ -24,19 +24,10 @@ rex.action({
   end,
 })
 
-rex.action({
-  name = "bitwarden",
-  title = "Bitwarden",
-  keywords = "bitwarden password picker vault",
-  run = function()
-    local _, err = rex.session.new_layer({
-      bounds = { 0.05, 0.05, 0.9, 0.9 },
-      layout = rex.layout.block({ flavor = terminal .. ".shell", options = { command = { os.getenv("HOME") .. "/.config/rex/bw.sh" } } }),
-      focus = true,
-    })
-    if err then error(err) end
-  end,
-})
+local ok_bw, err_bw = pcall(function()
+  require("rex-bitwarden").setup({ keybind = "ctrl+a>b" })
+end)
+if not ok_bw then rex.log("warn", "rex-bitwarden not loaded: " .. tostring(err_bw)) end
 
 -- shortcut: switch back to lazy path once PR is merged
 local ok, err = pcall(function()
@@ -50,4 +41,3 @@ end)
 if not ok_tb then rex.log("warn", "rex-tmux-bindings not loaded: " .. tostring(err_tb)) end
 
 rex.bind("ctrl+a>g", "lazygit_float")
-rex.bind("ctrl+a>b", "bitwarden")

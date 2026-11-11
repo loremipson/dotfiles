@@ -15,6 +15,7 @@ brew "timewarrior"
 brew "tree-sitter-cli"
 brew "mise"
 
+brew "bitwarden-cli"
 brew "jq"
 brew "fzf"
 brew "fd"

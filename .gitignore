@@ -18,6 +18,7 @@ secrets/
 
 # Rex plugins (cloned by ./install rex)
 rex/.config/rex/rex-tmux-bindings/
+rex/.config/rex/rex-bitwarden/
 
 # Generated/lock files
 nvim/.config/nvim/nvim-pack-lock.json
