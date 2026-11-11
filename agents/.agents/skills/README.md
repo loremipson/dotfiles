@@ -28,4 +28,4 @@ Review a change with `/ponytail-review` for quality and `/spec-review` for scope
 ## Credits
 
 Adapted from MIT-licensed work by Matt Pocock ([mattpocock/skills](https://github.com/mattpocock/skills)), Lauren Tan ([pstack](https://github.com/cursor/plugins/tree/main/pstack)), and Dietrich Gebert ([ponytail](https://github.com/DietrichGebert/ponytail)).
-`impeccable` is vendored unchanged from [Impeccable](https://github.com/pbakaus/impeccable) by Paul Bakaus (Apache-2.0). Refresh it by re-copying `.agents/skills/impeccable` from that repo.
+`impeccable` is vendored unchanged from [Impeccable](https://github.com/pbakaus/impeccable) by Paul Bakaus (Apache-2.0) — not committed; copy `.agents/skills/impeccable` from that repo to install or update it. `rex` is managed by `rex skill setup` / `rex skill remove`.

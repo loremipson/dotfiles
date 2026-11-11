@@ -20,6 +20,12 @@ secrets/
 rex/.config/rex/rex-tmux-bindings/
 rex/.config/rex/rex-bitwarden/
 
+# Third-party skills (not committed; install manually from their sources)
+# impeccable: https://github.com/pbakaus/impeccable (Apache-2.0)
+# rex: managed by `rex skill setup` / `rex skill remove`
+agents/.agents/skills/impeccable/
+agents/.agents/skills/rex/
+
 # Generated/lock files
 nvim/.config/nvim/nvim-pack-lock.json
 
