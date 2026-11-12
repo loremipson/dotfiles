@@ -160,6 +160,14 @@ local plugins = {
     end,
   },
   {
+    -- shortcut: switch back to 'baggiponte/rex-navigator.nvim' once PR is merged
+    'loremipson/rex-navigator.nvim',
+    cond = not is_vscode and vim.env.REX_SESSION ~= nil,
+    main = 'rex-navigator',
+    lazy = false,
+    opts = {},
+  },
+  {
     'm4xshen/hardtime.nvim',
     cond = not is_vscode,
     lazy = false,
