@@ -26,6 +26,7 @@
   "nvim-treesitter": { "branch": "main", "commit": "19bdfc04f40ed2ccb3340591d125f759b0406875" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "6141a40173c6efa98242dc951ed4b6f892c97027" },
   "opencode.nvim": { "branch": "main", "commit": "4851ae503585dc5142ad66a98e8952a74e1f7b3a" },
+  "rex-navigator.nvim": { "branch": "main", "commit": "69c035110dd47423b1a672db943216de28da5784" },
   "rustaceanvim": { "branch": "main", "commit": "b7ca983c6ec88c94cf25e5deaad96df9a68b9a98" },
   "schemastore.nvim": { "branch": "main", "commit": "13a365fa7a893891fe8724390ad7e608d1c1c59b" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
