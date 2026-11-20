@@ -2,7 +2,7 @@
 
 Shared by every agent through `~/.agents/skills` (stowed from this package). Claude Code doesn't read that folder, so `./install claude` links each skill into `~/.claude/skills` and `AGENTS.md` to `~/.claude/CLAUDE.md`. Run it again after adding or removing a skill.
 
-The ponytail plugin covers code size, reuse, dependencies, `/ponytail-review`, and `/ponytail-audit`, so nothing here duplicates those. Opencode installs it from `opencode.jsonc`. Claude Code needs it installed once, as two separate prompts: `/plugin marketplace add DietrichGebert/ponytail`, then `/plugin install ponytail@ponytail`.
+The ponytail plugin covers code size, reuse, dependencies, `/ponytail-review`, and `/ponytail-audit`, so nothing here duplicates those. Opencode installs it from `opencode.jsonc`. `./install claude` installs it for Claude Code.
 
 | Skill                | Fires                     | For                                                         |
 | -------------------- | ------------------------- | ----------------------------------------------------------- |

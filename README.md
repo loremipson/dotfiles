@@ -14,7 +14,7 @@ The install script will:
 1. Install [Homebrew](https://brew.sh) if not already present
 2. Run `brew bundle` to install all dependencies from the `Brewfile`
 3. Symlink all config packages into `$HOME` via Stow
-4. Link the shared agent rules and skills (`~/.agents`) into `~/.claude` for Claude Code
+4. Link the shared agent rules and skills (`~/.agents`) into `~/.claude` for Claude Code, and set up its status line
 5. Ask for your git name and email (saved to `~/.gitconfig`, not this repo)
 6. Rebuild bat's theme cache
 7. Install language runtimes with [mise](https://mise.jdx.dev)

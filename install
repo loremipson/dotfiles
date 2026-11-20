@@ -240,6 +240,8 @@ step_claude() {
   done
   ok "$linked skills linked into $skills"
 
+  link_into "$HOME/.claude/statusline.sh" "$script_dir/claude/statusline.sh" && claude_settings
+
   # Drop links to skills that have since been removed from this repo.
   for link in "$skills"/*; do
     if [[ -L $link && "$(readlink "$link")" == "$agents"/skills/* && ! -e $link ]]; then
@@ -247,6 +249,37 @@ step_claude() {
       ok "removed stale link $(basename "$link")"
     fi
   done
+
+  if ! command -v claude >/dev/null 2>&1; then
+    fail "claude is not installed, so the ponytail plugin was skipped" "./install claude"
+    return 0
+  fi
+  if ! claude plugin marketplace list 2>/dev/null | grep -q ponytail; then
+    claude plugin marketplace add DietrichGebert/ponytail >/dev/null || fail "couldn't add the ponytail marketplace"
+  fi
+  claude plugin install ponytail@ponytail >/dev/null && ok "ponytail plugin installed"
+}
+
+# Claude Code rewrites settings.json itself, so it can't be a link. This sets
+# only the status line and the hooks that feed its agent count.
+claude_settings() {
+  local file="$HOME/.claude/settings.json" tmp
+  [[ -s $file ]] || echo '{}' >"$file"
+  tmp="$(mktemp)"
+  if jq --arg sl 'bash ~/.claude/statusline.sh' '
+    def hook($event; $arg):
+      .hooks[$event] = [(.hooks[$event] // [])[] | select(all(.hooks[]?; .command | contains("statusline.sh") | not))]
+        + [{hooks: [{type: "command", command: "\($sl) agent \($arg)"}]}];
+    .statusLine = {type: "command", command: $sl}
+    | hook("SubagentStart"; "start")
+    | hook("SubagentStop"; "stop")
+  ' "$file" >"$tmp"; then
+    cat "$tmp" >"$file"
+    ok "status line set in $file"
+  else
+    fail "couldn't update $file" "./install claude"
+  fi
+  rm -f "$tmp"
 }
 
 # Shared git settings are stowed to ~/.config/git/config. ~/.gitconfig is the
