@@ -10,7 +10,7 @@ set -uo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 cd "$script_dir"
 
-all_steps=(brew stow identity deja bat mise tpm rex shell)
+all_steps=(brew stow claude identity deja bat mise tpm rex shell)
 
 # Edit to match the package folders in this repo. Missing ones are skipped with a warning.
 stow_packages=(
@@ -197,6 +197,54 @@ step_stow() {
       ok "$pkg"
     else
       fail "stow $pkg" "./install stow $pkg" "$out"
+    fi
+  done
+}
+
+# link_into <link> <target>: symlink <link> to <target>. Fine if it already
+# points there; anything else in the way is a failure, or moved with --backup.
+link_into() {
+  local link=$1 target=$2
+  if [[ -L $link && "$(realpath "$link" 2>/dev/null)" == "$(realpath "$target")" ]]; then
+    return 0
+  fi
+  if [[ -e $link || -L $link ]]; then
+    if $backup; then
+      backup_file "$link"
+    else
+      fail "$link already exists and isn't a link to $target" "./install --backup claude"
+      return 1
+    fi
+  fi
+  ln -s "$target" "$link"
+}
+
+# Claude Code doesn't read ~/.agents, so this links the shared rules and
+# skills into ~/.claude. It isn't a stow package: if ~/.claude didn't exist
+# yet, stow would link the whole folder into this repo, and Claude Code keeps
+# its history and caches there. ~/.claude/skills also holds skills managed by
+# other tools (rex, synced), so each skill gets its own link.
+step_claude() {
+  local agents="$script_dir/agents/.agents" skills="$HOME/.claude/skills"
+  local dir name link linked=0
+
+  mkdir -p "$skills"
+  link_into "$HOME/.claude/CLAUDE.md" "$agents/AGENTS.md" && ok "CLAUDE.md -> AGENTS.md"
+
+  for dir in "$agents"/skills/*/; do
+    name="$(basename "$dir")"
+    # rex installs its own copy for Claude with `rex skill setup`.
+    [[ $name == rex ]] && continue
+    [[ -f $dir/SKILL.md ]] || continue
+    link_into "$skills/$name" "${dir%/}" && linked=$((linked + 1))
+  done
+  ok "$linked skills linked into $skills"
+
+  # Drop links to skills that have since been removed from this repo.
+  for link in "$skills"/*; do
+    if [[ -L $link && "$(readlink "$link")" == "$agents"/skills/* && ! -e $link ]]; then
+      rm "$link"
+      ok "removed stale link $(basename "$link")"
     fi
   done
 }

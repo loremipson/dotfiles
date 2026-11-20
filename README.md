@@ -14,11 +14,12 @@ The install script will:
 1. Install [Homebrew](https://brew.sh) if not already present
 2. Run `brew bundle` to install all dependencies from the `Brewfile`
 3. Symlink all config packages into `$HOME` via Stow
-4. Ask for your git name and email (saved to `~/.gitconfig`, not this repo)
-5. Rebuild bat's theme cache
-6. Install language runtimes with [mise](https://mise.jdx.dev)
-7. Install [TPM](https://github.com/tmux-plugins/tpm) and the tmux plugins
-8. Set zsh as the default shell if it isn't already
+4. Link the shared agent rules and skills (`~/.agents`) into `~/.claude` for Claude Code
+5. Ask for your git name and email (saved to `~/.gitconfig`, not this repo)
+6. Rebuild bat's theme cache
+7. Install language runtimes with [mise](https://mise.jdx.dev)
+8. Install [TPM](https://github.com/tmux-plugins/tpm) and the tmux plugins
+9. Set zsh as the default shell if it isn't already
 
 ## Post-install
 
